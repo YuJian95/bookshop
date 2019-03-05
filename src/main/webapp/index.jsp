@@ -8,46 +8,46 @@
     <title>主页</title>
     <meta http-equiv="content-type" content="text/html" charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
 
-    <style>
-        body {
-            padding-top: 50px;
-            padding-left: 50px;
-        }
-    </style>
-
 </head>
 
 <body>
+
 <div class="container">
     <div id="header">
-        <div id="logo">
 
+        <%--logo显示--%>
+        <div id="logo">
+            <img src="img/background.png" class="img-rounded" alt="logo.png" height="50px">
         </div>
+        <%--导航栏--%>
         <nav class="navbar navbar-default" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
                     <a class="navbar-brand" href="#">网上书城</a>
                 </div>
+                <%--添加搜索栏--%>
+                <div>
+                    <form class="navbar-form navbar-left">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="搜索图书">
+                        </div>
+                        <button type="submit" class="btn btn-default">搜索</button>
+                    </form>
+                </div>
+
                 <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active">
-                            <%--跳转回首页--%>
-                            <a href="index.jsp"><span class="glyphicon glyphicon-home"></span>首页</a>
-                        </li>
-                        <li class="active">
-                            <a href="#"><span class="glyphicon glyphicon-shopping-cart"></span>购物车</a>
-                        </li>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="index.jsp"><span class="glyphicon glyphicon-home"></span>首页</a></li>
+
+                        <li><a href="#"><span class="glyphicon glyphicon-user"></span>注册</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span>登录</a></li>
+
+                        <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span>购物车</a></li>
+
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <span class="glyphicon glyphicon-user"></span>我的书城<b class="caret"></b>
@@ -67,25 +67,39 @@
             </div>
         </nav>
     </div>
-    <div id="menu">
-        <%--<bs:BsCategoryMenu/>--%>
-    </div>
-    <div id="category">
-        <%--<bs:BsCategory/>--%>
-    </div>
+</div>
 
-    <div id="content">
-        <div id="left">
-            <%--显示分类--%>
-            <bs:BsUserStateTag/>
+<%--中间的内容--%>
+<div class="container">
+    <div class="row">
+        <%--分类菜单--%>
+        <div class="col-sm-2">
+            <ul class="nav nav-pills nav-stacked text-center">
+                <li><a href="#">分类1</a></li>
+                <li><a href="#">分类2</a></li>
+                <li><a href="#">分类3</a></li>
+            </ul>
         </div>
-        <div id="right">
-            <%--显示出售的书籍信息--%>
+
+        <%--右边的内容展示--%>
+        <div class="col-sm-10">
+            <table class="table table-hover text-center">
+                <tr>
+                    <th>书名</th>
+                    <th>作者</th>
+                    <th>单价</th>
+                    <th>数量</th>
+                    <th>操作</th>
+                </tr>
+            </table>
         </div>
     </div>
+</div>
 
-    <div id="footer">
-        <%--显示版权信息--%>
+<%--底部的内容--%>
+<div class="jumbotron text-center" style="margin-bottom: 0">
+    <div class="footer_copyright">
+        <span>Copyright (C) 网上书城 2019, All Rights Reserved</span>
     </div>
 </div>
 </body>

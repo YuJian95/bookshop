@@ -1,0 +1,105 @@
+/**
+主页的css样式
+ */
+
+body {
+    margin: 0;
+}
+
+p {
+    clear: both;
+    margin: 5px 0 0 0;
+    padding: 0 0 0 10px;
+}
+
+#header {
+    height: 65px;
+    /*添加顶部背景*/
+    background: url("../img/background.png") 0 0 repeat-x;
+}
+
+#logo {
+    height: 65px;
+    /*添加logo*/
+    /*background: url("../img/logo.jpg") 0 0 no-repeat;*/
+    padding-left: 130px;
+    line-height: 65px;
+    font-size: 30px;
+}
+
+#menu {
+    background-color: #00ffff;
+    height: 28px;
+    width: 100%;
+    text-align: center;
+}
+
+#category {
+    background-color: #00ffcc;
+    height: 28px;
+    width: 100%;
+    text-align: center;
+}
+
+#content {
+    clear: both;
+    margin-top: 10px;
+    font-size: 12px;
+    text-align: center;
+    min-height: 300px;
+    min-width: 600px;
+    width: 100%;
+}
+
+#content form p {
+    clear: both;
+    line-height: 20px;
+    margin: 5px 0 0 0;
+    padding: 0;
+}
+
+#content #left {
+    width: 22%;
+    margin: 5px 0 0 0;
+    float: left;
+    text-align: left;
+}
+
+#content #left p {
+    width: 178px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    font-size: 12px;
+}
+
+#content #right {
+    width: 75%;
+    height: 300px;
+    text-align: right;
+    float: right;
+}
+
+table {
+    width: 98%;
+    border-top: 1px solid #0099cc;
+    border-bottom: 1px solid #0099cc;
+    font-size: 12px;
+}
+
+table th {
+    height: 20px;
+    text-align: center;
+}
+
+table td {
+    height: 20px;
+    text-align: center;
+}
+
+#footer {
+    width: 100%;
+    clear: both;
+    text-align: center;
+    line-height: 150%;
+}
