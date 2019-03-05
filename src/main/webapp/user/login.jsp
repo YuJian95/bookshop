@@ -45,7 +45,7 @@
                 </div>
 
                 <div class="form-group">
-                    <input type="submit" class="btn btn-success pull-right" value="注册"/>
+                    <input type="submit" class="btn btn-success pull-left" value="注册"/>
                     <input type="submit" class="btn btn-success pull-right" value="登录"/>
                 </div>
             </div>
