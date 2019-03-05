@@ -31,7 +31,7 @@ public class SessionFilter implements Filter {
         System.out.println(user.getUserName());//测试是否可以执行.
 
         if (user == null) {
-            response.sendRedirect("user/login.html");
+            response.sendRedirect("user/login.jsp");
         }
 
         chain.doFilter(req, resp);
