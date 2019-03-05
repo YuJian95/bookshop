@@ -31,7 +31,7 @@
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
+                        <span class="sr-only"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -44,10 +44,12 @@
                             <%--跳转回首页--%>
                             <a href="index.jsp"><span class="glyphicon glyphicon-home"></span>首页</a>
                         </li>
+                        <li class="active">
+                            <a href="#"><span class="glyphicon glyphicon-shopping-cart"></span>购物车</a>
+                        </li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
-                                    class="glyphicon glyphicon-user"></span>我的书城
-                                <b class="caret"></b>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-user"></span>我的书城<b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a href="#">我的订单</a></li>
@@ -56,8 +58,7 @@
                                 <li><a href="#">登陆状态</a></li>
                             </ul>
                         </li>
-                        <li class="active"><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span>购物车</a>
-                        </li>
+
                         <li><a href="#"></a></li>
 
                     </ul>
