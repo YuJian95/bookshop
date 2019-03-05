@@ -2,14 +2,13 @@
   Created by IntelliJ IDEA.
   User: max
   Date: 2019/3/5
-  Time: 13:01
+  Time: 22:36
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" %>
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>用户注册</title>
+    <title>修改个人信息</title>
     <meta http-equiv="content-type" content="text/html" charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -18,11 +17,10 @@
     <script src="../bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-
 <div class="container">
     <div class="form row">
         <form class="form-horizontal col-sm-offset-3 col-md-offset-3" id="register_form" method="post">
-            <h3 class="form-title">注册新用户</h3>
+            <h3 class="form-title">修改个人信息</h3>
             <div class="col-sm-9 col-md-9">
                 <div class="form-group">
                     <i class="fa fa-user" aria-hidden="true"></i>
@@ -59,7 +57,6 @@
                     <input class="form-control required" type="text" placeholder="地址" name="address"/>
                 </div>
 
-
                 <div class="form-group">
                     <input type="submit" class="btn btn-success pull-right" value="注册"/>
                     <input type="submit" onclick="location.href='javascript:history.go(-1);'"
@@ -69,6 +66,5 @@
         </form>
     </div>
 </div>
-
 </body>
 </html>

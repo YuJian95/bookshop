@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>用户登录</title>
@@ -26,12 +26,12 @@
             <h3 class="form-title">用户登录</h3>
             <div class="col-sm-9 col-md-9">
                 <div class="form-group">
-                    <i class="fa fa-user fa-lg"></i>
+                    <i class="fa fa-user" aria-hidden="true"></i>
                     <input class="form-control required" type="text" placeholder="用户名" name="username"
                            autofocus="autofocus" maxlength="20"/>
                 </div>
                 <div class="form-group">
-                    <i class="fa fa-lock fa-lg"></i>
+                    <i class="fa fa-lock" aria-hidden="true"></i>
                     <input class="form-control required" type="password" placeholder="密码" name="password"
                            maxlength="8"/>
                 </div>
@@ -41,9 +41,11 @@
                         <input type="checkbox" name="remember" value="1"/> 请记住我
                     </label>
                     <hr/>
-                    <a href="register.jsp" id="register_btn" class="">注册新用户</a>
+                    <a href="#" id="register_btn" class="">忘记密码了</a>
                 </div>
+
                 <div class="form-group">
+                    <input type="submit" class="btn btn-success pull-right" value="注册"/>
                     <input type="submit" class="btn btn-success pull-right" value="登录"/>
                 </div>
             </div>
