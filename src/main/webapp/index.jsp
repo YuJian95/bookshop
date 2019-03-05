@@ -49,6 +49,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="#">我的订单</a></li>
                                 <li><a href="#">我的收藏</a></li>
+                                <%--这里显示登陆状态--%>
                                 <li><a href="#">登陆状态</a></li>
                             </ul>
                         </li>
