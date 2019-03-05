@@ -1,7 +1,7 @@
 package tag;
 
 import common.BsFactory;
-import hbm.BsCategory;
+import domain.BsCategory;
 import iservice.IBsCategoryService;
 
 import javax.servlet.jsp.JspException;

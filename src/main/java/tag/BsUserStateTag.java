@@ -1,6 +1,7 @@
 package tag;
 
-import hbm.BsUser;
+
+import domain.BsUser;
 
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;

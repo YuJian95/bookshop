@@ -1,7 +1,8 @@
-<%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%-- 主页 --%>
-<!DOCTYPE html>
 
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@taglib prefix="bs" uri="http://yujian95.github.io/jstl/tag" %>
+<!DOCTYPE html>
 <html>
 <head>
     <title>主页</title>
@@ -76,6 +77,7 @@
     <div id="content">
         <div id="left">
             <%--显示分类--%>
+            <bs:BsUserStateTag/>
         </div>
         <div id="right">
             <%--显示出售的书籍信息--%>

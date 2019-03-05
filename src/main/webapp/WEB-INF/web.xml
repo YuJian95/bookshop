@@ -27,4 +27,8 @@
     <!--<url-pattern>/*</url-pattern>-->
     <!--</filter-mapping>-->
 
+    <taglib>
+        <taglib-uri>http://yujian95.github.io/jstl/tag</taglib-uri>
+        <taglib-location>WEB-INF/tag.tld</taglib-location>
+    </taglib>
 </web-app>
