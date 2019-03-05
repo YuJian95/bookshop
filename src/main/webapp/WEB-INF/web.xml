@@ -3,13 +3,19 @@
         "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
+
     <display-name>Archetype Created Web Application</display-name>
+
     <servlet>
-        <servlet-name>BsStartServlet</servlet-name>
+        <servlet-name>StartServlet</servlet-name>
         <servlet-class>servlet.BsStartServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
     </servlet>
+
     <servlet-mapping>
-        <servlet-name>BsStartServlet</servlet-name>
-        <url-pattern>/servlet/BsStartServlet</url-pattern>
+        <servlet-name>StartServlet</servlet-name>
+        <!--这里是指，这个servlet的执行范围-->
+        <url-pattern>/StartServlet</url-pattern>
     </servlet-mapping>
+
 </web-app>
