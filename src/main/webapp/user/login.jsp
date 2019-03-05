@@ -5,27 +5,50 @@
   Time: 12:56
   To change this template use File | Settings | File Templates.
 --%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>用户登录</title>
     <meta http-equiv="content-type" content="text/html" charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link href="https://cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <script src="../js/jquery-3.3.1.min.js"></script>
     <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/checkinput.js"></script>
 </head>
 <body>
+
 <div class="container">
-    <form method="post" action="#">
-        <label>
-            <input type="text" name="userName">
-        </label>
-        <label>
-            <input type="password" name="userPwd">
-        </label>
-        <button type="submit">
-    </form>
+    <div class="form row">
+        <form class="form-horizontal col-sm-offset-3 col-md-offset-3" id="login_form">
+            <h3 class="form-title">用户登录</h3>
+            <div class="col-sm-9 col-md-9">
+                <div class="form-group">
+                    <i class="fa fa-user fa-lg"></i>
+                    <input class="form-control required" type="text" placeholder="用户名" name="username"
+                           autofocus="autofocus" maxlength="20"/>
+                </div>
+                <div class="form-group">
+                    <i class="fa fa-lock fa-lg"></i>
+                    <input class="form-control required" type="password" placeholder="密码" name="password"
+                           maxlength="8"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox">
+                        <input type="checkbox" name="remember" value="1"/> 请记住我
+                    </label>
+                    <hr/>
+                    <a href="register.jsp" id="register_btn" class="">注册新用户</a>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-success pull-right" value="登录"/>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 
 </body>
