@@ -40,7 +40,10 @@
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#"><span class="glyphicon glyphicon-home"></span>首页</a></li>
+                        <li class="active">
+                            <%--跳转回首页--%>
+                            <a href="index.jsp"><span class="glyphicon glyphicon-home"></span>首页</a>
+                        </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
                                     class="glyphicon glyphicon-user"></span>我的书城

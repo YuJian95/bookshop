@@ -4,4 +4,12 @@
 
 <web-app>
     <display-name>Archetype Created Web Application</display-name>
+    <servlet>
+        <servlet-name>BsStartServlet</servlet-name>
+        <servlet-class>servlet.BsStartServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BsStartServlet</servlet-name>
+        <url-pattern>/servlet/BsStartServlet</url-pattern>
+    </servlet-mapping>
 </web-app>
