@@ -49,6 +49,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="#">我的订单</a></li>
                                 <li><a href="#">我的收藏</a></li>
+                                <li><a href="#">登陆状态</a></li>
                             </ul>
                         </li>
                         <li class="active"><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span>购物车</a>
