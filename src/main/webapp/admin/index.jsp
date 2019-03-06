@@ -1,16 +1,23 @@
-<%-- 主页 --%>
-
+<%--
+  Created by IntelliJ IDEA.
+  User: max
+  Date: 2019/3/6
+  Time: 11:54
+  To change this template use File | Settings | File Templates.
+--%>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="bs" uri="http://yujian95.github.io/jstl/tag" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>主页</title>
+    <title>管理员主页</title>
     <meta http-equiv="content-type" content="text/html" charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
 
 </head>
 
@@ -21,7 +28,7 @@
 
         <%--logo显示--%>
         <div id="logo">
-            <img src="img/background.png" class="img-rounded" alt="logo.png" height="50px">
+            <img src="../img/background.png" class="img-rounded" alt="logo.png" height="50px">
         </div>
         <%--导航栏--%>
         <nav class="navbar navbar-default" role="navigation">
@@ -31,7 +38,7 @@
                 </div>
                 <%--添加搜索栏--%>
                 <div>
-                    <form class="navbar-form navbar-left">
+                    <form class="navbar-form navbar-left" method="post" action="">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="搜索图书">
                         </div>
@@ -41,27 +48,16 @@
 
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="index.jsp"><span class="glyphicon glyphicon-home"></span>首页</a></li>
-
-                        <li><a href="user/register.jsp"><span class="glyphicon glyphicon-user"></span>注册</a></li>
-                        <li><a href="user/login.jsp"><span class="glyphicon glyphicon-log-in"></span>登录</a></li>
-
-                        <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span>购物车</a></li>
+                        <li><a href="index.jsp"><i class="fas fa-home"></i>首页</a></li>
 
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <span class="glyphicon glyphicon-user"></span>我的书城<b class="caret"></b>
-                            </a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fas fa-users"></i>我的设置</a>
+
                             <ul class="dropdown-menu">
-                                <li><a href="#">我的订单</a></li>
-                                <li><a href="#">我的收藏</a></li>
-                                <%--这里显示登陆状态--%>
-                                <li><a href="#">登陆状态</a></li>
+                                <li><a href="#"><i class="fas fa-sign-out-alt"></i>注销</a></li>
+                                <li><a href="#"><i class="fas fa-key"></i>修改密码</a></li>
                             </ul>
                         </li>
-
-                        <li><a href="#"></a></li>
-
                     </ul>
                 </div>
             </div>
@@ -75,13 +71,14 @@
         <%--分类菜单--%>
         <div class="col-sm-2">
             <ul class="nav nav-pills nav-stacked text-center">
-                <li><a href="#">分类1</a></li>
-                <li><a href="#">分类2</a></li>
-                <li><a href="#">分类3</a></li>
+                <li><a href="#"><i class="fas fa-users"></i>用户管理</a></li>
+                <li><a href="#"><i class="fas fa-list-ul"></i>订单管理</a></li>
+                <li><a href="#"><i class="fas fa-book"></i>图书管理</a></li>
+                <li><a href="#"><i class="fas fa-stream"></i>分类管理</a></li>
             </ul>
         </div>
 
-        <%--右边的内容展示--%>
+        <%--右边的数据展示--%>
         <div class="col-sm-10">
             <table class="table table-hover text-center">
                 <tr>

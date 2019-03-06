@@ -5,7 +5,7 @@
   Time: 22:36
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>修改个人信息</title>
@@ -58,7 +58,7 @@
                 </div>
 
                 <div class="form-group">
-                    <input type="submit" class="btn btn-success pull-right" value="注册"/>
+                    <input type="submit" class="btn btn-success pull-right" value="修改"/>
                     <input type="submit" onclick="location.href='javascript:history.go(-1);'"
                            class="btn btn-info pull-left" id="back_btn" value="返回"/>
                 </div>

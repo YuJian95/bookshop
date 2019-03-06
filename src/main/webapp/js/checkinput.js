@@ -6,7 +6,7 @@ $().ready(function () {
             password: {
                 required: true,
                 minlength: 5
-            },
+            }
         },
 
         messages: {
@@ -14,7 +14,7 @@ $().ready(function () {
             password: {
                 required: "请输入密码",
                 minlength: jQuery.format("密码不能小于{0}个字 符")
-            },
+            }
         }
     });
 
