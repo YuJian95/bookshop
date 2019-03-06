@@ -8,15 +8,16 @@ import java.sql.*;
 
 public class BsMySQLHelper {
 
-    private static String userName = "root";
-
+    private static String USERNAME = "root";
+    private static String PASSWORD = "lyage1995";
+    private static String URL = "jdbc:mysql://192.168.30.140:3306/bs";
 
     //获取数据库连接
     public static Connection connection() {
         Connection connection = null;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://", "root", "lyage1995");
+            Class.forName("com.mysql.jdbc.Driver");// 加载驱动程序
+            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 
         } catch (ClassNotFoundException | SQLException e1) {
             System.err.println("数据库连接失败!");

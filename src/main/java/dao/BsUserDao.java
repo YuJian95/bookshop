@@ -1,24 +1,100 @@
 package dao;
 
 import common.BsMySQLHelper;
+import common.MyException;
 import domain.BsUser;
 import idao.IBsUserDao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 用户数据访问类
+ */
+
 public class BsUserDao implements IBsUserDao {
+
+    // 根据用户名,密码查询用户
     @Override
     public BsUser selectOne(String userName, String userPwd) {
-        return null;
+
+        Connection connection = null;  // 定义连接对象
+        PreparedStatement preparedStatement = null;  // 定义预处理对象
+        ResultSet resultSet = null;  // 定义结果集对象
+        BsUser user = null;  // 定义用户对象
+
+        try {
+            connection = BsMySQLHelper.connection();  // 建立数据库连接
+            String sql = "SELECT t.* FROM bs.bs_user t WHERE `user_name` = ? and `user_pwd` = ?";
+
+            preparedStatement = connection.prepareStatement(sql);  // 建立预处理对象
+            preparedStatement.setString(1, userName);  // 传递参数
+            preparedStatement.setString(2, userPwd);
+
+            resultSet = preparedStatement.executeQuery();  // 执行查询
+
+            if (resultSet.next()) {  // 如果有记录，移动第一条记录
+                user = new BsUser(resultSet.getInt("user_id"), resultSet.getString("user_name"), resultSet.getString("user_pwd"),
+                        resultSet.getString("user_realName"), resultSet.getString("user_phone"),
+                        resultSet.getString("user_email"), resultSet.getString("user_addr"),
+                        resultSet.getTimestamp("user_datetime"), resultSet.getInt("user_right"));
+            }
+
+            return user;
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            throw new MyException("查找用户失败!");
+        } finally {
+
+            close(connection, preparedStatement, resultSet);  // 关闭结果集, 预处理, 连接.
+        }
     }
 
+    // 找回密码
     @Override
     public String selectPwd(String userName, String userEmail) {
-        return null;
+
+        Connection connection = null;  // 定义连接对象
+        PreparedStatement preparedStatement = null;  // 定义预处理对象
+        ResultSet resultSet = null;  // 定义结果集对象
+        BsUser user = null;
+
+        try {
+            connection = BsMySQLHelper.connection();  // 建立数据库连接
+            String sql = "SELECT t.* FROM bs.bs_user t WHERE `user_name` = ? and `user_email` = ?";
+
+            preparedStatement = connection.prepareStatement(sql);  // 建立预处理对象
+            preparedStatement.setString(1, userName);  // 传递参数
+            preparedStatement.setString(2, userEmail);
+
+            resultSet = preparedStatement.executeQuery();  // 执行查询
+
+
+            if (resultSet.next()) {  // 如果有记录，移动第一条记录
+                user = new BsUser(resultSet.getInt("user_id"), userName, resultSet.getString("user_pwd"),
+                        resultSet.getString("user_realName"), resultSet.getString("user_phone"),
+                        userEmail, resultSet.getString("user_addr"),
+                        resultSet.getTimestamp("user_datetime"), resultSet.getInt("user_right"));
+            }
+
+            return user.getUserPwd();
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            throw new MyException("查找用户失败!");
+        } finally {
+
+            close(connection, preparedStatement, resultSet);  // 关闭结果集, 预处理, 连接.
+        }
     }
 
+    // 新建用户
     @Override
     public void insert(BsUser user) {
         Connection connection = null;
@@ -37,15 +113,24 @@ public class BsUserDao implements IBsUserDao {
             preparedStatement.setString(4, user.getUserPhone());
             preparedStatement.setString(5, user.getUserEmail());
             preparedStatement.setString(6, user.getUserAddr());
+
+            preparedStatement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
-//                throw new MyException("添加用户失败!");
+            throw new MyException("添加用户失败!");
         } finally {
-            BsMySQLHelper.closePreparedStatement(preparedStatement); //关闭预处理
-            BsMySQLHelper.closeConnection(connection);//关闭连接
+
+            if (preparedStatement != null) {
+                BsMySQLHelper.closePreparedStatement(preparedStatement); //关闭预处理
+            }
+
+            if (connection != null) {
+                BsMySQLHelper.closeConnection(connection);//关闭连接
+            }
         }
     }
 
+    // 修改用户
     @Override
     public void update(BsUser user) {
         Connection connection = null;
@@ -59,7 +144,7 @@ public class BsUserDao implements IBsUserDao {
 
             preparedStatement = connection.prepareStatement(sql);  //建立预处理对象
 
-            //如下6行给预处理设置参数值
+            //如下7行给预处理设置参数值
             preparedStatement.setString(1, user.getUserName());
             preparedStatement.setString(2, user.getUserPwd());
             preparedStatement.setString(3, user.getUserRealName());
@@ -70,13 +155,20 @@ public class BsUserDao implements IBsUserDao {
 
         } catch (Exception e) {
             e.printStackTrace();
-//                throw new MyException("修改用户失败!");
+            throw new MyException("修改用户失败!");
         } finally {
-            BsMySQLHelper.closePreparedStatement(preparedStatement); //关闭预处理
-            BsMySQLHelper.closeConnection(connection);//关闭连接
+
+            if (preparedStatement != null) {
+                BsMySQLHelper.closePreparedStatement(preparedStatement); //关闭预处理
+            }
+
+            if (connection != null) {
+                BsMySQLHelper.closeConnection(connection);//关闭连接
+            }
         }
     }
 
+    // 删除用户, 通过id
     @Override
     public void delete(Integer userId) {
         Connection connection = null;
@@ -87,35 +179,175 @@ public class BsUserDao implements IBsUserDao {
             String sql = "DELETE FROM `bs`.`bs_user` WHERE `user_id` = ?";
             preparedStatement = connection.prepareStatement(sql);  //建立预处理对象
 
-            //如下6行给预处理设置参数值
             preparedStatement.setInt(1, userId);
 
         } catch (Exception e) {
             e.printStackTrace();
-//                throw new MyException("删除用户失败!");
+            throw new MyException("删除用户失败!");
         } finally {
-            BsMySQLHelper.closePreparedStatement(preparedStatement); //关闭预处理
-            BsMySQLHelper.closeConnection(connection);//关闭连接
+
+            if (preparedStatement != null) {
+                BsMySQLHelper.closePreparedStatement(preparedStatement); //关闭预处理
+            }
+
+            if (connection != null) {
+                BsMySQLHelper.closeConnection(connection);//关闭连接
+            }
         }
     }
 
+    // 查找用户, 通过id
     @Override
-    public BsUser selectById(Integer integer) {
-        return null;
+    public BsUser selectById(Integer userId) {
+
+        Connection connection = null;  // 定义连接对象
+        PreparedStatement preparedStatement = null;  // 定义预处理对象
+        ResultSet resultSet = null;  // 定义结果集对象
+        BsUser user = null;  // 定义用户对象
+
+        try {
+            connection = BsMySQLHelper.connection();  // 建立数据库连接
+            String sql = "SELECT t.* FROM bs.bs_user t WHERE `user_id` = ?";
+
+            preparedStatement = connection.prepareStatement(sql);  // 建立预处理对象
+            preparedStatement.setInt(1, userId);  // 传递参数
+            resultSet = preparedStatement.executeQuery();  // 执行查询
+
+            if (resultSet.next()) {  // 如果有记录，移动第一条记录
+                user = new BsUser(userId, resultSet.getString("user_name"), resultSet.getString("user_pwd"),
+                        resultSet.getString("user_realName"), resultSet.getString("user_phone"),
+                        resultSet.getString("user_email"), resultSet.getString("user_addr"),
+                        resultSet.getTimestamp("user_datetime"), resultSet.getInt("user_right"));
+            }
+            return user;
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            throw new MyException("查找用户失败!");
+        } finally {
+            close(connection, preparedStatement, resultSet);  // 关闭结果集, 预处理, 连接.
+        }
+
     }
 
+    // 查找所有用户
     @Override
     public List<BsUser> selectAll() {
-        return null;
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        BsUser user;
+        List<BsUser> userList = new ArrayList<BsUser>();
+
+        try {
+            connection = BsMySQLHelper.connection();
+            String sql = "SELECT t.* FROM bs.bs_user t";
+            preparedStatement = connection.prepareStatement(sql);  //建立预处理对象
+
+            resultSet = preparedStatement.executeQuery();
+
+            userList = new ArrayList<BsUser>();
+
+            while (resultSet.next()) {
+                user = new BsUser(resultSet.getInt("user_id"), resultSet.getString("user_name"), resultSet.getString("user_pwd"),
+                        resultSet.getString("user_realName"), resultSet.getString("user_phone"),
+                        resultSet.getString("user_email"), resultSet.getString("user_addr"),
+                        resultSet.getTimestamp("user_datetime"), resultSet.getInt("user_right"));
+
+                userList.add(user);
+            }
+
+            return userList;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new MyException("查找所有用户失败!");
+        } finally {
+            close(connection, preparedStatement, resultSet);
+        }
     }
 
+    // 分页查找所有用户
     @Override
     public List<BsUser> selectAll(Integer pageSize, Integer pageNo) {
-        return null;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        List<BsUser> userList = new ArrayList<BsUser>();
+
+        try {
+            connection = BsMySQLHelper.connection();
+            String sql = "SELECT t.* FROM bs.bs_user t LIMIT  ?,?";
+            preparedStatement = connection.prepareStatement(sql);  //建立预处理对象
+
+            preparedStatement.setInt(1, (pageNo - 1) * pageSize);
+            preparedStatement.setInt(2, pageSize);
+            resultSet = preparedStatement.executeQuery();
+            BsUser user;
+
+            while (resultSet.next()) {
+
+                user = new BsUser(resultSet.getInt("user_id"), resultSet.getString("user_name"), resultSet.getString("user_pwd"),
+                        resultSet.getString("user_realName"), resultSet.getString("user_phone"),
+                        resultSet.getString("user_email"), resultSet.getString("user_addr"),
+                        resultSet.getTimestamp("user_datetime"), resultSet.getInt("user_right"));
+
+                userList.add(user);
+            }
+            return userList;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new MyException("分页查询用户错误!");
+        } finally {
+            close(connection, preparedStatement, resultSet);
+        }
     }
 
+    // 计算选择总数
     @Override
     public int selectAllCount() {
-        return 0;
+
+        Connection connection = null;  // 创建连接
+        PreparedStatement preparedStatement = null;  // 创建预编译
+        ResultSet resultSet = null; // 创建结果集
+
+        int count = 0;
+        try {
+            connection = BsMySQLHelper.connection();  // 建立连接
+            String sql = "SELECT COUNT(*) AS count FROM bs.bs_user t";
+            preparedStatement = connection.prepareStatement(sql);
+
+            if (resultSet.next()) {
+                count = resultSet.getInt("count");
+            }
+
+            return count;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new MyException("查询用户记录数错误! ");
+        } finally {
+            close(connection, preparedStatement, resultSet);
+        }
     }
+
+    //  关闭结果集, 预处理, 连接.
+    private void close(Connection connection, PreparedStatement preparedStatement, ResultSet resultSet) {
+        if (resultSet != null) {  //关闭结果集
+            BsMySQLHelper.closeResultSet(resultSet);
+        }
+
+        if (preparedStatement != null) {  //关闭预处理
+            BsMySQLHelper.closePreparedStatement(preparedStatement);
+        }
+
+        if (connection != null) {  //关闭连接
+            BsMySQLHelper.closeConnection(connection);
+        }
+    }
+
 }

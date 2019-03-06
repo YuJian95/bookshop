@@ -9,7 +9,6 @@
     <short-name>tag</short-name>
     <uri>http://yujian95.github.io/jstl/tag</uri>
 
-    <!-- Invoke 'Generate' action to add tags or functions -->
     <tag>
         <name>BsCategoryMenuTag</name>
         <tag-class>tag.BsCategoryMenuTag</tag-class>

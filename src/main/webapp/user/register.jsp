@@ -21,7 +21,8 @@
 
 <div class="container">
     <div class="form row">
-        <form class="form-horizontal col-sm-offset-3 col-md-offset-3" id="register_form" method="post">
+        <form class="form-horizontal col-sm-offset-3 col-md-offset-3" id="register_form" method="post"
+              action="/action/BsUserAction?method=add">
             <h3 class="form-title">注册新用户</h3>
             <div class="col-sm-9 col-md-9">
                 <div class="form-group">
@@ -41,7 +42,7 @@
                 </div>
                 <div class="form-group">
                     <i class="fa fa-user-secret" aria-hidden="true"></i>
-                    <input class="form-control required" type="text" placeholder="真实名" name="realname"/>
+                    <input class="form-control required" type="text" placeholder="真实名" name="realName"/>
                 </div>
 
                 <div class="form-group">
@@ -62,7 +63,7 @@
 
                 <div class="form-group">
                     <input type="submit" class="btn btn-success pull-right" value="注册"/>
-                    <input type="submit" onclick="location.href='javascript:history.go(-1);'"
+                    <input type="button" onclick="window.history.back()"
                            class="btn btn-info pull-left" id="back_btn" value="返回"/>
                 </div>
             </div>

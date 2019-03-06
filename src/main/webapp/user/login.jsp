@@ -27,7 +27,7 @@
             <div class="col-sm-9 col-md-9">
                 <div class="form-group">
                     <i class="fa fa-user" aria-hidden="true"></i>
-                    <input class="form-control required" type="text" placeholder="用户名" name="username"
+                    <input class="form-control required" type="text" placeholder="用户名" name="userName"
                            autofocus="autofocus" maxlength="20"/>
                 </div>
                 <div class="form-group">

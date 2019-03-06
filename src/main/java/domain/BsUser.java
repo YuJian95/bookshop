@@ -16,6 +16,23 @@ public class BsUser implements java.io.Serializable {
     private Date userDatetime;
     private Integer userRight;
 
+    // 默认构造器
+    public BsUser() {
+    }
+
+    public BsUser(Integer userId, String userName, String userPwd, String userRealName, String userPhone,
+                  String userEmail, String userAddr, Date userDatetime, Integer userRight) {
+        this.userId = userId;
+        this.userName = userName;
+        this.userPwd = userPwd;
+        this.userRealName = userRealName;
+        this.userPhone = userPhone;
+        this.userEmail = userEmail;
+        this.userAddr = userAddr;
+        this.userDatetime = userDatetime;
+        this.userRight = userRight;
+    }
+
     @Id
     @Column(name = "user_id")
     public Integer getUserId() {
