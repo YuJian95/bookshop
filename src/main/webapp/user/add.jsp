@@ -22,12 +22,12 @@
 <div class="container">
     <div class="form row">
         <form class="form-horizontal col-sm-offset-3 col-md-offset-3" id="register_form" method="post"
-              action="/BsUserAction?method=add">
+              action="/bs/BsUserAction?method=add">
             <h3 class="form-title">注册新用户</h3>
             <div class="col-sm-9 col-md-9">
                 <div class="form-group">
                     <i class="fa fa-user" aria-hidden="true"></i>
-                    <input class="form-control required" type="text" placeholder="用户名" name="username"
+                    <input class="form-control required" type="text" placeholder="用户名" name="userName"
                            autofocus="autofocus"/>
                 </div>
                 <div class="form-group">

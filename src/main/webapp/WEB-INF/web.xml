@@ -6,26 +6,6 @@
 
     <display-name>Archetype Created Web Application</display-name>
 
-    <servlet>
-        <servlet-name>StartServlet</servlet-name>
-        <servlet-class>servlet.BsStartServlet</servlet-class>
-        <load-on-startup>0</load-on-startup>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>StartServlet</servlet-name>
-        <!--这里是指，这个servlet的执行范围-->
-        <url-pattern>/StartServlet</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>BsUserAction</servlet-name>
-        <servlet-class>action.BsUserAction</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>BsUserAction</servlet-name>
-        <url-pattern>/BsUserAction</url-pattern>
-    </servlet-mapping>
     <!--<filter>-->
     <!--<filter-name>SessionFilter</filter-name>-->
     <!--<filter-class>filter.SessionFilter</filter-class>-->
@@ -35,8 +15,34 @@
     <!--<url-pattern>/*</url-pattern>-->
     <!--</filter-mapping>-->
 
+    <servlet>
+        <servlet-name>StartServlet</servlet-name>
+        <servlet-class>servlet.BsStartServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>BsUserAction</servlet-name>
+        <servlet-class>action.BsUserAction</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>StartServlet</servlet-name>
+        <url-pattern>/StartServlet</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet-mapping>
+        <servlet-name>BsUserAction</servlet-name>
+        <url-pattern>/BsUserAction</url-pattern>
+    </servlet-mapping>
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
     <taglib>
         <taglib-uri>http://yujian95.github.io/jstl/tag</taglib-uri>
         <taglib-location>WEB-INF/tag.tld</taglib-location>
     </taglib>
+
 </web-app>

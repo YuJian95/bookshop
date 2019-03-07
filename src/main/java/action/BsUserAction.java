@@ -4,6 +4,7 @@ import common.BsFactory;
 import common.MyException;
 import domain.BsUser;
 import iservice.IBsUserService;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -96,7 +97,7 @@ public class BsUserAction extends BsBaseAction {
             session.setAttribute("user", user);
 
             if (user.getUserRight() >= ADMIN_RIGHT) {  // 管理员权限
-                response.sendRedirect("/admin/index.jsp");
+                response.sendRedirect("/admin/index.jsp");  // 跳转到管理员主页
             } else {
                 response.sendRedirect("index.jsp");
             }
@@ -118,5 +119,35 @@ public class BsUserAction extends BsBaseAction {
         return user;
     }
 
+    @Override
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        response.setContentType("text/html;charset=utf-8");
+        request.setCharacterEncoding("utf-8");
+        boolean isMultipart = ServletFileUpload.isMultipartContent(request);  // 检查是否是multipart表单
+
+        if (isMultipart) {
+            uploadFile(request, response);  // 添加
+        } else {
+            String method = request.getParameter("method");  // 获取method参数的值，调用对应的方法
+
+            if (method.equals("manage")) {
+                manage(request, response);  // 管理
+            } else if (method.equals("browse")) {
+                browse(request, response);  // 浏览
+            } else if (method.equals("show")) {
+                show(request, response);  // 显示
+            } else if (method.equals("add")) {
+                add(request, response);  // 添加
+            } else if (method.equals("willEdit")) {
+                willEdit(request, response);  // 要修改
+            } else if (method.equals("edit")) {
+                edit(request, response);  // 修改
+            } else if (method.equals("delete")) {
+                delete(request, response);  // 删除
+            } else if (method.equals("login")) {
+                login(request, response); // 登陆
+            }
+        }
+    }
 
 }

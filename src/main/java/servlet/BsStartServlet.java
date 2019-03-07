@@ -1,6 +1,7 @@
 package servlet;
 
 import common.BsConfig;
+import common.MyException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,11 +17,13 @@ public class BsStartServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         try {
-            System.out.println("开始运行");
             String path = this.getServletContext().getRealPath("WEB-INF/config.properties");
             InputStream in = new FileInputStream(path);
             BsConfig.properties.load(in);
-            System.out.println("结束运行");
+
+            if (BsConfig.properties.isEmpty()) {
+                throw new MyException("读取配置信息出错！");
+            }
 
         } catch (Exception e) {
             throw new ServletException(e.getMessage());
