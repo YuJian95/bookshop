@@ -22,7 +22,7 @@
 <div class="container">
     <div class="form row">
         <form class="form-horizontal col-sm-offset-3 col-md-offset-3" id="register_form" method="post"
-              action="/action/BsUserAction?method=add">
+              action="/BsUserAction?method=add">
             <h3 class="form-title">注册新用户</h3>
             <div class="col-sm-9 col-md-9">
                 <div class="form-group">

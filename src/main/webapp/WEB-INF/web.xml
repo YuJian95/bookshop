@@ -18,6 +18,14 @@
         <url-pattern>/StartServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>BsUserAction</servlet-name>
+        <servlet-class>action.BsUserAction</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BsUserAction</servlet-name>
+        <url-pattern>*.do</url-pattern>
+    </servlet-mapping>
     <!--<filter>-->
     <!--<filter-name>SessionFilter</filter-name>-->
     <!--<filter-class>filter.SessionFilter</filter-class>-->

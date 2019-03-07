@@ -18,7 +18,8 @@ import java.io.IOException;
 
 public class BsUserAction extends BsBaseAction {
 
-    private int PAGE_SIZE = 10;
+    private static final long serialVersionUID = 1L;
+    private final static int PAGE_SIZE = 10;
     private int ADMIN_RIGHT = 2;
     private IBsUserService userService = (IBsUserService) BsFactory.getBean("userService");
 
@@ -116,4 +117,6 @@ public class BsUserAction extends BsBaseAction {
 
         return user;
     }
+
+
 }

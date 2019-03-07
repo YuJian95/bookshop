@@ -43,7 +43,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="index.jsp"><span class="glyphicon glyphicon-home"></span>首页</a></li>
 
-                        <li><a href="user/register.jsp"><span class="glyphicon glyphicon-user"></span>注册</a></li>
+                        <li><a href="user/add.jsp"><span class="glyphicon glyphicon-user"></span>注册</a></li>
                         <li><a href="user/login.jsp"><span class="glyphicon glyphicon-log-in"></span>登录</a></li>
 
                         <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span>购物车</a></li>

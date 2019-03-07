@@ -16,6 +16,7 @@ import java.io.UnsupportedEncodingException;
 
 @WebServlet(name = "BsBaseAction")
 public abstract class BsBaseAction extends HttpServlet {
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         response.setContentType("text/html;charset=utf-8");
         request.setCharacterEncoding("utf-8");
@@ -79,11 +80,11 @@ public abstract class BsBaseAction extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        processRequest(request, response);
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        doPost(request, response);
     }
 }

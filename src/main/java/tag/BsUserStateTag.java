@@ -25,7 +25,7 @@ public class BsUserStateTag extends TagSupport {
             stringBuffer.append("<p>密码 <input type=\"password\" name=\"user.userPwd\" style=\"width:120px;height:20px\"/></p>");
             stringBuffer.append("<p><input type=\"submit\" value=\"登录\"/>&nbsp;" +
                     "<input type=\"button\" value=\"注册\" " +
-                    "onclick=\"content.location.href=\'/bs/user/register.jsp\'\"/></p>");
+                    "onclick=\"content.location.href=\'/bs/user/add.jsp\'\"/></p>");
             stringBuffer.append("</p>");
             stringBuffer.append("</form>");
         } else {
