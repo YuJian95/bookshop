@@ -8,6 +8,15 @@ public class BsCategory implements java.io.Serializable {
     private Integer catId;
     private String catName;
 
+    //默认无参构造方法
+    public BsCategory() {
+    }
+
+    public BsCategory(Integer catId, String catName) {
+        this.catId = catId;
+        this.catName = catName;
+    }
+
     @Id
     @Column(name = "cat_id")
     public int getCatId() {

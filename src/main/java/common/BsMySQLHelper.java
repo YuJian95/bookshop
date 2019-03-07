@@ -37,7 +37,7 @@ public class BsMySQLHelper {
     }
 
     //关闭结果集
-    public static void closeResultSet(ResultSet resultSet) {
+    private static void closeResultSet(ResultSet resultSet) {
         try {
             resultSet.close();
         } catch (SQLException e) {
@@ -53,6 +53,21 @@ public class BsMySQLHelper {
         } catch (SQLException ex) {
             System.err.println("数据库连接,关闭失败!");
             ex.printStackTrace();
+        }
+    }
+
+    //  关闭结果集, 预处理, 连接.
+    public static void closeAll(Connection connection, PreparedStatement preparedStatement, ResultSet resultSet) {
+        if (resultSet != null) {  //关闭结果集
+            BsMySQLHelper.closeResultSet(resultSet);
+        }
+
+        if (preparedStatement != null) {  //关闭预处理
+            BsMySQLHelper.closePreparedStatement(preparedStatement);
+        }
+
+        if (connection != null) {  //关闭连接
+            BsMySQLHelper.closeConnection(connection);
         }
     }
 }

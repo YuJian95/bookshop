@@ -51,7 +51,7 @@ public class BsUserDao implements IBsUserDao {
             throw new MyException("查找用户失败!");
         } finally {
 
-            close(connection, preparedStatement, resultSet);  // 关闭结果集, 预处理, 连接.
+            BsMySQLHelper.closeAll(connection, preparedStatement, resultSet);  // 关闭结果集, 预处理, 连接.
         }
     }
 
@@ -90,7 +90,7 @@ public class BsUserDao implements IBsUserDao {
             throw new MyException("查找用户失败!");
         } finally {
 
-            close(connection, preparedStatement, resultSet);  // 关闭结果集, 预处理, 连接.
+            BsMySQLHelper.closeAll(connection, preparedStatement, resultSet);  // 关闭结果集, 预处理, 连接.
         }
     }
 
@@ -170,7 +170,7 @@ public class BsUserDao implements IBsUserDao {
         }
     }
 
-    // 删除用户, 通过id
+    // 删除用户
     @Override
     public void delete(Integer userId) {
         Connection connection = null;
@@ -230,9 +230,8 @@ public class BsUserDao implements IBsUserDao {
             e.printStackTrace();
             throw new MyException("查找用户失败!");
         } finally {
-            close(connection, preparedStatement, resultSet);  // 关闭结果集, 预处理, 连接.
+            BsMySQLHelper.closeAll(connection, preparedStatement, resultSet);  // 关闭结果集, 预处理, 连接.
         }
-
     }
 
     // 查找所有用户
@@ -243,7 +242,7 @@ public class BsUserDao implements IBsUserDao {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         BsUser user;
-        List<BsUser> userList = new ArrayList<BsUser>();
+        List<BsUser> userList;
 
         try {
             connection = BsMySQLHelper.connection();
@@ -269,7 +268,7 @@ public class BsUserDao implements IBsUserDao {
             e.printStackTrace();
             throw new MyException("查找所有用户失败!");
         } finally {
-            close(connection, preparedStatement, resultSet);
+            BsMySQLHelper.closeAll(connection, preparedStatement, resultSet);
         }
     }
 
@@ -280,7 +279,7 @@ public class BsUserDao implements IBsUserDao {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
-        List<BsUser> userList = new ArrayList<BsUser>();
+        List<BsUser> userList = new ArrayList<>();
 
         try {
             connection = BsMySQLHelper.connection();
@@ -307,7 +306,7 @@ public class BsUserDao implements IBsUserDao {
             e.printStackTrace();
             throw new MyException("分页查询用户错误!");
         } finally {
-            close(connection, preparedStatement, resultSet);
+            BsMySQLHelper.closeAll(connection, preparedStatement, resultSet);
         }
     }
 
@@ -335,22 +334,7 @@ public class BsUserDao implements IBsUserDao {
             e.printStackTrace();
             throw new MyException("查询用户记录数错误! ");
         } finally {
-            close(connection, preparedStatement, resultSet);
-        }
-    }
-
-    //  关闭结果集, 预处理, 连接.
-    private void close(Connection connection, PreparedStatement preparedStatement, ResultSet resultSet) {
-        if (resultSet != null) {  //关闭结果集
-            BsMySQLHelper.closeResultSet(resultSet);
-        }
-
-        if (preparedStatement != null) {  //关闭预处理
-            BsMySQLHelper.closePreparedStatement(preparedStatement);
-        }
-
-        if (connection != null) {  //关闭连接
-            BsMySQLHelper.closeConnection(connection);
+            BsMySQLHelper.closeAll(connection, preparedStatement, resultSet);
         }
     }
 
