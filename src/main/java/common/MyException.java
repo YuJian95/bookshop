@@ -1,5 +1,9 @@
 package common;
 
+/**
+ * 自定义异常，用来抛出异常信息
+ */
+
 public class MyException extends RuntimeException {
 
     private String message;
