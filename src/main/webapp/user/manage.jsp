@@ -7,6 +7,7 @@
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>用户管理</title>
@@ -17,6 +18,27 @@
     <script src="../bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-
+<div class="container">
+    <table border="1" width="98%" align="center" cellpadding="4" style="border-collapse: collapse">
+        <tr>
+            <th align="left" width="120">用户名</th>
+            <th align="center" width="120">真实名</th>
+            <th align="center" width="260">邮件地址</th>
+            <th align="center" width="160">注册时间</th>
+            <th align="center" width="80">操作</th>
+        </tr>
+        <c:forEach items="${pageList.list}" var="n">
+            <tr>
+                <td align="left">
+                    <a href="/BsUserAction!show.action?userId=${n.userId}" target="content">${n.userName}</a>
+                </td>
+                <td align="center">${n.userRealName}</td>
+                <td align="center">${n.userEmail}</td>
+                <td align="center">${n.userDatetime}</td>
+                <td align="center"><a></a></td>
+            </tr>
+        </c:forEach>
+    </table>
+</div>
 </body>
 </html>

@@ -18,7 +18,7 @@
 </head>
 <body>
 <div class="container">
-
+    <p>${msg}</p>
 </div>
 </body>
 </html>

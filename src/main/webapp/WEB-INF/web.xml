@@ -24,7 +24,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>BsUserAction</servlet-name>
-        <url-pattern>*.do</url-pattern>
+        <url-pattern>/BsUserAction</url-pattern>
     </servlet-mapping>
     <!--<filter>-->
     <!--<filter-name>SessionFilter</filter-name>-->
