@@ -30,15 +30,16 @@
         <c:forEach items="${pageList.list}" var="n">
             <tr>
                 <td align="left">
-                    <a href="/BsUserAction!show.action?userId=${n.userId}" target="content">${n.userName}</a>
-                </td>
+                    <a href="/BsUserAction?method=show&userId=${n.userId}" target="_blank">${n.userName}</a></td>
                 <td align="center">${n.userRealName}</td>
                 <td align="center">${n.userEmail}</td>
                 <td align="center">${n.userDatetime}</td>
-                <td align="center"><a></a></td>
+                <td align="center"><a href="/BsUserAction?method=delete&userId=${n.userId}">删除</a></td>
             </tr>
         </c:forEach>
     </table>
+    <br/>
+    <center>${pageList.pageBar}&nbsp;<a href="/user/add.jsp">添加</a></center>
 </div>
 </body>
 </html>

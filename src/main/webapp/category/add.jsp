@@ -16,6 +16,17 @@
     <script src="../bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-
+<form method="post" action="/BsCategoryAction?method=add">
+    <table border="0" width="562" align="center" style="border-collapse: collapse">
+        <tr>
+            <td>分类名称</td>
+            <td align="left"><input type="text" name="catName" size="47"/></td>
+        </tr>
+    </table>
+    <p align="center">
+        <input type="submit" value="提交">
+        <input type="button" value="取消" onclick="window.history.back()">
+    </p>
+</form>
 </body>
 </html>
