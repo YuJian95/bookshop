@@ -153,6 +153,8 @@ public class BsUserDao implements IBsUserDao {
             preparedStatement.setString(6, user.getUserAddr());
             preparedStatement.setInt(7, user.getUserId());
 
+            preparedStatement.executeUpdate();
+
         } catch (Exception e) {
             e.printStackTrace();
             throw new MyException("修改用户失败!");
@@ -180,6 +182,8 @@ public class BsUserDao implements IBsUserDao {
             preparedStatement = connection.prepareStatement(sql);  //建立预处理对象
 
             preparedStatement.setInt(1, userId);
+
+            preparedStatement.execute();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -318,13 +322,13 @@ public class BsUserDao implements IBsUserDao {
         int count = 0;
         try {
             connection = BsMySQLHelper.connection();  // 建立连接
-            String sql = "SELECT COUNT(*) AS count FROM bs.bs_user t";
+            String sql = "SELECT COUNT(*) FROM bs_user";
             preparedStatement = connection.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                count = resultSet.getInt("count");
+                count = resultSet.getInt("COUNT(*)");  // 查询记录结果
             }
-
             return count;
 
         } catch (Exception e) {
