@@ -1,47 +1,48 @@
 package service;
 
 import common.BsFactory;
+import dao.BsCategoryDao;
 import domain.BsCategory;
-import idao.IBsCategoryDao;
+import iservice.IBsCategoryService;
 
 import java.util.List;
 
-public class BsCategoryService implements IBsCategoryDao {
+public class BsCategoryService implements IBsCategoryService {
 
-    private IBsCategoryDao categoryDao = (IBsCategoryDao) BsFactory.getBean("categoryDao");
+    private BsCategoryDao categoryDao = (BsCategoryDao) BsFactory.getBean("categoryDao");
 
     @Override
-    public void insert(BsCategory obj) {
-        categoryDao.insert(obj);
+    public void addCategory(BsCategory category) {
+        categoryDao.insert(category);
     }
 
     @Override
-    public void update(BsCategory obj) {
-        categoryDao.update(obj);
+    public void editCategory(BsCategory category) {
+        categoryDao.update(category);
     }
 
     @Override
-    public void delete(Integer integer) {
-        categoryDao.delete(integer);
+    public void deleteCategory(Integer catId) {
+        categoryDao.delete(catId);
     }
 
     @Override
-    public BsCategory selectById(Integer integer) {
-        return categoryDao.selectById(integer);
+    public BsCategory findCategory(Integer catId) {
+        return categoryDao.selectById(catId);
     }
 
     @Override
-    public List<BsCategory> selectAll() {
+    public List<BsCategory> findCategories() {
         return categoryDao.selectAll();
     }
 
     @Override
-    public List<BsCategory> selectAll(Integer pageSize, Integer pageNo) {
-        return categoryDao.selectAll(pageSize, pageNo);
+    public List<BsCategory> findCategories(Integer pageNo, Integer pageSize) {
+        return categoryDao.selectAll(pageNo, pageSize);
     }
 
     @Override
-    public int selectAllCount() {
+    public int findCount() {
         return categoryDao.selectAllCount();
     }
 }

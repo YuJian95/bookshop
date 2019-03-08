@@ -1,6 +1,7 @@
 package tag;
 
 import common.BsFactory;
+import exception.MyException;
 import domain.BsCategory;
 import iservice.IBsCategoryService;
 
@@ -24,14 +25,14 @@ public class BsCategoryTag extends SimpleTagSupport {
         try {
             List<BsCategory> list = categoryService.findCategories();
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("<select name=\"catId\" size=\"1\"?");
+            stringBuilder.append("<ul class=\"nav nav-pills nav-stacked text-center\">\n");
 
             for (BsCategory category : list) {
-                stringBuilder.append("<option value=\"").append(category.getCatId());
-                stringBuilder.append("\">").append(category.getCatName()).append("</a>");
+                stringBuilder.append(
+                        "                <li>" + category.getCatName() + "</li>\n");
             }
 
-            stringBuilder.append("</select>");
+            stringBuilder.append("            </ul>");
             out.print(stringBuilder.toString());
 
             JspFragment fragment = getJspBody();
@@ -40,7 +41,7 @@ public class BsCategoryTag extends SimpleTagSupport {
                 fragment.invoke(out);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new MyException("分类标签运行出错");
         }
     }
 }

@@ -74,11 +74,12 @@
     <div class="row">
         <%--分类菜单--%>
         <div class="col-sm-2">
-            <ul class="nav nav-pills nav-stacked text-center">
-                <li><a href="#">分类1</a></li>
-                <li><a href="#">分类2</a></li>
-                <li><a href="#">分类3</a></li>
-            </ul>
+            <%--<ul class="nav nav-pills nav-stacked text-center">--%>
+            <%--<li><a href="#">分类1</a></li>--%>
+            <%--<li><a href="#">分类2</a></li>--%>
+            <%--<li><a href="#">分类3</a></li>--%>
+            <%--</ul>--%>
+            <bs:BsCategoryTag/>
         </div>
 
         <%--右边的内容展示--%>

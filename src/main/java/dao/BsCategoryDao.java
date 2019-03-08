@@ -1,7 +1,7 @@
 package dao;
 
 import common.BsMySQLHelper;
-import common.MyException;
+import exception.MyException;
 import domain.BsCategory;
 import idao.IBsCategoryDao;
 

@@ -71,15 +71,15 @@
         <%--分类菜单--%>
         <div class="col-sm-2">
             <ul class="nav nav-pills nav-stacked text-center">
-                <li><a href="#"><i class="fas fa-users"></i>用户管理</a></li>
-                <li><a href="#"><i class="fas fa-list-ul"></i>订单管理</a></li>
-                <li><a href="#"><i class="fas fa-book"></i>图书管理</a></li>
-                <li><a href="#"><i class="fas fa-stream"></i>分类管理</a></li>
+                <li><a href="/bs/BsUserAction?method=manage"><i class="fas fa-users"></i>用户管理</a></li>
+                <li><a href="/bs/BsOrderAction?method=manage"><i class="fas fa-list-ul"></i>订单管理</a></li>
+                <li><a href="/bs/BsBookAction?method=manage"><i class="fas fa-book"></i>图书管理</a></li>
+                <li><a href="/bs/BsCategoryAction?method=manage"><i class="fas fa-stream"></i>分类管理</a></li>
             </ul>
         </div>
 
         <%--右边的数据展示--%>
-        <div class="col-sm-10">
+        <div class="col-sm-10" id="right">
             <table class="table table-hover text-center">
                 <tr>
                     <th>书名</th>

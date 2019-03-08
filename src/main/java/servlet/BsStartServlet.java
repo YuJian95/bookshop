@@ -1,7 +1,7 @@
 package servlet;
 
 import common.BsConfig;
-import common.MyException;
+import exception.MyException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

@@ -16,7 +16,7 @@
     <script src="../bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-<form method="post" action="/BsCategoryAction?method=add">
+<form method="post" action="/bs/BsCategoryAction?method=add">
     <table border="0" width="562" align="center" style="border-collapse: collapse">
         <tr>
             <td>分类名称</td>

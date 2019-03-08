@@ -13,7 +13,7 @@ public class BsCartService implements IBsCartService {
 
     @Override
     public void addItem(Integer bookId) {
-
+        //detailDao.insert(bookId);
     }
 
     @Override

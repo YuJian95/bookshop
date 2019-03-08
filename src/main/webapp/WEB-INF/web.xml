@@ -42,7 +42,7 @@
 
     <taglib>
         <taglib-uri>http://yujian95.github.io/jstl/tag</taglib-uri>
-        <taglib-location>WEB-INF/tag.tld</taglib-location>
+        <taglib-location>/WEB-INF/BsTag.tld</taglib-location>
     </taglib>
 
 </web-app>

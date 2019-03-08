@@ -1,7 +1,8 @@
 package action;
 
 import common.BsFactory;
-import common.MyException;
+import common.BsPageList;
+import exception.MyException;
 import domain.BsUser;
 import iservice.IBsUserService;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * 用户控制类
@@ -21,8 +23,13 @@ public class BsUserAction extends BsBaseAction {
 
     private static final long serialVersionUID = 1L;
     private final static int PAGE_SIZE = 10;
-    private int ADMIN_RIGHT = 2;
+    private int ADMIN_RIGHT = 2;  // 管理员权限
     private IBsUserService userService = (IBsUserService) BsFactory.getBean("userService");
+
+    private BsUser user;
+    private Integer userId;
+    private BsPageList<BsUser> pageList;  // 分页器
+    private Integer pageNo;
 
     // 添加新用户
     @Override
@@ -42,7 +49,7 @@ public class BsUserAction extends BsBaseAction {
     @Override
     protected void edit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         getUserInfo(request);
-        BsUser user = getUserInfo(request);
+        user = getUserInfo(request);
 
         try {
             userService.editUser(user);
@@ -56,17 +63,40 @@ public class BsUserAction extends BsBaseAction {
 
     // 查看所有用户信息
     @Override
-    protected void browse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        super.browse(request, response);
+    protected void manage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        if (pageNo == null) {
+            pageNo = 1;
+        }
+
+        try {
+            List<BsUser> list = userService.findUsers(pageNo, PAGE_SIZE);
+            int count = userService.findCount();
+            pageList = new BsPageList<BsUser>(list, count, pageNo, PAGE_SIZE, "/bs/BsUserAction?method=manage");
+            request.getSession().setAttribute("pageList", pageList.getList());
+
+            response.sendRedirect("/bs/user/manage.jsp");
+        } catch (Exception e) {
+            request.setAttribute("msg", e.getMessage() + "<a href=\"JavaScript:window.history.back()\">返回</a>");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/message.jsp");  // 跳转到信息页
+            requestDispatcher.forward(request, response);
+        }
+
     }
 
     // 查看用户
     @Override
     protected void show(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        BsUser user = userService.findUserById(Integer.parseInt(request.getParameter("userId")));
-        request.setAttribute("user", user);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/user/show.jsp");
-        requestDispatcher.forward(request, response);
+        try {
+            BsUser user = userService.findUserById(Integer.parseInt(request.getParameter("userId")));
+            request.setAttribute("user", user);
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/bs/user/show.jsp");
+            requestDispatcher.forward(request, response);
+        } catch (Exception e) {
+            request.setAttribute("msg", e.getMessage() + "<a href=\"JavaScript:window.history.back()\">返回</a>");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/message.jsp");  // 跳转到信息页
+            requestDispatcher.forward(request, response);
+        }
     }
 
     // 删除用户
@@ -85,22 +115,26 @@ public class BsUserAction extends BsBaseAction {
     }
 
     // 登录用户
-    protected void login(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void login(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        BsUser userInfo = getUserInfo(request);
 
-        String userName = request.getParameter("userName");
-        String password = request.getParameter("password");
+        try {
+            BsUser user = userService.findUserByName(userInfo.getUserName(), userInfo.getUserPwd());  // 查找用户
+            HttpSession session = request.getSession();
 
-        BsUser user = userService.findUserByName(userName, password);  // 查找用户
-        HttpSession session = request.getSession();
+            if (user != null) {
+                session.setAttribute("user", user);
 
-        if (user != null) {
-            session.setAttribute("user", user);
-
-            if (user.getUserRight() >= ADMIN_RIGHT) {  // 管理员权限
-                response.sendRedirect("/admin/index.jsp");  // 跳转到管理员主页
-            } else {
-                response.sendRedirect("index.jsp");
+                if (user.getUserRight() >= ADMIN_RIGHT) {  // 管理员权限
+                    response.sendRedirect("/bs/admin/index.jsp");  // 跳转到管理员主页
+                } else {
+                    response.sendRedirect("index.jsp");
+                }
             }
+        } catch (Exception e) {
+            request.setAttribute("msg", e.getMessage() + "<a href=\"JavaScript:window.history.back()\">返回</a>");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/bs/common/message.jsp");  // 跳转到信息页
+            requestDispatcher.forward(request, response);
         }
 
     }

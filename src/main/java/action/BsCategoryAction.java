@@ -1,7 +1,7 @@
 package action;
 
 import common.BsFactory;
-import common.MyException;
+import exception.MyException;
 import domain.BsCategory;
 import iservice.IBsCategoryService;
 

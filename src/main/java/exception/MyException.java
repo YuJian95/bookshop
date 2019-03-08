@@ -1,4 +1,4 @@
-package common;
+package exception;
 
 /**
  * 自定义异常，用来抛出异常信息

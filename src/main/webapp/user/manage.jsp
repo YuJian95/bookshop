@@ -8,6 +8,7 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
 <html>
 <head>
     <title>用户管理</title>
@@ -27,19 +28,21 @@
             <th align="center" width="160">注册时间</th>
             <th align="center" width="80">操作</th>
         </tr>
-        <c:forEach items="${pageList.list}" var="n">
+
+        <c:forEach items="${sessionScope.pageList}" var="user">
             <tr>
                 <td align="left">
-                    <a href="/BsUserAction?method=show&userId=${n.userId}" target="_blank">${n.userName}</a></td>
-                <td align="center">${n.userRealName}</td>
-                <td align="center">${n.userEmail}</td>
-                <td align="center">${n.userDatetime}</td>
-                <td align="center"><a href="/BsUserAction?method=delete&userId=${n.userId}">删除</a></td>
+                    <a href="/bs/BsUserAction?method=show&userId=${user.userId}" target="_blank">${user.userName}</a>
+                </td>
+                <td align="center">${user.userRealName}</td>
+                <td align="center">${user.userEmail}</td>
+                <td align="center">${user.userDatetime}</td>
+                <td align="center"><a href="/bs/BsUserAction?method=delete&userId=${n.userId}">删除</a></td>
             </tr>
         </c:forEach>
     </table>
     <br/>
-    <center>${pageList.pageBar}&nbsp;<a href="/user/add.jsp">添加</a></center>
+    <center>${sessionScope.pageList.pageBar}&nbsp;<a href="/bs/user/add.jsp">添加</a></center>
 </div>
 </body>
 </html>
