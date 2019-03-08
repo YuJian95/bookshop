@@ -8,18 +8,32 @@ import iservice.IBsBookService;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
+
+/**
+ * 书籍控制类
+ */
 
 public class BsBookAction extends BsBaseAction {
 
     private static final long serialVersionUID = 1L;
-    private final static int PAGE_SIZE = 10;  // 每一页显示的条数
+    private final static int PAGE_SIZE = 6;  // 每一页显示的条数
     private IBsBookService bookService = (IBsBookService) BsFactory.getBean("bookService");
     private BsBook book;
     private Integer bookId;
+    private Integer catId;
+    private String bookName;
+    private String bookAuthor;
+    private File uploadFile;
     private BsPageList<BsBook> pageList;  // 分页器
     private Integer pageNo;  // 当前页号
 
+    private void find(String url) throws Exception {
+        if (pageNo == null) {
+            pageNo = 1;
+        }
+    }
 
     @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
