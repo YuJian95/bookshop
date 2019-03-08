@@ -179,7 +179,7 @@ public class BsCategoryDao implements IBsCategoryDao {
 
     //分页查找所有分类
     @Override
-    public List<BsCategory> selectAll(Integer pageSize, Integer pageNo) {
+    public List<BsCategory> selectAll(Integer pageNo, Integer pageSize) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;

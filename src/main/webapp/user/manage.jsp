@@ -8,6 +8,8 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page isELIgnored="false" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +31,7 @@
             <th align="center" width="80">操作</th>
         </tr>
 
-        <c:forEach items="${sessionScope.pageList}" var="user">
+        <c:forEach items="${pageList.list}" var="user">
             <tr>
                 <td align="left">
                     <a href="/bs/BsUserAction?method=show&userId=${user.userId}" target="_blank">${user.userName}</a>
@@ -37,12 +39,12 @@
                 <td align="center">${user.userRealName}</td>
                 <td align="center">${user.userEmail}</td>
                 <td align="center">${user.userDatetime}</td>
-                <td align="center"><a href="/bs/BsUserAction?method=delete&userId=${n.userId}">删除</a></td>
+                <td align="center"><a href="/bs/BsUserAction?method=delete&userId=${user.userId}">删除</a></td>
             </tr>
         </c:forEach>
     </table>
     <br/>
-    <center>${sessionScope.pageList.pageBar}&nbsp;<a href="/bs/user/add.jsp">添加</a></center>
+    <center>${pageList.pageBar}&nbsp;<a href="/bs/user/add.jsp">添加</a></center>
 </div>
 </body>
 </html>

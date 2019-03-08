@@ -123,4 +123,18 @@ public class BsUser implements java.io.Serializable {
         this.userRight = userRight;
     }
 
+    @Override
+    public String toString() {
+        return "BsUser{" +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", userPwd='" + userPwd + '\'' +
+                ", userRealName='" + userRealName + '\'' +
+                ", userPhone='" + userPhone + '\'' +
+                ", userEmail='" + userEmail + '\'' +
+                ", userAddr='" + userAddr + '\'' +
+                ", userDatetime=" + userDatetime +
+                ", userRight=" + userRight +
+                '}';
+    }
 }

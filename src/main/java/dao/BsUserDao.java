@@ -274,7 +274,7 @@ public class BsUserDao implements IBsUserDao {
 
     // 分页查找所有用户
     @Override
-    public List<BsUser> selectAll(Integer pageSize, Integer pageNo) {
+    public List<BsUser> selectAll(Integer pageNo, Integer pageSize) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -297,7 +297,6 @@ public class BsUserDao implements IBsUserDao {
                         resultSet.getString("user_realName"), resultSet.getString("user_phone"),
                         resultSet.getString("user_email"), resultSet.getString("user_addr"),
                         resultSet.getTimestamp("user_datetime"), resultSet.getInt("user_right"));
-
                 userList.add(user);
             }
             return userList;
@@ -314,28 +313,9 @@ public class BsUserDao implements IBsUserDao {
     @Override
     public int selectAllCount() {
 
-        Connection connection = null;  // 创建连接
-        PreparedStatement preparedStatement = null;  // 创建预编译
-        ResultSet resultSet = null; // 创建结果集
+        String tableName = "book_user";
 
-        int count = 0;
-        try {
-            connection = BsMySQLHelper.connection();  // 建立连接
-            String sql = "SELECT COUNT(*) FROM bs_user";
-            preparedStatement = connection.prepareStatement(sql);
-            resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next()) {
-                count = resultSet.getInt("COUNT(*)");  // 查询记录结果
-            }
-            return count;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new MyException("查询用户记录数错误! ");
-        } finally {
-            BsMySQLHelper.closeAll(connection, preparedStatement, resultSet);
-        }
+        return BsMySQLHelper.calTableCount(tableName);
     }
 
 }

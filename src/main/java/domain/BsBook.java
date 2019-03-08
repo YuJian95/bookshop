@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class BsBook implements java.io.Serializable {
 
     private Integer bookId;
-    private BsCategory Category;
+    private BsCategory Category = new BsCategory();  // 所属分类
     private String bookPublisher;
     private String bookIsbn;
     private String bookName;
@@ -16,6 +16,24 @@ public class BsBook implements java.io.Serializable {
     private String bookAuthor;
     private String bookDesc;
     private Integer bookNum;
+
+    // 默认无参构造方法
+    public BsBook() {
+    }
+
+    public BsBook(Integer bookId, BsCategory category, String bookPublisher, String bookIsbn, String bookName,
+                  String bookPicture, double bookPrice, String bookAuthor, String bookDesc, Integer bookNum) {
+        this.bookId = bookId;
+        Category = category;
+        this.bookPublisher = bookPublisher;
+        this.bookIsbn = bookIsbn;
+        this.bookName = bookName;
+        this.bookPicture = bookPicture;
+        this.bookPrice = bookPrice;
+        this.bookAuthor = bookAuthor;
+        this.bookDesc = bookDesc;
+        this.bookNum = bookNum;
+    }
 
     @Id
     @Column(name = "book_id")
@@ -113,5 +131,21 @@ public class BsBook implements java.io.Serializable {
 
     public void setCategory(BsCategory category) {
         Category = category;
+    }
+
+    @Override
+    public String toString() {
+        return "BsBook{" +
+                "bookId=" + bookId +
+                ", Category=" + Category +
+                ", bookPublisher='" + bookPublisher + '\'' +
+                ", bookIsbn='" + bookIsbn + '\'' +
+                ", bookName='" + bookName + '\'' +
+                ", bookPicture='" + bookPicture + '\'' +
+                ", bookPrice=" + bookPrice +
+                ", bookAuthor='" + bookAuthor + '\'' +
+                ", bookDesc='" + bookDesc + '\'' +
+                ", bookNum=" + bookNum +
+                '}';
     }
 }

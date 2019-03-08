@@ -2,6 +2,7 @@ package action;
 
 import common.BsFactory;
 import common.BsPageList;
+import dao.BsUserDao;
 import exception.MyException;
 import domain.BsUser;
 import iservice.IBsUserService;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -70,10 +72,13 @@ public class BsUserAction extends BsBaseAction {
         }
 
         try {
-            List<BsUser> list = userService.findUsers(pageNo, PAGE_SIZE);
+            List<BsUser> list = userService.findUsers(pageNo, PAGE_SIZE);  // 分页查找用户数据
             int count = userService.findCount();
             pageList = new BsPageList<BsUser>(list, count, pageNo, PAGE_SIZE, "/bs/BsUserAction?method=manage");
-            request.getSession().setAttribute("pageList", pageList.getList());
+            for (BsUser user : pageList.getList()) {
+                System.out.println(user.toString());
+            }
+            request.setAttribute("pageList", pageList);
 
             response.sendRedirect("/bs/user/manage.jsp");
         } catch (Exception e) {

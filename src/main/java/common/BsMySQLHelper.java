@@ -1,5 +1,7 @@
 package common;
 
+import exception.MyException;
+
 import java.sql.*;
 
 /**
@@ -62,12 +64,43 @@ public class BsMySQLHelper {
             BsMySQLHelper.closeResultSet(resultSet);
         }
 
-        if (preparedStatement != null) {  //关闭预处理
-            BsMySQLHelper.closePreparedStatement(preparedStatement);
+        closeConPreSta(preparedStatement, connection);
+    }
+
+    // 关闭预处理，连接
+    public static void closeConPreSta(PreparedStatement preparedStatement, Connection connection) {
+        if (preparedStatement != null) {
+            BsMySQLHelper.closePreparedStatement(preparedStatement); //关闭预处理
         }
 
-        if (connection != null) {  //关闭连接
-            BsMySQLHelper.closeConnection(connection);
+        if (connection != null) {
+            BsMySQLHelper.closeConnection(connection);//关闭连接
+        }
+    }
+
+    // 查询数据表的记录总数
+    public static int calTableCount(String tableName) {
+        Connection connection = null;  // 创建连接
+        PreparedStatement preparedStatement = null;  // 创建预编译
+        ResultSet resultSet = null; // 创建结果集
+
+        int count = 0;
+        try {
+            connection = BsMySQLHelper.connection();  // 建立连接
+            String sql = "SELECT COUNT(*) FROM " + tableName;
+            preparedStatement = connection.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                count = resultSet.getInt("COUNT(*)");  // 查询记录结果
+            }
+            return count;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new MyException("查询" + tableName + "记录数错误! ");
+        } finally {
+            BsMySQLHelper.closeAll(connection, preparedStatement, resultSet);
         }
     }
 }

@@ -24,16 +24,24 @@
         <servlet-name>BsUserAction</servlet-name>
         <servlet-class>action.BsUserAction</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BsCotegoryServlet</servlet-name>
+        <servlet-class>action.BsCategoryAction</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>StartServlet</servlet-name>
         <url-pattern>/StartServlet</url-pattern>
     </servlet-mapping>
 
-
     <servlet-mapping>
         <servlet-name>BsUserAction</servlet-name>
         <url-pattern>/BsUserAction</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>BsCotegoryServlet</servlet-name>
+        <url-pattern>/BsCategoryAction</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>

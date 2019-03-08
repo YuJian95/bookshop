@@ -8,14 +8,14 @@ import java.util.List;
 
 public class BsPageList<T> {
 
-    private String pageBar;
+    //private String pageBar;
     private String numPageBar;
     private List<T> list;
 
     public BsPageList(List<T> list, int count, int pageSize, int pageNo, String url) {
 
         if (count == 0) {
-            pageBar = "";
+//            pageBar = "";
             numPageBar = "";
             return;
         }
@@ -46,7 +46,7 @@ public class BsPageList<T> {
             sb.append("<a href=\"").append(url).append("?pageNo=").append(pageCount).append("\">尾页</a>");
         }
 
-        pageBar = sb.toString();
+        //pageBar = sb.toString();
         sb = new StringBuffer();
 
         //计算当前页所在的组
@@ -77,9 +77,9 @@ public class BsPageList<T> {
         this.list = list;
     }
 
-    public String getPageBar() {
-        return pageBar;
-    }
+//    public String getPageBar() {
+//        return pageBar;
+//    }
 
     public String getNumPageBar() {
         return numPageBar;
