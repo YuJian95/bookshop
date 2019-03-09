@@ -6,9 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@page isELIgnored="false" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
@@ -31,15 +31,15 @@
             <th align="center" width="80">操作</th>
         </tr>
 
-        <c:forEach items="${pageList.list}" var="user">
+        <c:forEach items="${pageList.list}" var="n">
             <tr>
                 <td align="left">
-                    <a href="/bs/BsUserAction?method=show&userId=${user.userId}" target="_blank">${user.userName}</a>
+                    <a href="/bs/BsUserAction?method=show&userId=${n.userId}" target="_blank">${n.userName}</a>
                 </td>
-                <td align="center">${user.userRealName}</td>
-                <td align="center">${user.userEmail}</td>
-                <td align="center">${user.userDatetime}</td>
-                <td align="center"><a href="/bs/BsUserAction?method=delete&userId=${user.userId}">删除</a></td>
+                <td align="center">${n.userRealName}</td>
+                <td align="center">${n.userEmail}</td>
+                <td align="center">${n.userDatetime}</td>
+                <td align="center"><a href="/bs/BsUserAction?method=delete&userId=${n.userId}">删除</a></td>
             </tr>
         </c:forEach>
     </table>

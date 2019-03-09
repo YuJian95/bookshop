@@ -25,7 +25,7 @@ public class BsCategoryAction extends BsBaseAction {
     private BsCategory category;
     private Integer catId;
     private BsPageList<BsCategory> pageList;  // 分页器
-    private Integer pageNo;
+    private Integer pageNo;  // 当前页的页号
 
     // 修改分类
     @Override
@@ -43,29 +43,6 @@ public class BsCategoryAction extends BsBaseAction {
         }
     }
 
-    //分页显示分类
-    @Override
-    protected void browse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (pageNo == null) {
-            pageNo = 1;
-        }
-
-        int count = categoryService.findCount();
-
-        try {
-            List<BsCategory> categoryList = categoryService.findCategories(pageNo, PAGE_SIZE);
-            pageList = new BsPageList<BsCategory>(categoryList, count, PAGE_SIZE, pageNo, "/bs/BsCategoryAction?method=manage");
-            request.setAttribute("pageList", pageList);
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/bs/category/manage.jsp");
-            requestDispatcher.forward(request, response);
-
-        } catch (Exception e) {
-            request.setAttribute("msg", e.getMessage() + "<a href=\"JavaScript:window.history.back()\">返回</a>");
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/message.jsp");  // 跳转到信息页
-            requestDispatcher.forward(request, response);
-        }
-    }
-
     // 管理分类
     @Override
     protected void manage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -74,9 +51,8 @@ public class BsCategoryAction extends BsBaseAction {
             pageNo = 1;
         }
 
-        int count = categoryService.findCount();
-
         try {
+            int count = categoryService.findCount();
             List<BsCategory> categoryList = categoryService.findCategories(pageNo, PAGE_SIZE);
             pageList = new BsPageList<>(categoryList, count, PAGE_SIZE, pageNo, "/bs/BsCategoryAction?method=manage");
             request.setAttribute("pageList", pageList);
@@ -137,6 +113,5 @@ public class BsCategoryAction extends BsBaseAction {
             requestDispatcher.forward(request, response);
         }
     }
-
 
 }

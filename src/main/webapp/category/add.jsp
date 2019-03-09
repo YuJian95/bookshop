@@ -19,7 +19,7 @@
 <form method="post" action="/bs/BsCategoryAction?method=add">
     <table border="0" width="562" align="center" style="border-collapse: collapse">
         <tr>
-            <td>分类名称</td>
+            <td>分类名称：</td>
             <td align="left"><input type="text" name="catName" size="47"/></td>
         </tr>
     </table>
