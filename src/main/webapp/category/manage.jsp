@@ -7,6 +7,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page isELIgnored="false" %>
+<!DOCTYPE html>
 <html>
 <head>
     <title>分类管理</title>
@@ -19,24 +21,25 @@
 <body>
 <br/>
 <div class="container">
-    <table border="1" align="center" width="640" cellpadding="3" style="border-collapse: collapse">
+    <table border="1" align="center" width="98%" cellpadding="4" style="border-collapse: collapse">
         <tr>
             <td align="left" width="60">分类</td>
             <td align="center" width="160">分类名称</td>
             <td align="center" width="80">操作</td>
         </tr>
-        <c:forEach items="${pageList}" var="n">
+        <c:forEach items="${pageList.list}" var="n">
             <tr>
                 <td align="left">${n.catId}</td>
+                <td align="center">${n.catName}</td>
                 <td align="center">
-                    <a href="/BsCategoryAction?method=willEdit&catId=${n.catId}">修改</a>
-                    <a href="/BsCategoryAction?method=delete&catId=${n.catId}">删除</a>
+                    <a href="/bs/BsCategoryAction?method=willEdit&catId=${n.catId}">修改</a>
+                    <a href="/bs/BsCategoryAction?method=delete&catId=${n.catId}">删除</a>
                 </td>
             </tr>
         </c:forEach>
     </table>
     <br>
-    <center><a href="/category/add.jsp">添加</a></center>
+    <center>${pageList.pageBar}&nbsp;<a href="/bs/category/add.jsp">添加</a></center>
 </div>
 </body>
 </html>

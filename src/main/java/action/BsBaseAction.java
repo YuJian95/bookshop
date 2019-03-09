@@ -41,6 +41,8 @@ public abstract class BsBaseAction extends HttpServlet {
                 edit(request, response);  // 修改
             } else if (method.equals("delete")) {
                 delete(request, response);  // 删除
+            } else if (method.equals("login")) {
+                login(request, response);   //登录
             }
         }
     }
@@ -74,6 +76,10 @@ public abstract class BsBaseAction extends HttpServlet {
     }
 
     protected void uploadFile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    }
+
+    protected void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 

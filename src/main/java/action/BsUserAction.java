@@ -50,11 +50,8 @@ public class BsUserAction extends BsBaseAction {
     // 修改用户信息
     @Override
     protected void edit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        getUserInfo(request);
-        user = getUserInfo(request);
-
         try {
-            userService.editUser(user);
+            userService.editUser(getUserInfo(request));
             response.sendRedirect("/index.jsp");  // 返回主页
         } catch (Exception e) {
             request.setAttribute("msg", e.getMessage() + "<a href=\"JavaScript:window.history.back()\">返回</a>");
@@ -107,10 +104,8 @@ public class BsUserAction extends BsBaseAction {
     // 删除用户
     @Override
     protected void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Integer userId = Integer.parseInt(request.getParameter("userId"));
-
         try {
-            userService.deleteUser(userId);
+            userService.deleteUser(Integer.parseInt(request.getParameter("userId")));
             response.sendRedirect("/User/BsUserAction?method=manage");
         } catch (MyException e) {
             request.setAttribute("msg", e.getMessage() + "<a href=\"JavaScript:window.history.back()\">返回</a>");
@@ -158,35 +153,5 @@ public class BsUserAction extends BsBaseAction {
         return user;
     }
 
-    @Override
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        response.setContentType("text/html;charset=utf-8");
-        request.setCharacterEncoding("utf-8");
-        boolean isMultipart = ServletFileUpload.isMultipartContent(request);  // 检查是否是multipart表单
-
-        if (isMultipart) {
-            uploadFile(request, response);  // 添加
-        } else {
-            String method = request.getParameter("method");  // 获取method参数的值，调用对应的方法
-
-            if (method.equals("manage")) {
-                manage(request, response);  // 管理
-            } else if (method.equals("browse")) {
-                browse(request, response);  // 浏览
-            } else if (method.equals("show")) {
-                show(request, response);  // 显示
-            } else if (method.equals("add")) {
-                add(request, response);  // 添加
-            } else if (method.equals("willEdit")) {
-                willEdit(request, response);  // 要修改
-            } else if (method.equals("edit")) {
-                edit(request, response);  // 修改
-            } else if (method.equals("delete")) {
-                delete(request, response);  // 删除
-            } else if (method.equals("login")) {
-                login(request, response); // 登陆
-            }
-        }
-    }
 
 }

@@ -25,7 +25,7 @@
         <servlet-class>action.BsUserAction</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>BsCotegoryServlet</servlet-name>
+        <servlet-name>BsCategoryServlet</servlet-name>
         <servlet-class>action.BsCategoryAction</servlet-class>
     </servlet>
 
@@ -40,7 +40,7 @@
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>BsCotegoryServlet</servlet-name>
+        <servlet-name>BsCategoryServlet</servlet-name>
         <url-pattern>/BsCategoryAction</url-pattern>
     </servlet-mapping>
 

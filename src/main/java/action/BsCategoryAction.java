@@ -30,12 +30,12 @@ public class BsCategoryAction extends BsBaseAction {
     // 修改分类
     @Override
     protected void edit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        BsCategory category = new BsCategory();
-        category.setCatId(Integer.parseInt(request.getParameter("catId")));
-        category.setCatName(request.getParameter("catName"));
+        catId = Integer.parseInt(request.getParameter("catId"));
         try {
+            category = new BsCategory(catId, request.getParameter("catName"));
             categoryService.editCategory(category);
             response.sendRedirect("/bs/BsCategoryAction?method=manage");
+
         } catch (MyException e) {
             request.setAttribute("msg", e.getMessage() + "<a href=\"JavaScript:window.history.back()\">返回</a>");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/message.jsp");  // 跳转到信息页
@@ -58,6 +58,7 @@ public class BsCategoryAction extends BsBaseAction {
             request.setAttribute("pageList", pageList);
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/bs/category/manage.jsp");
             requestDispatcher.forward(request, response);
+
         } catch (Exception e) {
             request.setAttribute("msg", e.getMessage() + "<a href=\"JavaScript:window.history.back()\">返回</a>");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/message.jsp");  // 跳转到信息页
@@ -68,11 +69,20 @@ public class BsCategoryAction extends BsBaseAction {
     // 管理分类
     @Override
     protected void manage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        if (pageNo == null) {
+            pageNo = 1;
+        }
+
+        int count = categoryService.findCount();
+
         try {
-            List<BsCategory> categoryList = categoryService.findCategories();
-            request.setAttribute("categoryList", categoryList);
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/bs/category/manage.jsp");
+            List<BsCategory> categoryList = categoryService.findCategories(pageNo, PAGE_SIZE);
+            pageList = new BsPageList<>(categoryList, count, PAGE_SIZE, pageNo, "/bs/BsCategoryAction?method=manage");
+            request.setAttribute("pageList", pageList);
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/category/manage.jsp");
             requestDispatcher.forward(request, response);
+
         } catch (Exception e) {
             request.setAttribute("msg", e.getMessage() + "<a href=\"JavaScript:window.history.back()\">返回</a>");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/message.jsp");  // 跳转到信息页
@@ -111,7 +121,7 @@ public class BsCategoryAction extends BsBaseAction {
         }
     }
 
-    // 要修改的分类
+    // 将要修改的分类, 转发到edit.jsp
     @Override
     protected void willEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
@@ -128,33 +138,5 @@ public class BsCategoryAction extends BsBaseAction {
         }
     }
 
-    @Override
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        response.setContentType("text/html;charset=utf-8");
-        request.setCharacterEncoding("utf-8");
-        boolean isMultipart = ServletFileUpload.isMultipartContent(request);  // 检查是否是multipart表单
-
-        if (isMultipart) {
-            uploadFile(request, response);  // 添加
-        } else {
-            String method = request.getParameter("method");  // 获取method参数的值，调用对应的方法
-
-            if (method.equals("manage")) {
-                manage(request, response);  // 管理
-            } else if (method.equals("browse")) {
-                browse(request, response);  // 浏览
-            } else if (method.equals("show")) {
-                show(request, response);  // 显示
-            } else if (method.equals("add")) {
-                add(request, response);  // 添加
-            } else if (method.equals("willEdit")) {
-                willEdit(request, response);  // 要修改
-            } else if (method.equals("edit")) {
-                edit(request, response);  // 修改
-            } else if (method.equals("delete")) {
-                delete(request, response);  // 删除
-            }
-        }
-    }
 
 }

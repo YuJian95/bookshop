@@ -313,8 +313,7 @@ public class BsUserDao implements IBsUserDao {
     @Override
     public int selectAllCount() {
 
-        String tableName = "book_user";
-
+        String tableName = "bs_user";
         return BsMySQLHelper.calTableCount(tableName);
     }
 
