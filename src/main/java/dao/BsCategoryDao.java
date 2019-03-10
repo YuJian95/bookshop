@@ -32,7 +32,6 @@ public class BsCategoryDao implements IBsCategoryDao {
             //如下6行给预处理设置参数值
             preparedStatement.setString(1, category.getCatName());
 
-
             preparedStatement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

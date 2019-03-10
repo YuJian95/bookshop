@@ -11,19 +11,19 @@
 
     <tag>
         <name>BsCategoryMenuTag</name>
-        <tag-class>tag.BsCategoryMenuTag</tag-class>
-        <body-content>empty</body-content>
-    </tag>
-
-    <tag>
-        <name>BsCategoryTag</name>
         <tag-class>tag.BsCategoryTag</tag-class>
         <body-content>empty</body-content>
     </tag>
 
     <tag>
+        <name>BsCategoryTag</name>
+        <tag-class>tag.BsCategoryMenuTag</tag-class>
+        <body-content>empty</body-content>
+    </tag>
+
+    <tag>
         <name>BsCoryrightTag</name>
-        <tag-class>tag.BsCoryrightTag</tag-class>
+        <tag-class>tag.BsCoryRightTag</tag-class>
         <body-content>empty</body-content>
     </tag>
 

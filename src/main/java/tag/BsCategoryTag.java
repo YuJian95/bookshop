@@ -1,47 +1,49 @@
 package tag;
 
 import common.BsFactory;
-import exception.MyException;
 import domain.BsCategory;
+import exception.MyException;
 import iservice.IBsCategoryService;
 
-import javax.servlet.jsp.JspException;
+
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
-import java.io.IOException;
 import java.util.List;
 
 /**
- * 产品分类,供添加图书时选择类别
+ * 分类选项，以下拉选择框显示
  */
 
 public class BsCategoryTag extends SimpleTagSupport {
+
     private IBsCategoryService categoryService = (IBsCategoryService) BsFactory.getBean("categoryService");
 
     @Override
-    public void doTag() throws JspException {
+    public void doTag() {
         JspWriter out = getJspContext().getOut();
         try {
             List<BsCategory> list = categoryService.findCategories();
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("<ul class=\"nav nav-pills nav-stacked text-center\">\n");
+
+            stringBuilder.append("<label for=\"name\">选择列表</label>\n" +
+                    "    <select name=\"catId\" class=\"form-control\">\n");
 
             for (BsCategory category : list) {
-                stringBuilder.append(
-                        "                <li>" + category.getCatName() + "</li>\n");
+                stringBuilder.append("      <option value=\"" + category.getCatId() + "\">"
+                        + category.getCatName() + "</option>\n");
             }
+            stringBuilder.append("    </select>");
 
-            stringBuilder.append("            </ul>");
             out.print(stringBuilder.toString());
-
             JspFragment fragment = getJspBody();
 
             if (fragment != null) {
                 fragment.invoke(out);
             }
-        } catch (IOException e) {
-            throw new MyException("分类标签运行出错");
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new MyException("分类下拉框标签出错");
         }
     }
 }

@@ -6,15 +6,19 @@ import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 
-public class BsCoryrightTag extends SimpleTagSupport {
+/**
+ * 网站版权标签
+ */
+
+public class BsCoryRightTag extends SimpleTagSupport {
     @Override
     public void doTag() throws JspException, IOException {
         JspWriter out = getJspContext().getOut();
 
         try {
-            out.print("<p class=\"text-center\">Copyright <span class=\"glyphicon glyphicon-copyright-mark\">" +
-                    "</span> 2019 xx.com. All Rights Reserved"
-                    + "</p>");
+            out.print("    <div class=\"footer_copyright\">\n" +
+                    "        <span>Copyright (C) 网上书城 2019, All Rights Reserved</span>\n" +
+                    "    </div>");
         } catch (Exception e) {
             e.printStackTrace();
         }

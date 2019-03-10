@@ -32,6 +32,7 @@ public class BsUserAction extends BsBaseAction {
     private Integer userId;
     private BsPageList<BsUser> pageList;  // 分页器
     private Integer pageNo;
+    private String msg;  // 返回信息
 
     // 管理用户
     @Override
@@ -44,7 +45,6 @@ public class BsUserAction extends BsBaseAction {
 
         if (request.getParameter("pageNo") != null) {
             pageNo = Integer.parseInt(request.getParameter("pageNo"));  // 获取跳转的页数
-            System.out.println("跳转到下一页：" + pageNo);
         }
 
         try {
@@ -57,7 +57,7 @@ public class BsUserAction extends BsBaseAction {
 
         } catch (Exception e) {
             request.setAttribute("msg", e.getMessage() + "<a href=\"JavaScript:window.history.back()\">返回</a>");
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/message.jsp");  // 跳转到信息页
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/error.jsp");  // 跳转到信息页
             requestDispatcher.forward(request, response);
         }
 
@@ -71,10 +71,14 @@ public class BsUserAction extends BsBaseAction {
 
         try {
             userService.deleteUser(userId);
-            response.sendRedirect("/bs/BsUserAction?method=manage");
+
+            request.setAttribute("msg", "删除成功!<a href=\"/bs/BsUserAction?method=manage\" target=\"top\">返回</a>");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/message.jsp");  // 跳转到信息页
+            requestDispatcher.forward(request, response);
+
         } catch (MyException e) {
             request.setAttribute("msg", e.getMessage() + "<a href=\"JavaScript:window.history.back()\">返回</a>");
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/message.jsp");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/error.jsp");
             requestDispatcher.forward(request, response);
         }
     }
@@ -86,12 +90,14 @@ public class BsUserAction extends BsBaseAction {
 
         try {
             BsUser user = userService.findUserById(userId);
-            request.setAttribute("user", user);
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("user/show.jsp");
+            HttpSession session = request.getSession();
+            session.setAttribute("user", user);
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/user/show.jsp");
             requestDispatcher.forward(request, response);
+
         } catch (Exception e) {
             request.setAttribute("msg", e.getMessage() + "<a href=\"JavaScript:window.history.back()\">返回</a>");
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/message.jsp");  // 跳转到信息页
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/error.jsp");  // 跳转到信息页
             requestDispatcher.forward(request, response);
         }
     }
@@ -104,34 +110,46 @@ public class BsUserAction extends BsBaseAction {
             BsUser user = userService.findUserByName(userInfo.getUserName(), userInfo.getUserPwd());  // 查找用户
             HttpSession session = request.getSession();
 
-            if (user != null) {
-                session.setAttribute("user", user);
+            session.setAttribute("user", user);
 
-                if (user.getUserRight() >= ADMIN_RIGHT) {  // 管理员权限
-                    response.sendRedirect("/bs/admin/index.jsp");  // 跳转到管理员主页
-                } else {
-                    response.sendRedirect("index.jsp");
-                }
+            if (user.getUserRight() >= ADMIN_RIGHT) {  // 管理员权限
+                request.setAttribute("msg", "登录成功!<a href=\"/bs/admin/index.jsp\" target=\"top\">返回首页</a>");
+            } else {
+                request.setAttribute("msg", "登录成功!<a href=\"/bs/index.jsp\" target=\"top\">返回首页</a>");
             }
 
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/message.jsp");  // 跳转到信息页
+            requestDispatcher.forward(request, response);
+
         } catch (Exception e) {
-            request.setAttribute("msg", e.getMessage() + "<a href=\"JavaScript:window.history.back()\">返回</a>");
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/bs/common/message.jsp");  // 跳转到信息页
+            request.setAttribute("msg", "登录失败,请检查账号或密码是否一致" + "<a href=\"JavaScript:window.history.back()\">返回</a>");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/error.jsp");  // 跳转到信息页
             requestDispatcher.forward(request, response);
         }
 
     }
 
-
-    // 修改用户信息
+    // 执行修改信息
     @Override
     protected void edit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            userService.editUser(getUserInfo(request));
-            response.sendRedirect("/index.jsp");  // 返回主页
+            user = userService.findUserById(Integer.parseInt(request.getParameter("userId")));
+            user.setUserName(request.getParameter("userName"));
+            user.setUserRealName(request.getParameter("userRealName"));
+            user.setUserPhone(request.getParameter("userPhone"));
+            user.setUserEmail(request.getParameter("userEmail"));
+            user.setUserAddr(request.getParameter("userAddr"));
+
+            userService.editUser(user);
+            HttpSession session = request.getSession();
+            session.setAttribute("user", user);
+            request.setAttribute("msg", "修改成功!<a href=\"/bs/index.jsp\" target=\"top\">返回首页</a>");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/message.jsp");  // 跳转到信息页
+            requestDispatcher.forward(request, response);
+
         } catch (Exception e) {
             request.setAttribute("msg", e.getMessage() + "<a href=\"JavaScript:window.history.back()\">返回</a>");
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/message.jsp");  // 跳转到信息页
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/error.jsp");  // 跳转到信息页
             requestDispatcher.forward(request, response);
         }
     }
@@ -142,10 +160,14 @@ public class BsUserAction extends BsBaseAction {
         try {
             user = getUserInfo(request);
             userService.addUser(user);
-            response.sendRedirect("/index.jsp");  // 返回主页
+
+            request.setAttribute("msg", "注册成功!<a href=\"/bs/user/login.jsp\" target=\"top\">立即登录</a>");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/message.jsp");  // 跳转到信息页
+            requestDispatcher.forward(request, response);
+
         } catch (Exception e) {
             request.setAttribute("msg", e.getMessage() + "<a href=\"JavaScript:window.history.back()\">返回</a>");
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/message.jsp");  // 跳转到信息页
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/error.jsp");  // 跳转到信息页
             requestDispatcher.forward(request, response);
         }
     }

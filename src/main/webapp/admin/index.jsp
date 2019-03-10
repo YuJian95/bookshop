@@ -36,7 +36,7 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#">网上书城</a>
                 </div>
-                <%--添加搜索栏--%>
+
                 <div>
                     <form class="navbar-form navbar-left" method="post" action="">
                         <div class="form-group">
@@ -51,7 +51,7 @@
                         <li><a href="index.jsp"><i class="fas fa-home"></i>首页</a></li>
 
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fas fa-users"></i>我的设置</a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fas fa-users-cog"></i>我的设置</a>
 
                             <ul class="dropdown-menu">
                                 <li><a href="#"><i class="fas fa-sign-out-alt"></i>注销</a></li>
