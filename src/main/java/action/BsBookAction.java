@@ -31,12 +31,8 @@ public class BsBookAction extends BsBaseAction {
     private BsPageList<BsBook> pageList;  // 分页器
     private Integer pageNo;  // 当前页号
 
-    private void find(String url) throws Exception {
-        if (pageNo == null) {
-            pageNo = 1;
-        }
-    }
 
+    // 图书管理
     @Override
     protected void manage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         super.manage(request, response);
