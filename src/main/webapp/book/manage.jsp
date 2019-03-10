@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
@@ -40,16 +41,7 @@
         </tr>
 
         <tbody>
-        <tr>
-            <td class="text-left">你是我的小幸运</td>
-            <td class="text-center">辣鸡臭臭</td>
-            <td class="text-center">50</td>
-            <td class="text-center">1</td>
-            <td class="text-center">
-                <a href="www.baidu.com">修改</a>
-                <a href="www.taobao.com">删除</a>
-            </td>
-        </tr>
+
         <c:forEach items="${pagelist.list}" var="book">
             <tr>
                 <td class="text-center">
@@ -61,13 +53,16 @@
                 <td class="text-center">${book.bookPrice}</td>
                 <td class="text-center">${book.bookNum}</td>
                 <td class="text-center">
-                    <a href="bs/BsBookAction!willEdit.action?bookId=${book.bookId}">修改</a>
-                    <a href="bs/BsBookAction!delete.action?bookId=${book.bookId}">删除</a>
+                    <a href="/bs/BsBookAction!willEdit.action?bookId=${book.bookId}">修改</a>
+                    <a href="/bs/BsBookAction!delete.action?bookId=${book.bookId}">删除</a>
                 </td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
+    <div class="center-block">
+        ${pageList.pageBar}&nbsp;<a href="/book/add.jsp">添加图书</a>
+    </div>
 </div>
 </body>
 </html>

@@ -18,8 +18,7 @@
 </head>
 <body>
 <div class="container">
-    <!--创建悬停表格-->
-    <form role="form" method="POST" action="bs/BsBookAction!browse.action?catId=${catId}">
+    <form role="form" method="POST" action="/bs/BsBookAction!browse.action?catId=${catId}">
         <div class="form-group">
             <label class="col-sm-1 control-label">书名：</label>
             <div class="col-lg-3"><input type="text" class="form-control" name="bookName" placeholder="书名"></div>
@@ -44,7 +43,7 @@
         <c:forEach items="${pagelist.list}" var="book">
             <tr>
                 <td class="text-center">
-                    <a href="bs/BsBookAction!show.action&bookId=${book.bookId}">
+                    <a href="/bs/BsBookAction!show.action&bookId=${book.bookId}">
                             ${book.bookName}
                     </a>
                 </td>
@@ -52,7 +51,7 @@
                 <td class="text-center">${book.bookPrice}</td>
                 <td class="text-center">${book.bookNum}</td>
                 <td class="text-center">
-                    <a href="bs/BsBookAction!add.action?bookId=${book.bookId}">加入购物车</a>
+                    <a href="/bs/BsCartAction!add.action?bookId=${book.bookId}">加入购物车</a>
                 </td>
             </tr>
         </c:forEach>
