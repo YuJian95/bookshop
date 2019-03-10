@@ -19,5 +19,9 @@ public interface IBsBookService {
 
     List<BsBook> findBooks(Integer catId, String bookName, String bookAuthor, Integer pageNo, Integer pageSize);
 
+    List<BsBook> findBooks();
+
     int findCount(Integer catId, String bookName, String bookAuthor);
+
+    int findAllCount();
 }

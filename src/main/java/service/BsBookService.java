@@ -40,4 +40,15 @@ public class BsBookService implements IBsBookService {
     public int findCount(Integer catId, String bookName, String bookAuthor) {
         return bookDao.selectCount(catId, bookName, bookAuthor);
     }
+
+    @Override
+    public List<BsBook> findBooks() {
+        return bookDao.selectAll();
+    }
+
+    @Override
+    public int findAllCount() {
+        return bookDao.selectAllCount();
+    }
+
 }

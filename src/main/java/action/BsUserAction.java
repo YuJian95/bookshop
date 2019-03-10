@@ -51,6 +51,7 @@ public class BsUserAction extends BsBaseAction {
             int count = userService.findCount();
             List<BsUser> list = userService.findUsers(pageNo, PAGE_SIZE);  // 分页查找用户数据
             pageList = new BsPageList<>(list, count, PAGE_SIZE, pageNo, "/bs/BsUserAction?method=manage");
+
             request.setAttribute("pageList", pageList);
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/user/manage.jsp");
             requestDispatcher.forward(request, response);

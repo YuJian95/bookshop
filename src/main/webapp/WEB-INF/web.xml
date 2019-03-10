@@ -25,8 +25,16 @@
         <servlet-class>action.BsUserAction</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>BsCategoryServlet</servlet-name>
+        <servlet-name>BsCategoryAction</servlet-name>
         <servlet-class>action.BsCategoryAction</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BsBookAction</servlet-name>
+        <servlet-class>action.BsBookAction</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BsOrderAction</servlet-name>
+        <servlet-class>action.BsOrderAction</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -40,8 +48,18 @@
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>BsCategoryServlet</servlet-name>
+        <servlet-name>BsCategoryAction</servlet-name>
         <url-pattern>/BsCategoryAction</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>BsBookAction</servlet-name>
+        <url-pattern>/BsBookAction</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>BsOrderAction</servlet-name>
+        <url-pattern>/BsOrderAction</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>

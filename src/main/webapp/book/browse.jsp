@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
@@ -18,7 +19,7 @@
 </head>
 <body>
 <div class="container">
-    <form role="form" method="POST" action="/bs/BsBookAction!browse.action?catId=${catId}">
+    <form role="form" method="POST" action="/bs/BsBookAction?method=browse&catId=${catId}">
         <div class="form-group">
             <label class="col-sm-1 control-label">书名：</label>
             <div class="col-lg-3"><input type="text" class="form-control" name="bookName" placeholder="书名"></div>
@@ -40,7 +41,7 @@
         </tr>
 
         <tbody>
-        <c:forEach items="${pagelist.list}" var="book">
+        <c:forEach items="${pageList.list}" var="book">
             <tr>
                 <td class="text-center">
                     <a href="/bs/BsBookAction!show.action&bookId=${book.bookId}">

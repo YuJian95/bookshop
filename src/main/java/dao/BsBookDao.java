@@ -2,6 +2,7 @@ package dao;
 
 import common.BsMySQLHelper;
 import domain.BsBook;
+import domain.BsCategory;
 import exception.MyException;
 import idao.IBsBookDao;
 
@@ -258,6 +259,8 @@ public class BsBookDao implements IBsBookDao {
 
             while (resultSet.next()) {
                 book = new BsBook();
+                BsCategory category = new BsCategory();
+                category.setCatId(resultSet.getInt("cat_id"));
                 book.setBookId(resultSet.getInt("book_id"));
                 book.setBookPublisher(resultSet.getString("book_publisher"));
                 book.setBookPrice(resultSet.getInt("book_price"));
@@ -265,7 +268,7 @@ public class BsBookDao implements IBsBookDao {
                 book.setBookPicture(resultSet.getString("book_picture"));
                 book.setBookNum(resultSet.getInt("book_num"));
                 book.setBookName(resultSet.getString("book_name"));
-                book.setCategory(new BsCategoryDao().selectById(resultSet.getInt("cat_id")));
+                book.setCategory(category);
                 book.setBookIsbn(resultSet.getString("book_isbn"));
                 book.setBookDesc(resultSet.getString("book_desc"));
                 bookList.add(book);
@@ -303,6 +306,9 @@ public class BsBookDao implements IBsBookDao {
             bookList = new ArrayList<>();
 
             while (resultSet.next()) {
+                BsCategory category = new BsCategory();
+                category.setCatId(resultSet.getInt("cat_id"));
+
                 book = new BsBook();
                 book.setBookId(resultSet.getInt("book_id"));
                 book.setBookPublisher(resultSet.getString("book_publisher"));
@@ -311,7 +317,7 @@ public class BsBookDao implements IBsBookDao {
                 book.setBookPicture(resultSet.getString("book_picture"));
                 book.setBookNum(resultSet.getInt("book_num"));
                 book.setBookName(resultSet.getString("book_name"));
-                book.setCategory(new BsCategoryDao().selectById(resultSet.getInt("cat_id")));
+                book.setCategory(category);
                 book.setBookIsbn(resultSet.getString("book_isbn"));
                 book.setBookDesc(resultSet.getString("book_desc"));
                 bookList.add(book);

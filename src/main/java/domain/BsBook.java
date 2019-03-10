@@ -137,7 +137,7 @@ public class BsBook implements java.io.Serializable {
     public String toString() {
         return "BsBook{" +
                 "bookId=" + bookId +
-                ", Category=" + Category +
+                ", Category=" + Category.getCatId() +
                 ", bookPublisher='" + bookPublisher + '\'' +
                 ", bookIsbn='" + bookIsbn + '\'' +
                 ", bookName='" + bookName + '\'' +
