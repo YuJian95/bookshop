@@ -16,6 +16,18 @@ public class BsOrder implements java.io.Serializable {
 
     private Set bsDetailses = new HashSet(0);
 
+    public BsOrder() {
+    }
+
+    public BsOrder(Integer ordId, BsUser user, Integer userId, Date ordDatetime, Integer ordState, Set bsDetailses) {
+        this.ordId = ordId;
+        this.user = user;
+        this.userId = userId;
+        this.ordDatetime = ordDatetime;
+        this.ordState = ordState;
+        this.bsDetailses = bsDetailses;
+    }
+
     @Id
     @Column(name = "ord_id")
     public Integer getOrdId() {
@@ -70,5 +82,17 @@ public class BsOrder implements java.io.Serializable {
 
     public void setBsDetailses(Set bsDetailses) {
         this.bsDetailses = bsDetailses;
+    }
+
+    @Override
+    public String toString() {
+        return "BsOrder{" +
+                "ordId=" + ordId +
+                ", user=" + user +
+                ", userId=" + userId +
+                ", ordDatetime=" + ordDatetime +
+                ", ordState=" + ordState +
+                ", bsDetailses=" + bsDetailses +
+                '}';
     }
 }

@@ -190,13 +190,7 @@ public class BsUserDao implements IBsUserDao {
             throw new MyException("删除用户失败!");
         } finally {
 
-            if (preparedStatement != null) {
-                BsMySQLHelper.closePreparedStatement(preparedStatement); //关闭预处理
-            }
-
-            if (connection != null) {
-                BsMySQLHelper.closeConnection(connection);//关闭连接
-            }
+            BsMySQLHelper.closeConPreSta(preparedStatement, connection);
         }
     }
 

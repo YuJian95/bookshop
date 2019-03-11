@@ -11,6 +11,17 @@ public class BsDetails implements java.io.Serializable {
     private double detNum;
     private BsBook book;
 
+    public BsDetails() {
+    }
+
+    public BsDetails(int detId, int ordId, int bookId, double detNum, BsBook book) {
+        this.detId = detId;
+        this.ordId = ordId;
+        this.bookId = bookId;
+        this.detNum = detNum;
+        this.book = book;
+    }
+
     @Id
     @Column(name = "det_id")
     public int getDetId() {
@@ -57,5 +68,16 @@ public class BsDetails implements java.io.Serializable {
 
     public void setBook(BsBook book) {
         this.book = book;
+    }
+
+    @Override
+    public String toString() {
+        return "BsDetails{" +
+                "detId=" + detId +
+                ", ordId=" + ordId +
+                ", bookId=" + bookId +
+                ", detNum=" + detNum +
+                ", book=" + book +
+                '}';
     }
 }
