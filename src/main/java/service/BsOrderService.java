@@ -40,4 +40,5 @@ public class BsOrderService implements IBsOrderService {
     public int findCount(Integer userId) {
         return orderDao.selectCount(userId);
     }
+
 }

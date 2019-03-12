@@ -10,10 +10,8 @@ import idao.IBsOrderDao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.sql.SQLException;
+import java.util.*;
 
 /**
  * 订单数据访问接口
@@ -31,12 +29,12 @@ public class BsOrderDao implements IBsOrderDao {
         Connection connection = null;  // 定义连接对象
         PreparedStatement preparedStatement = null;  // 定义预处理对象
         ResultSet resultSet = null;  // 定义结果集对象
-        BsOrder order = null;  // 定义对象
+        BsOrder order;  // 定义对象
         List<BsOrder> list = new ArrayList<>();
-
+        BsUser user = new BsUser();
         try {
             connection = BsMySQLHelper.connection();  // 建立数据库连接
-            String sql = "SELECT t.* FROM bs.bs_order t WHERE `user_id` = ? LIMIT ?:?";
+            String sql = "SELECT t.* FROM bs.bs_order t WHERE `user_id` = ? LIMIT ?,?";
 
             preparedStatement = connection.prepareStatement(sql);  // 建立预处理对象
             preparedStatement.setInt(1, userId);  // 传递参数
@@ -44,16 +42,14 @@ public class BsOrderDao implements IBsOrderDao {
             preparedStatement.setInt(3, pageSize);  // 传递参数
             resultSet = preparedStatement.executeQuery();  // 执行查询
 
-            BsUser user = new BsUser();
-
             if (resultSet.next()) {  // 如果有记录，移动第一条记录
                 user.setUserId(userId);
-                Set<BsDetails> set = new HashSet<>();
-                // set =
-                //order = new BsOrder(resultSet.getInt("ord_id"),user,userId,resultSet.getTimestamp("ord_datetime"),resultSet.getString("ord_state"));
-
+                int ord_id = resultSet.getInt("ord_id");
+                Set<BsDetails> set = new HashSet<>(new BsDetailsDao().selectById(ord_id));
+                order = new BsOrder(ord_id, user, userId, resultSet.getTimestamp("ord_datetime"), resultSet.getInt("ord_state"), set);
+                list.add(order);
             }
-            return null;
+            return list;
 
         } catch (Exception e) {
 
@@ -67,48 +63,198 @@ public class BsOrderDao implements IBsOrderDao {
     // 订单数目查找
     @Override
     public int selectCount(Integer userId) {
-        return 0;
+        String table_name = "bs_order";
+        String key = "user_id = ";
+        return BsMySQLHelper.calTableCount(table_name, key, userId);
     }
 
     // 添加新订单
     @Override
-    public void insert(BsOrder obj) {
-
+    public void insert(BsOrder order) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        Set detailses = null;
+        BsDetailsDao detailsDao = new BsDetailsDao();
+        try {
+            connection = BsMySQLHelper.connection();
+            String sql = "INSERT INTO bs_order (ord_id, user_id,ord_state) VALUES(?,?,?) ";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, order.getOrdId());
+            preparedStatement.setInt(2, order.getUserId());
+            preparedStatement.setInt(3, order.getOrdState());
+            Iterator<BsDetails> iterable = detailses.iterator();
+            while (iterable.hasNext()) {
+                detailsDao.insert(iterable.next());
+            }
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new MyException("添加订单细目失败");
+        } finally {
+            BsMySQLHelper.closeConPreSta(preparedStatement, connection);
+        }
     }
 
     // 修改订单
     @Override
-    public void update(BsOrder obj) {
+    public void update(BsOrder order) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        Set detailses;
+        BsDetailsDao detailsDao = new BsDetailsDao();
+        try {
+            connection = BsMySQLHelper.connection();
+            String sql = "UPDATE bs_order SET ord_state = ? ";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, order.getOrdState());
+            detailses = order.getBsDetailses();
+            Iterator<BsDetails> iterable = detailses.iterator();
+            while (iterable.hasNext()) {
+                detailsDao.update(iterable.next());
+            }
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new MyException("添加订单细目失败");
+        } finally {
+            BsMySQLHelper.closeConPreSta(preparedStatement, connection);
+        }
 
     }
 
     // 删除订单
     @Override
-    public void delete(Integer integer) {
-
+    public void delete(Integer orderId) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = BsMySQLHelper.connection();
+            String sql = "DELETE FROM bs_order where ord_id = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, orderId);
+            preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new MyException("删除订单失败!");
+        } finally {
+            BsMySQLHelper.closeConPreSta(preparedStatement, connection);
+        }
     }
 
     // 订单查询
     @Override
-    public BsOrder selectById(Integer integer) {
-        return null;
+    public List<BsOrder> selectById(Integer orderId) {
+
+        Connection connection = null;  // 定义连接对象
+        PreparedStatement preparedStatement = null;  // 定义预处理对象
+        ResultSet resultSet = null;  // 定义结果集对象
+        BsOrder order;  // 定义对象
+        List<BsOrder> list = new ArrayList<>();
+        BsUser user = new BsUser();
+        try {
+            connection = BsMySQLHelper.connection();  // 建立数据库连接
+            String sql = "SELECT t.* FROM bs.bs_order t WHERE ord_id = ?";
+            preparedStatement = connection.prepareStatement(sql);  // 建立预处理对象
+            preparedStatement.setInt(1, orderId);
+            resultSet = preparedStatement.executeQuery();  // 执行查询
+
+            if (resultSet.next()) {  // 如果有记录，移动第一条记录
+                int userId = resultSet.getInt("user_id");
+                user.setUserId(userId);
+                int ord_id = resultSet.getInt("ord_id");
+                Set<BsDetails> set = new HashSet<>(new BsDetailsDao().selectById(ord_id));
+                order = new BsOrder(ord_id, user, userId, resultSet.getTimestamp("ord_datetime"), resultSet.getInt("ord_state"), set);
+                list.add(order);
+            }
+            return list;
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            throw new MyException("查找所有订单失败!");
+        } finally {
+            BsMySQLHelper.closeAll(connection, preparedStatement, resultSet);  // 关闭结果集, 预处理, 连接.
+        }
     }
 
     // 查找所有订单
     @Override
     public List<BsOrder> selectAll() {
-        return null;
+
+        Connection connection = null;  // 定义连接对象
+        PreparedStatement preparedStatement = null;  // 定义预处理对象
+        ResultSet resultSet = null;  // 定义结果集对象
+        BsOrder order;  // 定义对象
+        List<BsOrder> list = new ArrayList<>();
+        BsUser user = new BsUser();
+        try {
+            connection = BsMySQLHelper.connection();  // 建立数据库连接
+            String sql = "SELECT t.* FROM bs.bs_order t ";
+
+            preparedStatement = connection.prepareStatement(sql);  // 建立预处理对象
+            resultSet = preparedStatement.executeQuery();  // 执行查询
+
+            if (resultSet.next()) {  // 如果有记录，移动第一条记录
+                int userId = resultSet.getInt("user_id");
+                user.setUserId(userId);
+                int ord_id = resultSet.getInt("ord_id");
+                Set<BsDetails> set = new HashSet<>(new BsDetailsDao().selectById(ord_id));
+                order = new BsOrder(ord_id, user, userId, resultSet.getTimestamp("ord_datetime"), resultSet.getInt("ord_state"), set);
+                list.add(order);
+            }
+            return list;
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            throw new MyException("查找所有订单失败!");
+        } finally {
+            BsMySQLHelper.closeAll(connection, preparedStatement, resultSet);  // 关闭结果集, 预处理, 连接.
+        }
     }
 
     // 分页查找所有订单
     @Override
     public List<BsOrder> selectAll(Integer pageSize, Integer pageNo) {
-        return null;
+        Connection connection = null;  // 定义连接对象
+        PreparedStatement preparedStatement = null;  // 定义预处理对象
+        ResultSet resultSet = null;  // 定义结果集对象
+        BsOrder order;  // 定义对象
+        List<BsOrder> list = new ArrayList<>();
+        BsUser user = new BsUser();
+        try {
+            connection = BsMySQLHelper.connection();  // 建立数据库连接
+            String sql = "SELECT t.* FROM bs.bs_order t LIMIT ?,?";
+
+            preparedStatement = connection.prepareStatement(sql);  // 建立预处理对象
+            preparedStatement.setInt(1, (pageNo - 1) * pageSize);  // 传递参数
+            preparedStatement.setInt(2, pageSize);  // 传递参数
+            resultSet = preparedStatement.executeQuery();  // 执行查询
+
+            if (resultSet.next()) {  // 如果有记录，移动第一条记录
+                int userId = resultSet.getInt("user_id");
+                user.setUserId(userId);
+                int ord_id = resultSet.getInt("ord_id");
+                Set<BsDetails> set = new HashSet<>(new BsDetailsDao().selectById(ord_id));
+                order = new BsOrder(ord_id, user, userId, resultSet.getTimestamp("ord_datetime"), resultSet.getInt("ord_state"), set);
+                list.add(order);
+            }
+            return list;
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            throw new MyException("分页查找订单失败!");
+        } finally {
+            BsMySQLHelper.closeAll(connection, preparedStatement, resultSet);  // 关闭结果集, 预处理, 连接.
+        }
     }
 
     // 订单总数
     @Override
     public int selectAllCount() {
-        return 0;
+        String table_name = "bs_order";
+        return BsMySQLHelper.calTableCount(table_name);
     }
 }

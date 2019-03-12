@@ -103,4 +103,30 @@ public class BsMySQLHelper {
             BsMySQLHelper.closeAll(connection, preparedStatement, resultSet);
         }
     }
+
+    // 查询数据表的记录总数
+    public static int calTableCount(String tableName, String key, int id) {
+        Connection connection = null;  // 创建连接
+        PreparedStatement preparedStatement = null;  // 创建预编译
+        ResultSet resultSet = null; // 创建结果集
+
+        int count = 0;
+        try {
+            connection = BsMySQLHelper.connection();  // 建立连接
+            String sql = "SELECT COUNT(*) FROM " + tableName + " WHERE " + key + id;
+            preparedStatement = connection.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                count = resultSet.getInt("COUNT(*)");  // 查询记录结果
+            }
+            return count;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new MyException("查询" + tableName + "记录数错误! ");
+        } finally {
+            BsMySQLHelper.closeAll(connection, preparedStatement, resultSet);
+        }
+    }
 }

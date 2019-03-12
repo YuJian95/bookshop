@@ -98,30 +98,32 @@ public class BsDetailsDao implements IBsDetailDao {
 
     // 选择指定id的订单
     @Override
-    public BsDetails selectById(Integer ord_id) {
+    public List<BsDetails> selectById(Integer ordId) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet;
         BsDetails bsDetails = null;
         BsBook book;
+        List<BsDetails> list = new ArrayList<>();
         try {
             connection = BsMySQLHelper.connection();
             String sql = "SELECT * FROM bs_details WHERE ord_id = ?";
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, ord_id);
+            preparedStatement.setInt(1, ordId);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 bsDetails = new BsDetails();
                 int book_id = resultSet.getInt("book_id");
                 bsDetails.setBookId(book_id);
-                bsDetails.setOrdId(ord_id);
+                bsDetails.setOrdId(ordId);
                 bsDetails.setDetId(resultSet.getInt("det_id"));
                 bsDetails.setDetNum(resultSet.getDouble("det_num"));
 
                 book = new BsBookDao().selectById(book_id);
                 bsDetails.setBook(book);
 
+                list.add(bsDetails);
             }
 
         } catch (SQLException e) {
@@ -131,7 +133,7 @@ public class BsDetailsDao implements IBsDetailDao {
             BsMySQLHelper.closeConPreSta(preparedStatement, connection);
         }
 
-        return bsDetails;
+        return list;
     }
 
     // 获取所有细节

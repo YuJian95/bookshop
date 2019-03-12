@@ -19,7 +19,7 @@ public interface IBsBaseDao<T, ID extends Serializable> {
     void delete(ID id);
 
     //通过id查询
-    T selectById(ID id);
+    List<T> selectById(ID id);
 
     //查找所有
     List<T> selectAll();

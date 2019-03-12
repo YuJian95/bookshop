@@ -40,12 +40,11 @@ public class BsUserAction extends BsBaseAction {
 
         if (pageNo == null) {
             pageNo = 1;
-            System.out.println("这里是默认赋值首页");
         }
 
-        if (request.getParameter("pageNo") != null) {
-            pageNo = Integer.parseInt(request.getParameter("pageNo"));  // 获取跳转的页数
-        }
+//        if (request.getParameter("pageNo") != null) {
+//            pageNo = Integer.parseInt(request.getParameter("pageNo"));  // 获取跳转的页数
+//        }
 
         try {
             int count = userService.findCount();
