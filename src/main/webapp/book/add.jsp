@@ -23,7 +23,7 @@
     <table>
         <tr>
             <td>类别</td>
-            <td><bs:BsCategoryTag/></td>
+            <td><bs:BsCategoryMenuTag/></td>
         </tr>
         <tr>
             <td>名称</td>

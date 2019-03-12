@@ -274,7 +274,7 @@ public class BsUserDao implements IBsUserDao {
         ResultSet resultSet = null;
 
         List<BsUser> userList = new ArrayList<>();
-
+        BsUser user;
         try {
             connection = BsMySQLHelper.connection();
             String sql = "SELECT t.* FROM bs.bs_user t LIMIT  ?,?";
@@ -283,7 +283,7 @@ public class BsUserDao implements IBsUserDao {
             preparedStatement.setInt(1, (pageNo - 1) * pageSize);
             preparedStatement.setInt(2, pageSize);
             resultSet = preparedStatement.executeQuery();
-            BsUser user;
+
 
             while (resultSet.next()) {
 
