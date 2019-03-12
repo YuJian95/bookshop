@@ -311,4 +311,8 @@ public class BsUserDao implements IBsUserDao {
         return BsMySQLHelper.calTableCount(tableName);
     }
 
+    @Override
+    public List<BsUser> selectSomeById(Integer integer) {
+        return null;
+    }
 }

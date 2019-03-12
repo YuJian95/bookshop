@@ -142,6 +142,11 @@ public class BsCategoryDao implements IBsCategoryDao {
         }
     }
 
+    @Override
+    public List<BsCategory> selectSomeById(Integer integer) {
+        return null;
+    }
+
     //查找所有分类
     @Override
     public List<BsCategory> selectAll() {
@@ -237,5 +242,6 @@ public class BsCategoryDao implements IBsCategoryDao {
             BsMySQLHelper.closeAll(connection, preparedStatement, resultSet);
         }
     }
+
 
 }

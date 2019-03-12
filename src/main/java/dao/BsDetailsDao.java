@@ -96,9 +96,14 @@ public class BsDetailsDao implements IBsDetailDao {
         }
     }
 
+    @Override
+    public BsDetails selectById(Integer integer) {
+        return null;
+    }
+
     // 选择指定id的订单
     @Override
-    public List<BsDetails> selectById(Integer ordId) {
+    public List<BsDetails> selectSomeById(Integer ordId) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet;
@@ -219,4 +224,6 @@ public class BsDetailsDao implements IBsDetailDao {
         String tableName = "bs_details";
         return BsMySQLHelper.calTableCount(tableName);
     }
+
+
 }

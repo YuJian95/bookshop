@@ -339,4 +339,9 @@ public class BsBookDao implements IBsBookDao {
         String tableName = "bs_book";
         return BsMySQLHelper.calTableCount(tableName);
     }
+
+    @Override
+    public List<BsBook> selectSomeById(Integer integer) {
+        return null;
+    }
 }

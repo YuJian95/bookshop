@@ -22,7 +22,7 @@
 </head>
 <body>
 <div class="container">
-    <table border="1" width="98%" align="center" cellpadding="4" style="border-collapse: collapse">
+    <table class="table">
         <tr>
             <th align="left" width="120">用户名</th>
             <th align="center" width="120">真实名</th>
@@ -44,7 +44,7 @@
         </c:forEach>
     </table>
     <br/>
-    <center>${pageList.pageBar}&nbsp;<a href="/bs/user/add.jsp">添加</a></center>
+    <div class="text-center">${pageList.pageBar}&nbsp;<a href="/bs/user/add.jsp">添加</a></div>
 </div>
 </body>
 </html>

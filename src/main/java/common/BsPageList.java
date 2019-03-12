@@ -41,7 +41,7 @@ public class BsPageList<T> {
         }
 
         if (pageNo == pageCount) {  // 当这是尾页时
-            sb.append("下页&nsbp;尾页");
+            sb.append("下页&nbsp;尾页");
         } else {
             sb.append("<a href=\"").append(url).append("?pageNo=").append(pageNo + 1).append("\">下页</a>&nbsp;");
             sb.append("<a href=\"").append(url).append("?pageNo=").append(pageCount).append("\">尾页</a>");
