@@ -51,4 +51,13 @@ public class BsBookService implements IBsBookService {
         return bookDao.selectAllCount();
     }
 
+    @Override
+    public List<BsBook> findSomeById(Integer catId) {
+        return bookDao.selectSomeById(catId);
+    }
+
+    @Override
+    public int findSomeCount(Integer catId) {
+        return bookDao.selectSomeCount(catId);
+    }
 }

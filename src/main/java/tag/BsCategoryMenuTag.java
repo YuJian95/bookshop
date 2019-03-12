@@ -28,14 +28,14 @@ public class BsCategoryMenuTag extends SimpleTagSupport {
             stringBuilder.append("<table>\n" +
                     "\t\t<tr>\n" +
                     "\t\t\t<td>\n" +
-                    "\t\t\t\t<a href=\"bs/BsBookAction!method=browse&catId=\" target=\"content\">所有</a>\n" +
+                    "\t\t\t\t<a href=\"/bs/BsBookAction?method=browse&catId=\" target=\"content\">所有</a>\n" +
                     "\t\t\t</td>\n" +
                     "\t\t</tr>\n");
 
             for (BsCategory category : list) {
                 stringBuilder.append("\t\t<tr>\n");
                 stringBuilder.append("\t\t\t<td>\n" +
-                        "\t\t\t\t<a href=\"bs/BsBookAction!method=browse&catId=");
+                        "\t\t\t\t<a href=\"/bs/BsBookAction?method=browse&catId=");
                 stringBuilder.append(category.getCatId());
                 stringBuilder.append("\" target=\"content\">" + category.getCatName() + "</a>\n" +
                         "\t\t\t</td>" +

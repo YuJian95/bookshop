@@ -67,7 +67,6 @@ public class BsBookAction extends BsBaseAction {
     private void setInfo(HttpServletRequest request) throws ServletException, IOException {
 
         if (pageNo == null) {
-            System.out.println("设置初始参数");
             pageNo = 1;
             request.setAttribute("catId", catId);
             request.setAttribute("bookName", bookName);
@@ -99,19 +98,27 @@ public class BsBookAction extends BsBaseAction {
         }
     }
 
-    // 图书分页,分类浏览
+    // 图书分页,分类浏览,搜索
     @Override
     protected void browse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         msg = "图书分类浏览:";
-        setInfo(request);
-
+        List<BsBook> list;
+        int count;
         try {
-            int count = bookService.findCount(catId, bookName, bookAuthor);
-            List<BsBook> list = bookService.findBooks(catId, bookName, bookAuthor, pageNo, PAGE_SIZE);
-            pageList = new BsPageList<>(list, count, PAGE_SIZE, pageNo, "/bs/BsBookAction?method=manage");
+            catId = Integer.valueOf(request.getParameter("catId"));
+            setInfo(request);
+            if (bookAuthor == null || bookName == null) {
+                list = bookService.findSomeById(catId);
+                count = bookService.findSomeCount(catId);
+            } else {// 查找图书
+                count = bookService.findCount(catId, bookName, bookAuthor);
+                list = bookService.findBooks(catId, bookName, bookAuthor, pageNo, PAGE_SIZE);
+            }
 
+            pageList = new BsPageList<>(list, count, PAGE_SIZE, pageNo, "/bs/BsBookAction?method=manage");
+            System.out.println(pageList.getList().size());
             request.setAttribute("pageList", pageList);
-            response.sendRedirect("/book/browse.jsp");
+            response.sendRedirect("/bs/book/browse.jsp");
         } catch (Exception e) {
             request.setAttribute("msg", msg + "失败" + "<a href=\"JavaScript:window.history.back()\">返回</a>");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/error.jsp");  // 跳转到信息页

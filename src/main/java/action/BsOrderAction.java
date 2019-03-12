@@ -24,6 +24,7 @@ public class BsOrderAction extends BsBaseAction {
     private Integer pageNo;
     private String msg;
 
+    // 订单添加
     @Override
     protected void add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         msg = "订单添加:";
@@ -47,7 +48,7 @@ public class BsOrderAction extends BsBaseAction {
         }
     }
 
-
+    // 订单修改
     @Override
     protected void edit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         msg = "订单修改:";

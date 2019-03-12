@@ -13,4 +13,6 @@ public interface IBsBookDao extends IBsBaseDao<BsBook, Integer> {
     List<BsBook> selectSome(Integer catId, String bookName, String bookAuthor, Integer pageNo, Integer pageSize);
 
     int selectCount(Integer catId, String bookName, String bookAuthor);
+
+    int selectSomeCount(Integer catId);
 }

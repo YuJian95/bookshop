@@ -53,7 +53,7 @@
                 <td class="text-center">${book.bookPrice}</td>
                 <td class="text-center">${book.bookNum}</td>
                 <td class="text-center">
-                    <a href="/bs/BsCartAction!add.action?bookId=${book.bookId}">加入购物车</a>
+                    <a href="/bs/BsCartAction?method=add&bookId=${book.bookId}">加入购物车</a>
                 </td>
             </tr>
         </c:forEach>

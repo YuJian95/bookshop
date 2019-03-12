@@ -26,12 +26,11 @@ public class BsCategoryTag extends SimpleTagSupport {
             List<BsCategory> list = categoryService.findCategories();
             StringBuilder stringBuilder = new StringBuilder();
 
-            stringBuilder.append("<label for=\"name\">选择列表</label>\n" +
+            stringBuilder.append("<label for=\"name\">分类</label>\n" +
                     "    <select name=\"catId\" class=\"form-control\">\n");
 
             for (BsCategory category : list) {
-                stringBuilder.append("      <option value=\"" + category.getCatId() + "\">"
-                        + category.getCatName() + "</option>\n");
+                stringBuilder.append("      <option value=\"").append(category.getCatId()).append("\">").append(category.getCatName()).append("</option>\n");
             }
             stringBuilder.append("    </select>");
 

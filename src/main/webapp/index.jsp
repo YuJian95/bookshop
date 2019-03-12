@@ -59,7 +59,7 @@
 <div id="content" class="container">
     <div class="row">
         <%--分类菜单--%>
-        <div id="left" class="col-sm-2">
+        <div id="left" class="col-sm-2 text-center">
             <bs:BsCategoryTag/>
         </div>
 

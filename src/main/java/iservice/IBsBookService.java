@@ -24,4 +24,9 @@ public interface IBsBookService {
     int findCount(Integer catId, String bookName, String bookAuthor);
 
     int findAllCount();
+
+    List<BsBook> findSomeById(Integer catId);
+
+    int findSomeCount(Integer catId);
+
 }
