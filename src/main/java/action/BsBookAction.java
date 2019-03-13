@@ -68,9 +68,6 @@ public class BsBookAction extends BsBaseAction {
 
         if (pageNo == null) {
             pageNo = 1;
-            request.setAttribute("catId", catId);
-            request.setAttribute("bookName", bookName);
-            request.setAttribute("bookAuthor", bookAuthor);
         } else {
             catId = Integer.parseInt(request.getParameter("catId"));
             bookName = request.getParameter("bookName");
@@ -82,15 +79,18 @@ public class BsBookAction extends BsBaseAction {
     @Override
     protected void manage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         msg = "图书管理:";
-        setInfo(request);
-
         try {
-            int count = bookService.findAllCount();
-            List<BsBook> list = bookService.findBooks();
-            pageList = new BsPageList<>(list, count, PAGE_SIZE, pageNo, "/bs/BsBookAction?method=manage");
+            setInfo(request);
 
+            int count = bookService.findAllCount(); //查找所有图书数量
+
+            List<BsBook> list = bookService.findBooks(); //查找所有图书
+            pageList = new BsPageList<>(list, count, PAGE_SIZE, pageNo, "/bs/BsBookAction?method=manage");
             request.setAttribute("pageList", pageList);
-            response.sendRedirect("/bs/book/manage.jsp");
+
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/book/manage.jsp");
+            requestDispatcher.forward(request, response);
+
         } catch (Exception e) {
             request.setAttribute("msg", msg + "失败" + "<a href=\"JavaScript:window.history.back()\">返回</a>");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/error.jsp");  // 跳转到信息页
@@ -115,10 +115,10 @@ public class BsBookAction extends BsBaseAction {
                 list = bookService.findBooks(catId, bookName, bookAuthor, pageNo, PAGE_SIZE);
             }
 
-            pageList = new BsPageList<>(list, count, PAGE_SIZE, pageNo, "/bs/BsBookAction?method=manage");
-            System.out.println(pageList.getList().size());
+            pageList = new BsPageList<>(list, count, PAGE_SIZE, pageNo, "/bs/BsBookAction?method=browse");
             request.setAttribute("pageList", pageList);
-            response.sendRedirect("/bs/book/browse.jsp");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/book/browse.jsp");
+            requestDispatcher.forward(request, response);
         } catch (Exception e) {
             request.setAttribute("msg", msg + "失败" + "<a href=\"JavaScript:window.history.back()\">返回</a>");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/error.jsp");  // 跳转到信息页
@@ -193,7 +193,8 @@ public class BsBookAction extends BsBaseAction {
             book = bookService.findBookById(bookId);
             request.setAttribute("book", book);
 
-            response.sendRedirect("/book/edit.jsp");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/book/edit.jsp");
+            requestDispatcher.forward(request, response);
         } catch (Exception e) {
             request.setAttribute("msg", msg + "失败" + "<a href=\"JavaScript:window.history.back()\">返回</a>");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/error.jsp");
@@ -211,7 +212,8 @@ public class BsBookAction extends BsBaseAction {
             book = bookService.findBookById(bookId);
             request.setAttribute("book", book);
 
-            response.sendRedirect("/book/show.jsp");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/book/show.jsp");
+            requestDispatcher.forward(request, response);
         } catch (Exception e) {
             request.setAttribute("msg", msg + "失败" + "<a href=\"JavaScript:window.history.back()\">返回</a>");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/error.jsp");

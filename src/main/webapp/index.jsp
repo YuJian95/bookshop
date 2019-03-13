@@ -22,7 +22,7 @@
 
     <%--logo显示--%>
     <div id="logo">
-        <img src="img/background.png" class="img-rounded" alt="logo.png" height="50px">
+        <img src="img/logo.gif" class="img-rounded" alt="logo.gif">
     </div>
 
     <%--导航栏--%>

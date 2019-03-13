@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!Doctype html>
 <html>
 <head>
     <title>图书管理</title>
@@ -18,8 +19,8 @@
     <script src="../bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class="container">
-    <!--创建悬停表格-->
+<div class="container text-center">
+
     <form class="form-horizontal" role="form" method="POST" action="/bs/BsBookAction?method=manage&catId=${catId}">
         <div class="form-group">
             <label class="col-sm-1 control-label">书名：</label>
@@ -31,7 +32,10 @@
             </div>
         </div>
     </form>
+
+    <!--创建悬停表格-->
     <table class="table table-hover">
+        <thead>
         <tr>
             <th class="text-center">书名</th>
             <th class="text-center">作者</th>
@@ -39,22 +43,22 @@
             <th class="text-center">数量</th>
             <th class="text-center">操作</th>
         </tr>
-
+        </thead>
         <tbody>
 
-        <c:forEach items="${pageList.list}" var="book">
+        <c:forEach items="${pageList.list}" var="n">
             <tr>
                 <td class="text-center">
-                    <a href="bs/BsBookAction!show.action&bookId=${book.bookId}">
-                            ${book.bookName}
+                    <a href="/bs/BsBookAction?method=show&bookId=${n.bookId}">
+                            ${n.bookName}
                     </a>
                 </td>
-                <td class="text-center">${book.bookAuthor}</td>
-                <td class="text-center">${book.bookPrice}</td>
-                <td class="text-center">${book.bookNum}</td>
+                <td class="text-center">${n.bookAuthor}</td>
+                <td class="text-center">${n.bookPrice}</td>
+                <td class="text-center">${n.bookNum}</td>
                 <td class="text-center">
-                    <a href="/bs/BsBookAction!willEdit.action?bookId=${book.bookId}">修改</a>
-                    <a href="/bs/BsBookAction!delete.action?bookId=${book.bookId}">删除</a>
+                    <a href="/bs/BsBookAction?method=willEdit&bookId=${n.bookId}">修改</a>
+                    <a href="/bs/BsBookAction?method=delete&bookId=${n.bookId}">删除</a>
                 </td>
             </tr>
         </c:forEach>

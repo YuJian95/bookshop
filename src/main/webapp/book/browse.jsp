@@ -33,14 +33,15 @@
     </form>
 
     <table class="table table-hover">
-        <tr>
-            <th class="text-center">书名</th>
-            <th class="text-center">作者</th>
-            <th class="text-center">单价</th>
-            <th class="text-center">数量</th>
-            <th class="text-center">操作</th>
+        <thead>
+        <tr class="text-center">
+            <th>书名</th>
+            <th>作者</th>
+            <th>单价</th>
+            <th>数量</th>
+            <th>操作</th>
         </tr>
-
+        </thead>
         <tbody>
         <c:forEach items="${pageList.list}" var="book">
             <tr>

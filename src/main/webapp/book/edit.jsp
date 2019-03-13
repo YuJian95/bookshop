@@ -20,7 +20,7 @@
 </head>
 <body>
 <form method="post" enctype="multipart/form-data" action="/bs/BsBookAction?method=add">
-    <table>
+    <table class="table table-hover">
         <input type="hidden" name="bookId" value="${book.bookId}"/>
         <tr>
             <td>类别</td>

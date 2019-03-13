@@ -103,7 +103,7 @@ public class BsOrderAction extends BsBaseAction {
             pageList = new BsPageList<>(list, count, PAGE_SIZE, pageNo, "/bs/BsOrderAction?method=browse");
 
             request.setAttribute("pageList", pageList);
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/order/browsejsp");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/order/browse.jsp");
             requestDispatcher.forward(request, response);
 
         } catch (Exception e) {
@@ -126,7 +126,8 @@ public class BsOrderAction extends BsBaseAction {
             request.setAttribute("userId", userId);
             request.setAttribute("ordId", ordId);
 
-            response.sendRedirect("/order/edit.jsp");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/order/edit.jsp");
+            requestDispatcher.forward(request, response);
         } catch (Exception e) {
             request.setAttribute("msg", msg + "失败" + "<a href=\"JavaScript:window.history.back()\">返回</a>");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/error.jsp");
@@ -150,7 +151,8 @@ public class BsOrderAction extends BsBaseAction {
             request.setAttribute("userId", userId);
             request.setAttribute("ordId", ordId);
 
-            response.sendRedirect("/order/show.jsp");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/order/show.jsp");
+            requestDispatcher.forward(request, response);
         } catch (Exception e) {
             request.setAttribute("msg", msg + "失败" + "<a href=\"JavaScript:window.history.back()\">返回</a>");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/error.jsp");
