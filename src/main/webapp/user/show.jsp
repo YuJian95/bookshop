@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
+<%@ taglib prefix="bs" uri="http://yujian95.github.io/jstl/tag" %>
 <html>
 <head>
     <title>显示用户</title>
@@ -19,6 +20,7 @@
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+<bs:UserCheckTag right="1"/>
 <table border="0" width="362" align="center" style="border-collapse: collapse">
     <tr>
         <td width="100">用户名：</td>

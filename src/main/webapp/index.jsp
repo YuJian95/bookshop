@@ -1,7 +1,9 @@
 <%-- 主页 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8" %>
-<%@taglib prefix="bs" uri="http://yujian95.github.io/jstl/tag" %>
+<%@ page contentType="text/html" pageEncoding="UTF-8" %>
+<%@ page isELIgnored="false" %>
+<%@ taglib prefix="bs" uri="http://yujian95.github.io/jstl/tag" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,7 +45,6 @@
 
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
-
                     <li><a href="index.jsp"><i class="fas fa-home"></i>首页</a></li>
                     <li><a href="#"><i class="fas fa-cart-plus"></i>购物车</a></li>
                     <li><a href="#"><i class="fas fa-book"></i>我的订单</a></li>
@@ -59,21 +60,13 @@
 <div id="content" class="container">
     <div class="row">
         <%--分类菜单--%>
-        <div id="left" class="col-sm-2 text-center">
+        <div id="left" class="col-sm-2 text-center font-menu-button">
             <bs:BsCategoryTag/>
         </div>
 
         <%--右边的内容展示--%>
-        <div id="right" class="col-sm-10">
-            <table class="table table-hover text-center">
-                <tr>
-                    <th>书名</th>
-                    <th>作者</th>
-                    <th>单价</th>
-                    <th>数量</th>
-                    <th>操作</th>
-                </tr>
-            </table>
+        <div id="content" class="col-sm-10">
+
         </div>
     </div>
 </div>

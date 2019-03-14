@@ -1,3 +1,4 @@
+<%@ taglib prefix="bs" uri="http://yujian95.github.io/jstl/tag" %>
 <%--
   Created by IntelliJ IDEA.
   User: max
@@ -17,6 +18,7 @@
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
+<bs:UserCheckTag right="2"/>
 <body>
 <form method="post" action="/bs/BsCategoryAction?method=add">
     <table border="0" width="562" align="center" style="border-collapse: collapse">

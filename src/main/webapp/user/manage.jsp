@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@page isELIgnored="false" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@taglib prefix="bs" uri="http://yujian95.github.io/jstl/tag" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,26 +23,30 @@
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+<bs:UserCheckTag right="2"/>
 <div class="container">
-    <table class="table">
+    <table class="table table-hover">
+        <thead>
         <tr>
-            <th align="left" width="120">用户名</th>
-            <th align="center" width="120">真实名</th>
-            <th align="center" width="260">邮件地址</th>
-            <th align="center" width="160">注册时间</th>
-            <th align="center" width="80">操作</th>
+            <th>用户名</th>
+            <th>真实名</th>
+            <th>邮件地址</th>
+            <th>注册时间</th>
+            <th>操作</th>
         </tr>
-
+        </thead>
+        <tbody>
         <c:forEach items="${pageList.list}" var="n">
-            <tr>
-                <td align="left">
-                    <a href="/bs/BsUserAction?method=show&userId=${n.userId}" target="_blank">${n.userName}</a>
-                </td>
-                <td align="center">${n.userRealName}</td>
-                <td align="center">${n.userEmail}</td>
-                <td align="center">${n.userDatetime}</td>
-                <td align="center"><a href="/bs/BsUserAction?method=delete&userId=${n.userId}">删除</a></td>
-            </tr>
+
+        <tr>
+            <td align="left">
+                <a href="/bs/BsUserAction?method=show&userId=${n.userId}" target="_blank">${n.userName}</a>
+            </td>
+            <td align="center">${n.userRealName}</td>
+            <td align="center">${n.userEmail}</td>
+            <td align="center">${n.userDatetime}</td>
+            <td align="center"><a href="/bs/BsUserAction?method=delete&userId=${n.userId}">删除</a></td>
+        </tr>
         </c:forEach>
     </table>
     <br/>

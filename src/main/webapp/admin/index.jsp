@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@page isELIgnored="false" %>
 <%@taglib prefix="bs" uri="http://yujian95.github.io/jstl/tag" %>
 <!DOCTYPE html>
 <html>
@@ -22,13 +23,13 @@
 </head>
 
 <body>
-
+<bs:UserCheckTag right="2"/>
 <div class="container">
     <div id="header">
 
         <%--logo显示--%>
         <div id="logo">
-            <img src="../img/background.png" class="img-rounded" alt="logo.png" height="50px">
+            <img src="../img/logo.gif" class="img-rounded" alt="logo.png">
         </div>
         <%--导航栏--%>
         <nav class="navbar navbar-default" role="navigation">

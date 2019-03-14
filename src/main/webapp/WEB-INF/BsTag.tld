@@ -32,4 +32,17 @@
         <tag-class>tag.BsUserStateTag</tag-class>
         <body-content>empty</body-content>
     </tag>
+
+    <tag>
+        <name>UserCheckTag</name>
+        <tag-class>tag.BsUserCheckTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <description>???????,??????</description>
+            <name>right</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Integer</type>
+        </attribute>
+    </tag>
 </taglib>

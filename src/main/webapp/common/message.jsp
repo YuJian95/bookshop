@@ -19,7 +19,6 @@
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<br><br><br>
 <h3 class="text-center">${msg}</h3>
 </body>
 </html>

@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page isELIgnored="false" %>
+<%@ taglib prefix="bs" uri="http://yujian95.github.io/jstl/tag" %>
 <html>
 <head>
     <title>修改个人信息</title>
@@ -20,6 +21,7 @@
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+<bs:UserCheckTag right="1"/>
 <div class="container">
     <div class="form row">
         <form class="form-horizontal col-sm-offset-3 col-md-offset-3" id="register_form" method="post"

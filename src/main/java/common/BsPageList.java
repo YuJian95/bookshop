@@ -30,7 +30,8 @@ public class BsPageList<T> {
         }
 
         StringBuffer sb = new StringBuffer();
-        sb.append("每页：").append(pageSize).append("&nbsp;页次：").append(pageNo).append("/").append(pageCount).append("&nbsp;总计：").append(count).append("&nbsp;");
+        sb.append("每页：<b>").append(pageSize).append("&nbsp;</b>页次：<b>").append(pageNo).
+                append("</b>/<b>").append(pageCount).append("&nbsp;</b>总计：<b>").append(count).append("&nbsp;</b>");
 
         if (pageNo == 1) {  // 当页号为1 时,即首页时
             sb.append("首页&nbsp;上页&nbsp;");

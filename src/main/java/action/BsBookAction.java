@@ -79,12 +79,18 @@ public class BsBookAction extends BsBaseAction {
     @Override
     protected void manage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         msg = "图书管理:";
+        int count;
+        List<BsBook> list;
         try {
             setInfo(request);
+            if (bookAuthor == null || bookName == null) {
+                count = bookService.findAllCount(); //查找所有图书数量
+                list = bookService.findBooks(); //查找所有图书
+            } else {
+                count = bookService.findCount(null, bookName, bookAuthor);
+                list = bookService.findBooks(null, bookName, bookAuthor, pageNo, PAGE_SIZE);
+            }
 
-            int count = bookService.findAllCount(); //查找所有图书数量
-
-            List<BsBook> list = bookService.findBooks(); //查找所有图书
             pageList = new BsPageList<>(list, count, PAGE_SIZE, pageNo, "/bs/BsBookAction?method=manage");
             request.setAttribute("pageList", pageList);
 
@@ -105,8 +111,9 @@ public class BsBookAction extends BsBaseAction {
         List<BsBook> list;
         int count;
         try {
-            catId = Integer.valueOf(request.getParameter("catId"));
             setInfo(request);
+            catId = Integer.valueOf(request.getParameter("catId"));
+
             if (bookAuthor == null || bookName == null) {
                 list = bookService.findSomeById(catId);
                 count = bookService.findSomeCount(catId);

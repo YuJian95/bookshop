@@ -20,22 +20,26 @@
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<table>
-    <tr>
-        <td rowspan="3" width="169" align="center">
-            <img border="0" src="/bs/bookimg/${book.bookPicture}" width="100" height="140" alt="">
-        </td>
-        <td height="30"><b>书名:${book.bookName}</b></td>
-    </tr>
-    <tr>
-        <td height="169" valign="top">${book.bookDesc}</td>
-    </tr>
-    <tr>
-        <td width="169" align="center">
-            <input type="button" value="返回" onclick="window.history.back()"/>
-        </td>
-    </tr>
-</table>
-
+<div class="container">
+    <div class="row">
+        <div class="col-xs-2 text-right">
+            <img src="/bs/bookimg/${book.bookPicture}" width="150" height="230">
+        </div>
+        <div class="col-xs-2">
+            <ul class="list-unstyled">
+                <li><h3>${book.bookName}</h3></li>
+                <li>作者:${book.bookAuthor}</li>
+                <li>出版社:${book.bookPublisher}</li>
+                <li>ISBN:${book.bookIsbn}</li>
+                <li>价格:${book.bookPrice}</li>
+                <li>数量:${book.bookNum}</li>
+                <li>加入购物车</input><input type="button" value="返回" onclick="window.history.back()"/></li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-xs-10">
+        <p>${book.bookDesc}</p>
+    </div>
+</div>
 </body>
 </html>

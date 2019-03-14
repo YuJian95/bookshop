@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="bs" uri="http://yujian95.github.io/jstl/tag" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +22,7 @@
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+<<bs:UserCheckTag right="1"/>
 <table>
     <tr class="text-center">
         <th>订单号</th>

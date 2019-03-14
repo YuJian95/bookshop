@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="bs" uri="http://yujian95.github.io/jstl/tag" %>
 <%--<!Doctype html>--%>
 <html>
 <head>
@@ -19,6 +20,7 @@
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+<bs:UserCheckTag right="2"/>
 <div class="container">
     <form class="form-horizontal" role="form" method="POST" action="/bs/BsBookAction?method=manage&catId=${catId}">
         <label class="col-sm-1 control-label">书名：</label>

@@ -21,6 +21,7 @@
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+<bs:UserCheckTag right="2"/>
 <form method="post" enctype="multipart/form-data" action="/bs/BsBookAction?method=add">
     <table>
         <tr>

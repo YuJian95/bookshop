@@ -48,7 +48,7 @@
         <c:forEach items="${pageList.list}" var="book">
             <tr>
                 <td class="text-center">
-                    <a href="/bs/BsBookAction!show.action&bookId=${book.bookId}">
+                    <a href="/bs/BsBookAction?method=show&bookId=${book.bookId}">
                             ${book.bookName}
                     </a>
                 </td>

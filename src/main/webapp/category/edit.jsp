@@ -1,3 +1,4 @@
+<%@ taglib prefix="bs" uri="http://yujian95.github.io/jstl/tag" %>
 <%--
   Created by IntelliJ IDEA.
   User: max
@@ -20,6 +21,7 @@
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+<bs:UserCheckTag right="2"/>
 <br/>
 <form method="post" action="/bs/BsCategoryAction?method=edit">
     <input type="hidden" name="catId" value="${category.catId}"/>

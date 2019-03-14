@@ -25,12 +25,7 @@ public class BsCategoryMenuTag extends SimpleTagSupport {
         try {
             List<BsCategory> list = categoryService.findCategories();
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("<table>\n" +
-                    "\t\t<tr>\n" +
-                    "\t\t\t<td>\n" +
-                    "\t\t\t\t<a href=\"/bs/BsBookAction?method=browse&catId=\" target=\"content\">所有</a>\n" +
-                    "\t\t\t</td>\n" +
-                    "\t\t</tr>\n");
+            stringBuilder.append("<table>\n");
 
             for (BsCategory category : list) {
                 stringBuilder.append("\t\t<tr>\n");
