@@ -23,20 +23,21 @@
 <body>
 <bs:UserCheckTag right="2"/>
 <br/>
-<form method="post" action="/bs/BsCategoryAction?method=edit">
-    <input type="hidden" name="catId" value="${category.catId}"/>
-    <table border="0" width="562" align="center" style="border-collapse: collapse;font-size: 12px">
+<form role="form" method="post" action="/bs/BsCategoryAction?method=edit">
+
+    <table align="center">
+        <input type="hidden" name="catId" value="${category.catId}"/>
+        <%--@declare id="catname"--%>
         <tr>
-            <td>分类名称</td>
-            <td align="left">
-                <input type="text" name="catName" size="47" value="${category.catName}"/>
+            <td><label for="catName">分类名称：</label></td>
+            <td><input type="text" class="form-control col-lg-2" name="catName" value="${category.catName}"/></td>
+            <td>
+                <button type="submit" class="btn btn-default" value="修改"></button>
             </td>
-        </tr>
+            <td>
+                <button type="button" class="btn btn-default" value="取消" onclick="window.history.back()"></button>
+            </td>
     </table>
-    <p align="center">
-        <input type="submit" value="提交"/>
-        <input type="button" value="取消" onclick="window.history.back()"/>
-    </p>
 </form>
 </body>
 </html>

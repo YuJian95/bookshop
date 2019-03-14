@@ -25,25 +25,30 @@
 <bs:UserCheckTag right="2"/>
 <br/>
 <div class="container">
-    <table border="1" align="center" width="98%" cellpadding="4" style="border-collapse: collapse">
+    <table class="table table-hover">
+        <thead>
         <tr>
-            <td align="left" width="60">分类</td>
-            <td align="center" width="160">分类名称</td>
-            <td align="center" width="80">操作</td>
+            <th class="text-left">分类ID</th>
+            <th class="text-center">分类名称</th>
+            <th class="text-center">操作</th>
         </tr>
+        </thead>
+        <tbody>
         <c:forEach items="${pageList.list}" var="n">
             <tr>
-                <td align="left">${n.catId}</td>
-                <td align="center">${n.catName}</td>
-                <td align="center">
+                <td class="text-left">${n.catId}</td>
+                <td class="text-center">${n.catName}</td>
+                <td class="text-center">
                     <a href="/bs/BsCategoryAction?method=willEdit&catId=${n.catId}">修改</a>
                     <a href="/bs/BsCategoryAction?method=delete&catId=${n.catId}">删除</a>
                 </td>
             </tr>
         </c:forEach>
+        </tbody>
     </table>
-    <br>
-    <center>${pageList.pageBar}&nbsp;<a href="/bs/category/add.jsp">添加</a></center>
+    <div class="text-center">
+        ${pageList.pageBar}&nbsp;<a href="/bs/category/add.jsp">添加</a>
+    </div>
 </div>
 </body>
 </html>

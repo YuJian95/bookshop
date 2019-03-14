@@ -60,8 +60,8 @@
 <div id="content" class="container">
     <div class="row">
         <%--分类菜单--%>
-        <div id="left" class="col-sm-2 text-center font-menu-button">
-            <bs:BsCategoryTag/>
+        <div class="col-sm-2">
+            <bs:BsCategoryMenuTag/>
         </div>
 
         <%--右边的内容展示--%>

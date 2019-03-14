@@ -25,19 +25,14 @@ public class BsCategoryMenuTag extends SimpleTagSupport {
         try {
             List<BsCategory> list = categoryService.findCategories();
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("<table>\n");
-
+            stringBuilder.append("            <ul class=\"nav nav-pills nav-stacked text-center\">\n");
             for (BsCategory category : list) {
-                stringBuilder.append("\t\t<tr>\n");
-                stringBuilder.append("\t\t\t<td>\n" +
-                        "\t\t\t\t<a href=\"/bs/BsBookAction?method=browse&catId=");
+                stringBuilder.append("                <li>");
+                stringBuilder.append("<a href=\"/bs/BsBookAction?method=browse&catId=");
                 stringBuilder.append(category.getCatId());
-                stringBuilder.append("\" target=\"content\">" + category.getCatName() + "</a>\n" +
-                        "\t\t\t</td>" +
-                        "\t\t</tr>\n");
+                stringBuilder.append("\">" + category.getCatName() + "</a></li>\n");
             }
-
-            stringBuilder.append("\t</table>");
+            stringBuilder.append("            </ul>\n");
 
             out.print(stringBuilder.toString());
             JspFragment fragment = getJspBody();
@@ -45,6 +40,7 @@ public class BsCategoryMenuTag extends SimpleTagSupport {
             if (fragment != null) {
                 fragment.invoke(out);
             }
+
         } catch (IOException e) {
             e.printStackTrace();
             throw new MyException("分类菜单标签运行出错");

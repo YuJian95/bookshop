@@ -10,13 +10,13 @@
     <uri>http://yujian95.github.io/jstl/tag</uri>
 
     <tag>
-        <name>BsCategoryMenuTag</name>
+        <name>BsCategoryTag</name>
         <tag-class>tag.BsCategoryTag</tag-class>
         <body-content>empty</body-content>
     </tag>
 
     <tag>
-        <name>BsCategoryTag</name>
+        <name>BsCategoryMenuTag</name>
         <tag-class>tag.BsCategoryMenuTag</tag-class>
         <body-content>empty</body-content>
     </tag>

@@ -20,17 +20,20 @@
 </head>
 <bs:UserCheckTag right="2"/>
 <body>
-<form method="post" action="/bs/BsCategoryAction?method=add">
-    <table border="0" width="562" align="center" style="border-collapse: collapse">
+
+<form role="form" method="post" action="/bs/BsCategoryAction?method=add">
+    <table align="center">
+        <%--@declare id="catname"--%>
         <tr>
-            <td>分类名称：</td>
-            <td align="left"><input type="text" name="catName" size="47"/></td>
-        </tr>
+            <td><label for="catName">分类名称：</label></td>
+            <td><input type="text" class="form-control col-lg-2" name="catName" placeholder="请输入分类名称"/></td>
+            <td>
+                <button type="submit" class="btn btn-default">添加</button>
+            </td>
+            <td>
+                <button type="button" class="btn btn-default" onclick="window.history.back()">取消</button>
+            </td>
     </table>
-    <p align="center">
-        <input type="submit" value="提交">
-        <input type="button" value="取消" onclick="window.history.back()">
-    </p>
 </form>
 </body>
 </html>
