@@ -9,15 +9,15 @@ import java.util.List;
  */
 
 public interface IBsCartService {
-    void addItem(Integer bookId);
+    void addItem(BsCartItem cartItem);
 
-    void editItem(Integer bookId, int num);
+    void editItem(BsCartItem cartItem, int num);
 
-    void deleteItem(Integer bookId);
+    void deleteItem(Integer catId);
 
-    void clear();
+    void clear(Integer userId);
 
-    List<BsCartItem> findItems();
+    List<BsCartItem> findItems(Integer userId);
 
-    float findTotal();
+    float findTotal(Integer userId);
 }

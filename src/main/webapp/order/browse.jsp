@@ -22,8 +22,9 @@
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<<bs:UserCheckTag right="1"/>
-<table>
+<bs:UserCheckTag right="1"/>
+<table class="table table-hover">
+    <thead>
     <tr class="text-center">
         <th>订单号</th>
         <th>订货时间</th>
@@ -31,6 +32,8 @@
         <th>展开细目</th>
         <th>操作</th>
     </tr>
+    </thead>
+    <tbody>
     <c:forEach items="${pageList.list}" var="order">
         <tr>
             <td class="text-center">${order.ordId}</td>
@@ -83,6 +86,7 @@
             </td>
         </tr>
     </c:forEach>
+    </tbody>
 </table>
 
 <div class="text-center">

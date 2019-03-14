@@ -55,16 +55,16 @@
             </tr>
             <tr>
                 <td>简介</td>
-                <td><input type="text" name="bookDesc"></td>
+                <td><textarea class="form-control" rows="5"></textarea></td>
             </tr>
             <tr>
                 <td>数量</td>
                 <td><input type="text" name="bookNum"></td>
             </tr>
-            <p>
-                <input type="submit" value="添加"/>
-                <input type="button" value="取消" onclick="window.history.back()"/>
-            </p>
+            <tr>
+                <td><input type="submit" value="添加"/></td>
+                <td><input type="button" value="取消" onclick="window.history.back()"/></td>
+            </tr>
         </table>
     </form>
 </div>

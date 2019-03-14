@@ -35,7 +35,7 @@
             </div>
             <%--添加搜索栏--%>
             <div>
-                <form class="navbar-form navbar-left">
+                <form class="navbar-form navbar-left" action="/bs/BsBookAction?method=search">
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="搜索图书">
                     </div>
@@ -46,8 +46,8 @@
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="index.jsp"><i class="fas fa-home"></i>首页</a></li>
-                    <li><a href="#"><i class="fas fa-cart-plus"></i>购物车</a></li>
-                    <li><a href="#"><i class="fas fa-book"></i>我的订单</a></li>
+                    <li><a href="/bs/BsCartAction?method=browse"><i class="fas fa-cart-plus"></i>购物车</a></li>
+                    <li><a href="/bs/BsOrderAction?method=browse"><i class="fas fa-book"></i>我的订单</a></li>
                     <bs:BsUserStateTag/>
                 </ul>
             </div>

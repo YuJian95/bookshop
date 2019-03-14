@@ -36,6 +36,10 @@
         <servlet-name>BsOrderAction</servlet-name>
         <servlet-class>action.BsOrderAction</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BsCartAction</servlet-name>
+        <servlet-class>action.BsCartAction</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>StartServlet</servlet-name>
@@ -60,6 +64,11 @@
     <servlet-mapping>
         <servlet-name>BsOrderAction</servlet-name>
         <url-pattern>/BsOrderAction</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>BsCartAction</servlet-name>
+        <url-pattern>/BsCartAction</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>

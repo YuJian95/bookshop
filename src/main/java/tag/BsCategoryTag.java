@@ -26,7 +26,7 @@ public class BsCategoryTag extends SimpleTagSupport {
             List<BsCategory> list = categoryService.findCategories();
             StringBuilder stringBuilder = new StringBuilder();
 
-            stringBuilder.append("     <select name=\"catId\" class=\"form-control\">\n");
+            stringBuilder.append("     <select name=\"catId\" class=\"form-control col-sm-2\">\n");
 
             for (BsCategory category : list) {
                 stringBuilder.append("      <option value=\"").append(category.getCatId()).append("\">").append(category.getCatName()).append("</option>\n");

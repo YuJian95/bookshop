@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 /**
@@ -77,7 +78,7 @@ public class BsBookAction extends BsBaseAction {
         if (pageNo == null) {
             pageNo = 1;
         } else {
-            catId = Integer.parseInt(request.getParameter("catId"));
+            //catId = Integer.parseInt(request.getParameter("catId"));
             bookName = request.getParameter("bookName");
             bookAuthor = request.getParameter("bookAuthor");
         }
@@ -86,11 +87,15 @@ public class BsBookAction extends BsBaseAction {
     // 图书管理
     @Override
     protected void manage(HttpServletRequest request, HttpServletResponse response) {
+        if (pageNo == null) {
+            pageNo = 1;
+        } else {
+            pageNo = Integer.parseInt(request.getParameter("pageNo"));
+        }
         msg = "图书管理:";
         int count;
         List<BsBook> list;
         try {
-            setInfo(request);
 
             count = bookService.findAllCount();
             list = bookService.findBooks();
@@ -120,18 +125,23 @@ public class BsBookAction extends BsBaseAction {
         List<BsBook> list;
         int count;
         try {
-            setInfo(request);
-            catId = Integer.valueOf(request.getParameter("catId"));
 
-            if (bookAuthor == null || bookName == null) {
-                list = bookService.findSomeById(catId);
-                count = bookService.findSomeCount(catId);
-            } else {// 查找图书
-                count = bookService.findCount(catId, bookName, bookAuthor);
-                list = bookService.findBooks(catId, bookName, bookAuthor, pageNo, PAGE_SIZE);
+            if (pageNo == null) {
+                pageNo = 1;
+            } else {
+                pageNo = Integer.parseInt(request.getParameter("pageNo"));
             }
 
+            catId = Integer.valueOf(request.getParameter("catId"));
+
+            // 查找图书
+            count = bookService.findSomeCount(catId);
+            list = bookService.findSomeById(catId);
+            System.out.println(list.size());
+
             pageList = new BsPageList<>(list, count, PAGE_SIZE, pageNo, "/bs/BsBookAction?method=browse");
+            System.out.println(pageList.toString());
+
             request.setAttribute("pageList", pageList);
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/book/browse.jsp");
             requestDispatcher.forward(request, response);
@@ -146,34 +156,68 @@ public class BsBookAction extends BsBaseAction {
     @Override
     protected void add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         msg = "图书添加:";
-        System.out.println("正在添加");
-        DiskFileItemFactory factory = new DiskFileItemFactory();
-        factory.setSizeThreshold(MEMORY_THRESHOLD);  // 内存临界值
-        factory.setRepository(new File(System.getProperty("java.io.tmpdir")));  // 创建临时存储目录
+        System.out.println("开始添加");
+        // 检测是否为多媒体上传
+        if (!ServletFileUpload.isMultipartContent(request)) {
+            // 如果不是则停止
+            PrintWriter writer = response.getWriter();
+            writer.println("Error: 表单必须包含 enctype=multipart/form-data");
+            writer.flush();
+            System.out.println("test");
+            return;
 
-        ServletFileUpload upload = new ServletFileUpload(factory);
-        upload.setFileSizeMax(MAX_FILE_SIZE);
-        upload.setSizeMax(MAX_REQUEST_SIZE);  // 最大请求值
-        upload.setHeaderEncoding("UTF-8");
-        String uploadPath = getServletContext().getRealPath("/") + File.separator + UPLOAD_DIRECTORY;
-
-        File uploadDir = new File(uploadPath);
-        if (!uploadDir.exists()) {
-            uploadDir.mkdir();
         }
 
         try {
-            book = getBookInfo(request);
+            // 配置上传参数
+            DiskFileItemFactory factory = new DiskFileItemFactory();
+            // 设置内存临界值 - 超过后将产生临时文件并存储于临时目录中
+            factory.setSizeThreshold(MEMORY_THRESHOLD);
+            // 设置临时存储目录
+            factory.setRepository(new File(System.getProperty("java.io.tmpdir")));
 
-            List<FileItem> fileItems = upload.parseRequest(request);
-            if (fileItems != null && fileItems.size() > 0) {
-                for (FileItem fileItem : fileItems) {
-                    if (!fileItem.isFormField()) {
-                        String fileName = new File(new java.util.Date() + ".jpg").getName();
+            ServletFileUpload upload = new ServletFileUpload(factory);
+
+            // 设置最大文件上传值
+            upload.setFileSizeMax(MAX_FILE_SIZE);
+
+            // 设置最大请求值 (包含文件和表单数据)
+            upload.setSizeMax(MAX_REQUEST_SIZE);
+
+            // 中文处理
+            upload.setHeaderEncoding("UTF-8");
+
+            // 构造临时路径来存储上传的文件
+            // 这个路径相对当前应用的目录
+            String uploadPath = getServletContext().getRealPath("/") + UPLOAD_DIRECTORY;
+            System.out.println(uploadPath);
+            // 如果目录不存在则创建
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdir();
+            }
+            //try {
+            book = getBookInfo(request);
+            // 解析请求的内容提取文件数据
+
+            List<FileItem> formItems = upload.parseRequest(request);
+
+            if (formItems != null && formItems.size() > 0) {
+                // 迭代表单数据
+                for (FileItem item : formItems) {
+                    // 处理不在表单中的字段
+                    if (!item.isFormField()) {
+                        String fileName = new File(item.getName()).getName();
                         String filePath = uploadPath + File.separator + fileName;
                         File storeFile = new File(filePath);
-                        fileItem.write(storeFile);
-                        book.setBookPicture(filePath);
+                        // 在控制台输出文件的上传路径
+                        System.out.println(filePath);
+                        // 保存文件到硬盘
+                        item.write(storeFile);
+                        // book.setBookPicture(filePath);
+                        System.out.println("成功~！");
+                        request.setAttribute("msg",
+                                "文件上传成功!");
                     }
                 }
             }
@@ -269,4 +313,5 @@ public class BsBookAction extends BsBaseAction {
     protected void uploadFile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         super.uploadFile(request, response);
     }
+
 }

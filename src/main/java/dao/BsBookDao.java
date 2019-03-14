@@ -340,8 +340,9 @@ public class BsBookDao implements IBsBookDao {
         return BsMySQLHelper.calTableCount(tableName);
     }
 
+    // 查找分类书籍
     @Override
-    public List<BsBook> selectSomeById(Integer bookId) {
+    public List<BsBook> selectSomeById(Integer catId) {
         Connection connection = null;  // 定义连接对象
         PreparedStatement preparedStatement = null;  // 定义预处理对象
         ResultSet resultSet = null;  // 定义结果集
@@ -350,23 +351,23 @@ public class BsBookDao implements IBsBookDao {
         try {
             connection = BsMySQLHelper.connection();  // 建立数据库连接
 
-            String sql = "SELECT t.* FROM `bs`.`bs_book` t WHERE `book_id` = ?";
+            String sql = "SELECT t.* FROM `bs`.`bs_book` t WHERE `cat_id` = ?";
 
             preparedStatement = connection.prepareStatement(sql);  // 建立预处理对象
-            preparedStatement.setInt(1, bookId);  // 传递参数
+            preparedStatement.setInt(1, catId);  // 传递参数
 
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 book = new BsBook();
-                book.setBookId(bookId);
+                book.setBookId(resultSet.getInt("book_id"));
                 book.setBookPublisher(resultSet.getString("book_publisher"));
                 book.setBookPrice(resultSet.getInt("book_price"));
                 book.setBookAuthor(resultSet.getString("book_author"));
                 book.setBookPicture(resultSet.getString("book_picture"));
                 book.setBookNum(resultSet.getInt("book_num"));
                 book.setBookName(resultSet.getString("book_name"));
-                book.setCategory(new BsCategoryDao().selectById(resultSet.getInt("cat_id")));
+                book.setCategory(new BsCategoryDao().selectById(catId));
                 book.setBookIsbn(resultSet.getString("book_isbn"));
                 book.setBookDesc(resultSet.getString("book_desc"));
                 list.add(book);
