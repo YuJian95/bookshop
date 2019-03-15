@@ -388,4 +388,71 @@ public class BsBookDao implements IBsBookDao {
         String key = "cat_id = ";
         return BsMySQLHelper.calTableCount(tableName, key, catId);
     }
+
+    // 修改播单
+    @Override
+    public void editBook(Integer bookId, Boolean isCarousel) {
+        Connection connection = null;  // 定义连接对象
+        PreparedStatement preparedStatement = null;  // 定义预处理对象
+
+        try {
+            connection = BsMySQLHelper.connection();  // 建立数据库连接
+
+            String sql = "UPDATE bs.bs_book t " +
+                    "SET t.iscarousel = ?" + "WHERE t.book_id = ?";
+
+            preparedStatement = connection.prepareStatement(sql);  // 建立预处理对象
+
+            preparedStatement.setBoolean(1, isCarousel);
+            preparedStatement.setInt(2, bookId);
+            preparedStatement.executeUpdate();
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            throw new MyException("修改播单失败!");
+        } finally {
+            BsMySQLHelper.closeConPreSta(preparedStatement, connection);
+        }
+    }
+
+    @Override
+    public List<BsBook> selectCarouselBook() {
+
+        Connection connection = null;  // 定义连接对象
+        PreparedStatement preparedStatement = null;  // 定义预处理对象
+        ResultSet resultSet = null;  // 定义结果集
+        BsBook book = null;
+        List<BsBook> list = new ArrayList<>();
+        try {
+            connection = BsMySQLHelper.connection();  // 建立数据库连接
+
+            String sql = "SELECT t.* FROM `bs`.`bs_book` t WHERE `iscarousel` = true";
+            preparedStatement = connection.prepareStatement(sql);  // 建立预处理对象
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                book = new BsBook();
+                book.setBookId(resultSet.getInt("book_id"));
+                book.setBookPublisher(resultSet.getString("book_publisher"));
+                book.setBookPrice(resultSet.getInt("book_price"));
+                book.setBookAuthor(resultSet.getString("book_author"));
+                book.setBookPicture(resultSet.getString("book_picture"));
+                book.setBookNum(resultSet.getInt("book_num"));
+                book.setBookName(resultSet.getString("book_name"));
+                book.setCategory(new BsCategoryDao().selectById(resultSet.getInt("cat_id")));
+                book.setBookIsbn(resultSet.getString("book_isbn"));
+                book.setBookDesc(resultSet.getString("book_desc"));
+                list.add(book);
+            }
+
+            return list;
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            throw new MyException("查找书籍失败!");
+        } finally {
+            BsMySQLHelper.closeAll(connection, preparedStatement, resultSet);
+        }
+    }
 }

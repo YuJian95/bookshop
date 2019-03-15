@@ -63,10 +63,9 @@
         <div class="col-sm-2">
             <bs:BsCategoryMenuTag/>
         </div>
-
         <%--右边的内容展示--%>
-        <div id="content" class="col-sm-10">
-
+        <div class="col-sm-10">
+            <bs:BsCarouselTag/>
         </div>
     </div>
 </div>

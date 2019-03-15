@@ -12,7 +12,7 @@ public class BsMySQLHelper {
 
     private static String USERNAME = "root";
     private static String PASSWORD = "lyage1995";
-    private static String URL = "jdbc:mysql://192.168.30.140:3306/bs";
+    private static String URL = "jdbc:mysql://192.168.30.141:3306/bs";
 
     //获取数据库连接
     public static Connection connection() {

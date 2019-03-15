@@ -60,4 +60,14 @@ public class BsBookService implements IBsBookService {
     public int findSomeCount(Integer catId) {
         return bookDao.selectSomeCount(catId);
     }
+
+    @Override
+    public void editBook(Integer bookId, Boolean isCarousel) {
+        bookDao.editBook(bookId, isCarousel);
+    }
+
+    @Override
+    public List<BsBook> findCarouselBooks() {
+        return bookDao.selectCarouselBook();
+    }
 }

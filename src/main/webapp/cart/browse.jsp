@@ -33,7 +33,7 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="${pageList.list}" var="item">
+    <c:forEach items="${cartList}" var="item">
         <tr>
             <td>${item.book.bookName}</td>
             <td>${item.book.bookPrice}</td>

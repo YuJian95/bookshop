@@ -29,4 +29,7 @@ public interface IBsBookService {
 
     int findSomeCount(Integer catId);
 
+    void editBook(Integer bookId, Boolean isCarousel);
+
+    List<BsBook> findCarouselBooks();
 }

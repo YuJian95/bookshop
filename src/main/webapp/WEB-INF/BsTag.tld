@@ -45,4 +45,10 @@
             <type>java.lang.Integer</type>
         </attribute>
     </tag>
+
+    <tag>
+        <name>BsCarouselTag</name>
+        <tag-class>tag.BsCarouselTag</tag-class>
+        <body-content>empty</body-content>
+    </tag>
 </taglib>
