@@ -12,6 +12,10 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * 首页轮流显示图书
+ */
+
 public class BsCarouselTag extends SimpleTagSupport {
 
     private IBsBookService bookService = (IBsBookService) BsFactory.getBean("bookService");

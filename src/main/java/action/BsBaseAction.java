@@ -47,6 +47,8 @@ public abstract class BsBaseAction extends HttpServlet {
             clear(request, response);  // 清空
         } else if (method.equals("deleteSome")) {
             deleteSome(request, response);
+        } else if (method.equals("change")) {
+
         }
     }
 //    }
@@ -93,6 +95,10 @@ public abstract class BsBaseAction extends HttpServlet {
     }
 
     protected void deleteSome(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    }
+
+    protected void change(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 

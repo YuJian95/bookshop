@@ -40,26 +40,30 @@
                 <th class="text-center">作者</th>
                 <th class="text-center">单价</th>
                 <th class="text-center">数量</th>
+                <th class="text-center">首页展示</th>
                 <th class="text-center">操作</th>
             </tr>
             </thead>
             <tbody>
 
             <c:forEach items="${pageList.list}" var="n">
-            <tr>
-                <td class="text-center">
-                    <a href="/bs/BsBookAction?method=show&bookId=${n.bookId}">
-                            ${n.bookName}
-                    </a>
-                </td>
-                <td class="text-center">${n.bookAuthor}</td>
-                <td class="text-center">${n.bookPrice}</td>
-                <td class="text-center">${n.bookNum}</td>
-                <td class="text-center">
-                    <a href="/bs/BsBookAction?method=willEdit&bookId=${n.bookId}">修改</a>
-                    <a href="/bs/BsBookAction?method=delete&bookId=${n.bookId}">删除</a>
-                </td>
-            </tr>
+                <tr>
+                    <td class="text-center">
+                        <a href="/bs/BsBookAction?method=show&bookId=${n.bookId}">
+                                ${n.bookName}
+                        </a>
+                    </td>
+                    <td class="text-center">${n.bookAuthor}</td>
+                    <td class="text-center">${n.bookPrice}</td>
+                    <td class="text-center">${n.bookNum}</td>
+                    <td class="text-center">
+                            <%--<a href="/bs/BsBookAction?method=change&bookId=${n.bookId}">${n.isCarousel}</a>--%>
+                    </td>
+                    <td class="text-center">
+                        <a href="/bs/BsBookAction?method=willEdit&bookId=${n.bookId}">修改</a>
+                        <a href="/bs/BsBookAction?method=delete&bookId=${n.bookId}">删除</a>
+                    </td>
+                </tr>
             </c:forEach>
             </tbody>
         </table>

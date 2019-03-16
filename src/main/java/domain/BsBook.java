@@ -16,7 +16,7 @@ public class BsBook implements java.io.Serializable {
     private String bookAuthor;
     private String bookDesc;
     private Integer bookNum;
-    private Boolean isCarousel;
+    private Integer isCarousel;
 
     // 默认无参构造方法
     public BsBook() {
@@ -134,11 +134,11 @@ public class BsBook implements java.io.Serializable {
         Category = category;
     }
 
-    public Boolean getCarousel() {
+    public Integer getCarousel() {
         return isCarousel;
     }
 
-    public void setCarousel(Boolean carousel) {
+    public void setCarousel(Integer carousel) {
         isCarousel = carousel;
     }
 

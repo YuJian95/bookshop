@@ -39,13 +39,13 @@
         <c:forEach items="${pageList.list}" var="n">
 
         <tr>
-            <td align="left">
+            <td>
                 <a href="/bs/BsUserAction?method=show&userId=${n.userId}" target="_blank">${n.userName}</a>
             </td>
-            <td align="center">${n.userRealName}</td>
-            <td align="center">${n.userEmail}</td>
-            <td align="center">${n.userDatetime}</td>
-            <td align="center"><a href="/bs/BsUserAction?method=delete&userId=${n.userId}">删除</a></td>
+            <td>${n.userRealName}</td>
+            <td>${n.userEmail}</td>
+            <td>${n.userDatetime}</td>
+            <td><a href="/bs/BsUserAction?method=delete&userId=${n.userId}">删除</a></td>
         </tr>
         </c:forEach>
     </table>

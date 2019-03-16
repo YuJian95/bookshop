@@ -370,6 +370,7 @@ public class BsBookDao implements IBsBookDao {
                 book.setCategory(new BsCategoryDao().selectById(catId));
                 book.setBookIsbn(resultSet.getString("book_isbn"));
                 book.setBookDesc(resultSet.getString("book_desc"));
+                book.setCarousel(resultSet.getInt("iscarousel"));
                 list.add(book);
             }
 
@@ -391,7 +392,7 @@ public class BsBookDao implements IBsBookDao {
 
     // 修改播单
     @Override
-    public void editBook(Integer bookId, Boolean isCarousel) {
+    public void editBook(Integer bookId, Integer isCarousel) {
         Connection connection = null;  // 定义连接对象
         PreparedStatement preparedStatement = null;  // 定义预处理对象
 
@@ -403,7 +404,7 @@ public class BsBookDao implements IBsBookDao {
 
             preparedStatement = connection.prepareStatement(sql);  // 建立预处理对象
 
-            preparedStatement.setBoolean(1, isCarousel);
+            preparedStatement.setInt(1, isCarousel);
             preparedStatement.setInt(2, bookId);
             preparedStatement.executeUpdate();
 
@@ -427,7 +428,7 @@ public class BsBookDao implements IBsBookDao {
         try {
             connection = BsMySQLHelper.connection();  // 建立数据库连接
 
-            String sql = "SELECT t.* FROM `bs`.`bs_book` t WHERE `iscarousel` = true";
+            String sql = "SELECT t.* FROM `bs`.`bs_book` t WHERE `iscarousel` = 1";
             preparedStatement = connection.prepareStatement(sql);  // 建立预处理对象
             resultSet = preparedStatement.executeQuery();
 
@@ -443,6 +444,7 @@ public class BsBookDao implements IBsBookDao {
                 book.setCategory(new BsCategoryDao().selectById(resultSet.getInt("cat_id")));
                 book.setBookIsbn(resultSet.getString("book_isbn"));
                 book.setBookDesc(resultSet.getString("book_desc"));
+                book.setCarousel(resultSet.getInt("iscarousel"));
                 list.add(book);
             }
 

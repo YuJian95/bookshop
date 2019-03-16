@@ -1,22 +1,19 @@
 package action;
 
+import com.jspsmart.upload.SmartUpload;
 import common.BsFactory;
 import common.BsPageList;
+import dao.BsBookDao;
 import domain.BsBook;
 import domain.BsCategory;
 import iservice.IBsBookService;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 /**
@@ -25,19 +22,13 @@ import java.util.List;
 
 public class BsBookAction extends BsBaseAction {
     private static final long serialVersionUID = 1L;
-    private static final String UPLOAD_DIRECTORY = "bookimg";  // 上传图片的存储路径
-    private static final int MEMORY_THRESHOLD = 1024 * 1024 * 3;  // 3MB
-    private static final int MAX_FILE_SIZE = 1024 * 1024 * 40;  // 40MB
-    private static final int MAX_REQUEST_SIZE = 1024 * 1024 * 50;  // 50MB
+    private static final String PICTURE_FILE_DIR = "D:/bookshop/src/main/webapp/bookimg/"; // 图书图片上传路径
     private final static int PAGE_SIZE = 6;  // 每一页显示的条数
 
     private IBsBookService bookService = (IBsBookService) BsFactory.getBean("bookService");
     private BsBook book;
     private Integer bookId;
     private Integer catId;
-    private String bookName;
-    private String bookAuthor;
-    private File uploadFile;
     private BsPageList<BsBook> pageList;  // 分页器
     private Integer pageNo;  // 当前页号
     private String msg;
@@ -47,41 +38,31 @@ public class BsBookAction extends BsBaseAction {
     private BsBook getBookInfo(HttpServletRequest request) {
 
         book = new BsBook();
+        try {
 
-        if (request.getParameter("bookId") != null) {
-            bookId = Integer.parseInt(request.getParameter("bookId"));
+            if (request.getParameter("bookId") != null) {
+                bookId = Integer.parseInt(request.getParameter("bookId"));
+            }
+
+            if (request.getParameter("catId") != null) {
+                catId = Integer.parseInt(request.getParameter("catId"));
+                System.out.println(catId);
+                BsCategory category = new BsCategory();
+                category.setCatId(catId);
+                book.setCategory(category);
+            }
+
+            book.setBookIsbn(request.getParameter("bookIsbn"));
+            book.setBookDesc(request.getParameter("bookDesc"));
+            book.setBookNum(Integer.parseInt(request.getParameter("bookNum")));
+            book.setBookName(request.getParameter("bookName"));
+            book.setBookAuthor(request.getParameter("bookAuthor"));
+            book.setBookPublisher(request.getParameter("bookPublisher"));
+            System.out.println(book.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        catId = Integer.parseInt(request.getParameter("catId"));
-        BsCategory category = new BsCategory();
-        category.setCatId(catId);
-
-        book.setCategory(category);
-        book.setBookIsbn(request.getParameter("bookIsbn"));
-        book.setBookDesc(request.getParameter("bookDesc"));
-        book.setBookNum(Integer.parseInt(request.getParameter("bookNum")));
-        book.setBookName(request.getParameter("bookName"));
-        book.setBookAuthor(request.getParameter("bookAuthor"));
-        book.setBookPrice(Double.parseDouble(request.getParameter("bookPrice")));
-        book.setBookPublisher(request.getParameter("bookPublisher"));
-
-
-//        book.setBookPicture(reques);
-        bookService.addBook(book);
-
         return book;
-    }
-
-    // 设置页面初始参数
-    private void setInfo(HttpServletRequest request) throws ServletException, IOException {
-
-        if (pageNo == null) {
-            pageNo = 1;
-        } else {
-            //catId = Integer.parseInt(request.getParameter("catId"));
-            bookName = request.getParameter("bookName");
-            bookAuthor = request.getParameter("bookAuthor");
-        }
     }
 
     // 图书管理
@@ -92,6 +73,7 @@ public class BsBookAction extends BsBaseAction {
         } else {
             pageNo = Integer.parseInt(request.getParameter("pageNo"));
         }
+
         msg = "图书管理:";
         int count;
         List<BsBook> list;
@@ -156,74 +138,37 @@ public class BsBookAction extends BsBaseAction {
     @Override
     protected void add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         msg = "图书添加:";
-        System.out.println("开始添加");
-        // 检测是否为多媒体上传
-        if (!ServletFileUpload.isMultipartContent(request)) {
-            // 如果不是则停止
-            PrintWriter writer = response.getWriter();
-            writer.println("Error: 表单必须包含 enctype=multipart/form-data");
-            writer.flush();
-            System.out.println("test");
-            return;
-
-        }
-
+        SmartUpload smartUpload = new SmartUpload();
+        ServletConfig config = this.getServletConfig();
+        String pictureFileName;
         try {
-            // 配置上传参数
-            DiskFileItemFactory factory = new DiskFileItemFactory();
-            // 设置内存临界值 - 超过后将产生临时文件并存储于临时目录中
-            factory.setSizeThreshold(MEMORY_THRESHOLD);
-            // 设置临时存储目录
-            factory.setRepository(new File(System.getProperty("java.io.tmpdir")));
+            smartUpload.initialize(config, request, response);
+            smartUpload.upload();
 
-            ServletFileUpload upload = new ServletFileUpload(factory);
+            // 通过smartUpload 获取多功能表单中的数据
+            book = new BsBook();
+            book.setBookName(smartUpload.getRequest().getParameter("bookName"));
+            book.setBookPublisher(smartUpload.getRequest().getParameter("bookPublisher"));
+            book.setBookPrice(Double.parseDouble(smartUpload.getRequest().getParameter("bookPrice")));
+            book.setBookAuthor(smartUpload.getRequest().getParameter("bookAuthor"));
+            book.setBookIsbn(smartUpload.getRequest().getParameter("bookIsbn"));
+            book.setBookDesc(smartUpload.getRequest().getParameter("bookDesc"));
+            book.setBookNum(Integer.parseInt(smartUpload.getRequest().getParameter("bookNum")));
 
-            // 设置最大文件上传值
-            upload.setFileSizeMax(MAX_FILE_SIZE);
+            // 获取书籍分类
+            BsCategory category = new BsCategory();
+            category.setCatId(Integer.parseInt(smartUpload.getRequest().getParameter("catId")));
+            book.setCategory(category);
 
-            // 设置最大请求值 (包含文件和表单数据)
-            upload.setSizeMax(MAX_REQUEST_SIZE);
+            // 上传图片文件并获取图片文件名
+            com.jspsmart.upload.File smartFile = smartUpload.getFiles().getFile(0);  // 获取上传的第一文件
+            String fileExt = smartFile.getFileExt();
+            pictureFileName = new java.util.Date().getTime() + "." + fileExt;
+            smartFile.saveAs(PICTURE_FILE_DIR + pictureFileName, SmartUpload.SAVE_AUTO);
+            book.setBookPicture(pictureFileName);
 
-            // 中文处理
-            upload.setHeaderEncoding("UTF-8");
-
-            // 构造临时路径来存储上传的文件
-            // 这个路径相对当前应用的目录
-            String uploadPath = getServletContext().getRealPath("/") + UPLOAD_DIRECTORY;
-            System.out.println(uploadPath);
-            // 如果目录不存在则创建
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists()) {
-                uploadDir.mkdir();
-            }
-            //try {
-            book = getBookInfo(request);
-            // 解析请求的内容提取文件数据
-
-            List<FileItem> formItems = upload.parseRequest(request);
-
-            if (formItems != null && formItems.size() > 0) {
-                // 迭代表单数据
-                for (FileItem item : formItems) {
-                    // 处理不在表单中的字段
-                    if (!item.isFormField()) {
-                        String fileName = new File(item.getName()).getName();
-                        String filePath = uploadPath + File.separator + fileName;
-                        File storeFile = new File(filePath);
-                        // 在控制台输出文件的上传路径
-                        System.out.println(filePath);
-                        // 保存文件到硬盘
-                        item.write(storeFile);
-                        // book.setBookPicture(filePath);
-                        System.out.println("成功~！");
-                        request.setAttribute("msg",
-                                "文件上传成功!");
-                    }
-                }
-            }
             bookService.addBook(book);
-
-            request.setAttribute("msg", msg + "成功" + "<a href =\"/book/manage.jsp\" target=\"top\">返回</a>");
+            request.setAttribute("msg", msg + "成功" + "<a href =\"/bs/BsBookAction?method=manage\" target=\"top\">返回</a>");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/message.jsp");  // 跳转到信息页
             requestDispatcher.forward(request, response);
 
@@ -242,7 +187,7 @@ public class BsBookAction extends BsBaseAction {
             book = getBookInfo(request);
             bookService.editBook(book);
 
-            request.setAttribute("msg", msg + "成功" + "<a href =\"/book/manage.jsp\" target=\"top\">返回</a>");
+            request.setAttribute("msg", msg + "成功" + "<a href =\"/bs/BsBookAction?method=manage\" target=\"top\">返回</a>");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/message.jsp");  // 跳转到信息页
             requestDispatcher.forward(request, response);
         } catch (Exception e) {
@@ -260,7 +205,7 @@ public class BsBookAction extends BsBaseAction {
             bookId = Integer.parseInt(request.getParameter("bookId"));
             bookService.deleteBook(bookId);
 
-            request.setAttribute("msg", msg + "成功" + "<a href =\"/book/manage.jsp\" target=\"top\">返回</a>");
+            request.setAttribute("msg", msg + "成功" + "<a href =\"/bs/BsBookAction?method=manage\" target=\"top\">返回</a>");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/message.jsp");  // 跳转到信息页
             requestDispatcher.forward(request, response);
         } catch (Exception e) {
@@ -308,10 +253,25 @@ public class BsBookAction extends BsBaseAction {
 
     }
 
-    // 上传文件
     @Override
-    protected void uploadFile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        super.uploadFile(request, response);
+    protected void change(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        msg = "首页展示删除:";
+        try {
+            bookId = Integer.parseInt(request.getParameter("bookId"));
+
+            Integer isCarousel = new BsBookDao().selectById(bookId).getCarousel();
+            if (isCarousel == 1) {
+                bookService.editBook(bookId, 0);
+            }
+            request.setAttribute("msg", msg + "成功" + "<a href =\"/book/manage.jsp\" target=\"top\">返回</a>");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/message.jsp");  // 跳转到信息页
+            requestDispatcher.forward(request, response);
+        } catch (Exception e) {
+            request.setAttribute("msg", msg + "失败" + "<a href=\"JavaScript:window.history.back()\">返回</a>");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/error.jsp");
+            requestDispatcher.forward(request, response);
+        }
     }
+
 
 }

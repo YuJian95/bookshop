@@ -45,11 +45,12 @@
                         <input type="checkbox" name="remember" value="1"/> 请记住我
                     </label>
                     <hr/>
-                    <a href="#" id="register_btn" class="">忘记密码了</a>
+                    <a href="/user/find.jsp" id="register_btn">忘记密码了</a>
                 </div>
 
                 <div class="form-group">
-                    <input type="button" class="btn btn-success pull-left" href="/user/add.jsp" value="注册"/>
+                    <input type="button" class="btn btn-success pull-left"
+                           onclick="window.location.href='/user/add.jsp'" value="注册"/>
                     <input type="submit" class="btn btn-success pull-right" value="登录"/>
                 </div>
             </div>

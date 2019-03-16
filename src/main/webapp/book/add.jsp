@@ -55,7 +55,7 @@
             </tr>
             <tr>
                 <td>简介</td>
-                <td><textarea class="form-control" rows="5"></textarea></td>
+                <td><textarea class="form-control" rows="5" name="bookDesc"></textarea></td>
             </tr>
             <tr>
                 <td>数量</td>

@@ -62,7 +62,7 @@ public class BsBookService implements IBsBookService {
     }
 
     @Override
-    public void editBook(Integer bookId, Boolean isCarousel) {
+    public void editBook(Integer bookId, Integer isCarousel) {
         bookDao.editBook(bookId, isCarousel);
     }
 
