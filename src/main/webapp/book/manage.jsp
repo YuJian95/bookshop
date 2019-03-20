@@ -57,7 +57,7 @@
                     <td class="text-center">${n.bookPrice}</td>
                     <td class="text-center">${n.bookNum}</td>
                     <td class="text-center">
-                            <%--<a href="/bs/BsBookAction?method=change&bookId=${n.bookId}">${n.isCarousel}</a>--%>
+                        <a href="/bs/BsBookAction?method=change&bookId=${n.bookId}">${book.isCarousel}</a>
                     </td>
                     <td class="text-center">
                         <a href="/bs/BsBookAction?method=willEdit&bookId=${n.bookId}">修改</a>
@@ -69,7 +69,7 @@
         </table>
     </div>
     <div class="text-center">
-        ${pageList.pageBar}&nbsp;<a href="/bs/book/add.jsp">添加图书</a>
+        <a href="/bs/admin/index.jsp">返回首页</a> ${pageList.pageBar}&nbsp;<a href="/bs/book/add.jsp">添加图书</a>
     </div>
 </div>
 </body>

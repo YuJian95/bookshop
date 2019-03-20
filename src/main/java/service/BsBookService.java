@@ -70,4 +70,9 @@ public class BsBookService implements IBsBookService {
     public List<BsBook> findCarouselBooks() {
         return bookDao.selectCarouselBook();
     }
+
+    @Override
+    public BsBook searchBook(String bookName) {
+        return bookDao.selectBook(bookName);
+    }
 }

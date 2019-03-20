@@ -6,15 +6,6 @@
 
     <display-name>Archetype Created Web Application</display-name>
 
-    <!--<filter>-->
-    <!--<filter-name>SessionFilter</filter-name>-->
-    <!--<filter-class>filter.SessionFilter</filter-class>-->
-    <!--</filter>-->
-    <!--<filter-mapping>-->
-    <!--<filter-name>SessionFilter</filter-name>-->
-    <!--<url-pattern>/*</url-pattern>-->
-    <!--</filter-mapping>-->
-
     <servlet>
         <servlet-name>StartServlet</servlet-name>
         <servlet-class>servlet.BsStartServlet</servlet-class>

@@ -109,6 +109,8 @@ public class BsCartDao implements IBsCartDao {
                 cartItem.setBook(book);
                 cartItem.setNum(resultSet.getInt("book_num"));
                 cartItem.setCartId(resultSet.getInt("cart_id"));
+                cartItem.setTotal();
+                System.out.println(cartItem.getTotal());
                 itemList.add(cartItem);
             }
             return itemList;

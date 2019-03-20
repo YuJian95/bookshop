@@ -41,7 +41,7 @@
             <td>${item.total}</td>
             <td>
                 <a id="btn1_${item.book.bookId}"
-                   href="/bs/BsCartAction?method=deleteSome&bookId=${item.book.bookId}">删除</a>
+                   href="/bs/BsCartAction?method=deleteSome&cartId=${item.cartId}">删除</a>
                 <a id="btn2_${item.book.bookId}" href="JavaScript:void(0)"
                    onclick="document.getElementById('num_${item.book.bookId}').disable=false;
                            document.getElementById('btn1_${item.book.bookId}').disable=false;
@@ -58,10 +58,10 @@
     </tbody>
 </table>
 <div class="text-center">
-    总计:${total}&nbsp;&nbsp;
+    总计:${requestScope.total}&nbsp;&nbsp;
     <a href="/bs/BsBookAction?method=browse">继续购物</a>
     <a href="/bs/BsCartAction?method=clear">清空购物车</a>
-    <a href="/bs/BsOrderAction?method=browse">结账</a>
+    <a href="/bs/BsOrderAction?method=add">结账</a>
 </div>
 </body>
 </html>

@@ -33,7 +33,7 @@ public class BsUserCheckTag extends TagSupport {
                 return TagSupport.EVAL_PAGE;
             }
 
-            this.pageContext.getOut().print("请先登录或权限不够,不能访问!");
+            this.pageContext.getOut().print("请先登录或权限不够,不能访问!<a href=\"/bs/index.jsp\">返回</a>");
         } catch (IOException e) {
             e.printStackTrace();
         }

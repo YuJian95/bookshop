@@ -84,12 +84,13 @@ public class BsCartAction extends BsBaseAction {
 
         try {
             BsUser user = (BsUser) request.getSession().getAttribute("user");
-
             List<BsCartItem> cartList = cartService.findItems(user.getUserId());
+            float total = cartService.findTotal(user.getUserId());
+            request.setAttribute("total", total);
             request.setAttribute("cartList", cartList);
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/cart/browse.jsp");
             requestDispatcher.forward(request, response);
-            System.out.println("转发失败2");
+
         } catch (Exception e) {
             request.setAttribute("msg", msg + "失败" + "<a href=\"JavaScript:window.history.back()\">返回</a>");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/error.jsp");  // 跳转到信息页
@@ -111,7 +112,7 @@ public class BsCartAction extends BsBaseAction {
             BsUser user = (BsUser) request.getSession().getAttribute("user");
 
             cartService.clear(user.getUserId());
-            request.setAttribute("msg", msg + "成功" + "<a href=\"JavaScript:window.history.back()\">返回</a>");
+            request.setAttribute("msg", msg + "成功" + "<a href=\"/bs/BsCartAction?method=browse\">返回</a>");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/message.jsp");
             requestDispatcher.forward(request, response);
 
@@ -128,10 +129,9 @@ public class BsCartAction extends BsBaseAction {
         msg = "删除商品:";
 
         try {
-            cartId = Integer.parseInt(request.getParameter("catId"));
-            BsUser user = (BsUser) request.getSession().getAttribute("user");
+            cartId = Integer.parseInt(request.getParameter("cartId"));
             cartService.deleteItem(cartId);
-            request.setAttribute("msg", msg + "成功" + "<a href=\"JavaScript:window.history.back()\">返回</a>");
+            request.setAttribute("msg", msg + "成功" + "<a href=\"/bs/BsCartAction?method=browse\">返回</a>");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/message.jsp");
             requestDispatcher.forward(request, response);
 

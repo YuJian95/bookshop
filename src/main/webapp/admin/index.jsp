@@ -55,8 +55,8 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fas fa-users-cog"></i>我的设置</a>
 
                             <ul class="dropdown-menu">
-                                <li><a href="#"><i class="fas fa-sign-out-alt"></i>注销</a></li>
-                                <li><a href="#"><i class="fas fa-key"></i>修改密码</a></li>
+                                <li><a href="/bs/user/logout.jsp"><i class="fas fa-sign-out-alt"></i>注销</a></li>
+                                <li><a href="/bs/user/eidt.jsp"><i class="fas fa-key"></i>修改密码</a></li>
                             </ul>
                         </li>
                     </ul>

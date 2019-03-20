@@ -33,7 +33,6 @@ public class BsBookAction extends BsBaseAction {
     private Integer pageNo;  // 当前页号
     private String msg;
 
-
     // 获取图书信息
     private BsBook getBookInfo(HttpServletRequest request) {
 
@@ -68,9 +67,9 @@ public class BsBookAction extends BsBaseAction {
     // 图书管理
     @Override
     protected void manage(HttpServletRequest request, HttpServletResponse response) {
-        if (pageNo == null) {
-            pageNo = 1;
-        } else {
+        pageNo = 1;
+
+        if (request.getParameter("pageNo") != null) {
             pageNo = Integer.parseInt(request.getParameter("pageNo"));
         }
 
@@ -108,14 +107,15 @@ public class BsBookAction extends BsBaseAction {
         int count;
         try {
 
-            if (pageNo == null) {
-                pageNo = 1;
-            } else {
+
+            pageNo = 1;
+
+            if (request.getParameter("pageNo") != null) {
                 pageNo = Integer.parseInt(request.getParameter("pageNo"));
             }
-
-            catId = Integer.valueOf(request.getParameter("catId"));
-
+            if (request.getParameter("catId") != null) {
+                catId = Integer.valueOf(request.getParameter("catId"));
+            }
             // 查找图书
             count = bookService.findSomeCount(catId);
             list = bookService.findSomeById(catId);
@@ -127,11 +127,13 @@ public class BsBookAction extends BsBaseAction {
             request.setAttribute("pageList", pageList);
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/book/browse.jsp");
             requestDispatcher.forward(request, response);
-        } catch (Exception e) {
+        } catch (
+                Exception e) {
             request.setAttribute("msg", msg + "失败" + "<a href=\"JavaScript:window.history.back()\">返回</a>");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/error.jsp");  // 跳转到信息页
             requestDispatcher.forward(request, response);
         }
+
     }
 
     // 图书添加,含上传图片
@@ -223,9 +225,8 @@ public class BsBookAction extends BsBaseAction {
             bookId = Integer.parseInt(request.getParameter("bookId"));
             book = bookService.findBookById(bookId);
             request.setAttribute("book", book);
+            request.getRequestDispatcher("/book/edit.jsp").forward(request, response);
 
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/book/edit.jsp");
-            requestDispatcher.forward(request, response);
         } catch (Exception e) {
             request.setAttribute("msg", msg + "失败" + "<a href=\"JavaScript:window.history.back()\">返回</a>");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/error.jsp");
@@ -242,7 +243,6 @@ public class BsBookAction extends BsBaseAction {
             bookId = Integer.parseInt(request.getParameter("bookId"));
             book = bookService.findBookById(bookId);
             request.setAttribute("book", book);
-
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/book/show.jsp");
             requestDispatcher.forward(request, response);
         } catch (Exception e) {

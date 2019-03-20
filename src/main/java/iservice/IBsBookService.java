@@ -32,4 +32,6 @@ public interface IBsBookService {
     void editBook(Integer bookId, Integer isCarousel);
 
     List<BsBook> findCarouselBooks();
+
+    BsBook searchBook(String bookName);
 }

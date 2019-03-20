@@ -50,7 +50,7 @@
 
                 <div class="form-group">
                     <input type="button" class="btn btn-success pull-left"
-                           onclick="window.location.href='/user/add.jsp'" value="注册"/>
+                           onclick="window.location.href='/bs/user/add.jsp'" value="注册"/>
                     <input type="submit" class="btn btn-success pull-right" value="登录"/>
                 </div>
             </div>

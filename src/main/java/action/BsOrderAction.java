@@ -3,20 +3,27 @@ package action;
 import common.BsFactory;
 import common.BsPageList;
 import dao.BsOrderDao;
+import domain.BsCartItem;
+import domain.BsDetails;
 import domain.BsOrder;
+import domain.BsUser;
+import iservice.IBsCartService;
 import iservice.IBsOrderService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
 public class BsOrderAction extends BsBaseAction {
     private final int PAGE_SIZE = 6;
     private IBsOrderService orderService = (IBsOrderService) BsFactory.getBean("orderService");
+    private IBsCartService cartService = (IBsCartService) BsFactory.getBean("cartService");
     private BsOrder order;
+    private BsDetails details;
     private Integer ordId;
     private Integer userId;
     private Integer ordState;
@@ -30,15 +37,22 @@ public class BsOrderAction extends BsBaseAction {
         msg = "订单添加:";
 
         try {
-
-            userId = Integer.parseInt(request.getParameter("userId"));
-            ordState = Integer.parseInt(request.getParameter("ordState"));
+            BsUser user = (BsUser) request.getSession().getAttribute("user");
+            userId = user.getUserId();
             order = new BsOrder();
-            order.setUserId(userId);
-            order.setOrdState(ordState);
+            List<BsCartItem> cartItems = cartService.findItems(userId);
+            for (BsCartItem cartItem : cartItems) {
+                details.setBook(cartItem.getBook());
+                System.out.println(details.getBookId() + " " + cartItem.getNum());
+                details.setDetNum(cartItem.getNum());
+                System.out.println("测试2");
+                order.getBsDetailses().add(details);
+            }
+            order.setUser(user);
             orderService.addOrder(order);
-
-            request.setAttribute("msg", msg + "成功" + "<a href =\"/book/manage.jsp\" target=\"top\">返回</a>");
+            cartService.clear(userId);//  清空购物车
+            System.out.println("测试3");
+            request.setAttribute("msg", msg + "成功" + "<a href =\"/bs/index.jsp\" target=\"top\">返回</a>");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/message.jsp");  // 跳转到信息页
             requestDispatcher.forward(request, response);
         } catch (Exception e) {
@@ -92,10 +106,14 @@ public class BsOrderAction extends BsBaseAction {
     // 订单浏览
     @Override
     protected void browse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (pageNo == null) {
-            pageNo = 1;
+        pageNo = 1;
+        if (request.getParameter("pageNo") == null) {
+            pageNo = Integer.parseInt(request.getParameter("pageNo"));
         }
-        userId = Integer.parseInt(request.getParameter("userId"));
+        BsUser user = (BsUser) request.getSession().getAttribute("user");
+
+        assert user != null;
+        userId = user.getUserId();
 
         try {
             int count = orderService.findCount(userId);
@@ -139,10 +157,16 @@ public class BsOrderAction extends BsBaseAction {
     @Override
     protected void show(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         msg = "查看订单:";
-        if (pageNo == null) {
-            pageNo = 1;
+        pageNo = 1;
+        if (request.getParameter("pageNo") != null) {
+            pageNo = Integer.parseInt(request.getParameter("pageNo"));
         }
-        userId = Integer.parseInt(request.getParameter("userId"));
+
+        BsUser user = (BsUser) request.getSession().getAttribute("user");
+        if (user == null) {
+            response.sendRedirect("/bs/user/login.jsp");
+        }
+        userId = user.getUserId();
 
         try {
             ordId = Integer.parseInt(request.getParameter("ordId"));

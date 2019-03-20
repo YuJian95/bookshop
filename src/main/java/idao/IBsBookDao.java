@@ -18,5 +18,7 @@ public interface IBsBookDao extends IBsBaseDao<BsBook, Integer> {
 
     int selectSomeCount(Integer catId);
 
+    BsBook selectBook(String bookName);
+
     List<BsBook> selectCarouselBook();
 }

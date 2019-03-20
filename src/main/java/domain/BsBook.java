@@ -134,6 +134,8 @@ public class BsBook implements java.io.Serializable {
         Category = category;
     }
 
+    @Basic
+    @Column(name = "iscarousel")
     public Integer getCarousel() {
         return isCarousel;
     }

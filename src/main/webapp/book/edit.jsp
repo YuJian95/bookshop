@@ -20,7 +20,7 @@
 </head>
 <body>
 <bs:UserCheckTag right="2"/>
-<form method="post" enctype="multipart/form-data" action="/bs/BsBookAction?method=add">
+<form method="post" action="/bs/BsBookAction?method=edit">
     <table class="table table-hover">
         <input type="hidden" name="bookId" value="${book.bookId}"/>
         <tr>

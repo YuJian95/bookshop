@@ -31,12 +31,10 @@
         <tr>
             <td><label for="catName">分类名称：</label></td>
             <td><input type="text" class="form-control col-lg-2" name="catName" value="${category.catName}"/></td>
-            <td>
-                <button type="submit" class="btn btn-default" value="修改"></button>
-            </td>
-            <td>
-                <button type="button" class="btn btn-default" value="取消" onclick="window.history.back()"></button>
-            </td>
+            <button type="submit" class="btn btn-default" value="修改"></button>
+
+            <button type="button" class="btn btn-default" value="取消" onclick="window.history.back()"></button>
+
     </table>
 </form>
 </body>
