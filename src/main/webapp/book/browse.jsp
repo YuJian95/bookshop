@@ -22,12 +22,10 @@
 </head>
 <body>
 <div class="container">
-    <form role="form" method="POST" action="/bs/BsBookAction?method=browse&catId=${catId}">
+    <form role="form" method="POST" action="/bs/BsBookAction?method=search">
         <div class="form-group">
             <label class="col-sm-1 control-label">书名：</label>
             <div class="col-lg-3"><input type="text" class="form-control" name="bookName" placeholder="书名"></div>
-            <label class="col-sm-1 control-label">作者：</label>
-            <div class="col-lg-3"><input type="text" class="form-control" name="bookAuthor" placeholder="作者"></div>
             <div class="col-sm-1">
                 <button type="submit" class="btn btn-default">查询</button>
             </div>

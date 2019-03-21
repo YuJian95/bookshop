@@ -70,7 +70,7 @@ public class BsCartItem implements java.io.Serializable {
     public String toString() {
         return "BsCartItem{" +
                 "userId=" + userId +
-                ", book=" + book.getBookId() +
+                ", book=" + book.toString() +
                 ", num=" + num +
                 ", cartId=" + cartId +
                 '}';

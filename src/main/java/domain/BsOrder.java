@@ -1,9 +1,7 @@
 package domain;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "bs_order", schema = "bs", catalog = "bs")
@@ -14,12 +12,12 @@ public class BsOrder implements java.io.Serializable {
     private Date ordDatetime;
     private Integer ordState;
 
-    private Set bsDetailses = new HashSet(0);
+    private List<BsDetails> bsDetailses = new ArrayList<>();
 
     public BsOrder() {
     }
 
-    public BsOrder(Integer ordId, BsUser user, Integer userId, Date ordDatetime, Integer ordState, Set bsDetailses) {
+    public BsOrder(Integer ordId, BsUser user, Integer userId, Date ordDatetime, Integer ordState, List<BsDetails> bsDetailses) {
         this.ordId = ordId;
         this.user = user;
         this.userId = userId;
@@ -76,11 +74,11 @@ public class BsOrder implements java.io.Serializable {
         this.ordState = ordState;
     }
 
-    public Set getBsDetailses() {
+    public List<BsDetails> getBsDetailses() {
         return bsDetailses;
     }
 
-    public void setBsDetailses(Set bsDetailses) {
+    public void setBsDetailses(List<BsDetails> bsDetailses) {
         this.bsDetailses = bsDetailses;
     }
 

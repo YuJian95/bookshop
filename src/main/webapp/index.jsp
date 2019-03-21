@@ -35,9 +35,9 @@
             </div>
             <%--添加搜索栏--%>
             <div>
-                <form class="navbar-form navbar-left" action="/bs/BsBookAction?method=search">
+                <form class="navbar-form navbar-left" method="post" action="/bs/BsBookAction?method=search">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="搜索图书">
+                        <input type="text" name="bookName" class="form-control" placeholder="搜索图书">
                     </div>
                     <button type="submit" class="btn btn-default">搜索</button>
                 </form>

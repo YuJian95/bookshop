@@ -41,4 +41,13 @@ public class BsOrderService implements IBsOrderService {
         return orderDao.selectCount(userId);
     }
 
+    @Override
+    public List<BsOrder> findAllOrders(Integer pageNo, Integer pageSize) {
+        return orderDao.selectAll();
+    }
+
+    @Override
+    public int findAllCount() {
+        return orderDao.selectAllCount();
+    }
 }

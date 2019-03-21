@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -253,6 +254,7 @@ public class BsBookAction extends BsBaseAction {
 
     }
 
+    // 图书查找
     @Override
     protected void change(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         msg = "首页展示删除:";
@@ -273,5 +275,36 @@ public class BsBookAction extends BsBaseAction {
         }
     }
 
+    // 图书上传
+    @Override
+    protected void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        msg = "图书查找浏览:";
+        int count;
+        try {
+            pageNo = 1;
 
+            if (request.getParameter("pageNo") != null) {
+                pageNo = Integer.parseInt(request.getParameter("pageNo"));
+            }
+
+            if (request.getParameter("bookName") == null) {
+                response.sendRedirect("/bs/index.jsp");
+            }
+
+            String bookName = request.getParameter("bookName");
+            System.out.println(bookName);
+            book = bookService.searchBook(bookName);
+            List<BsBook> list = new ArrayList<>();
+            list.add(book);
+            pageList = new BsPageList<>(list, list.size(), PAGE_SIZE, pageNo, "/bs/BsBookAction?method=browse");
+            request.setAttribute("pageList", pageList);
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/book/browse.jsp");
+            requestDispatcher.forward(request, response);
+        } catch (
+                Exception e) {
+            request.setAttribute("msg", msg + "失败" + "<a href=\"JavaScript:window.history.back()\">返回</a>");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/common/error.jsp");  // 跳转到信息页
+            requestDispatcher.forward(request, response);
+        }
+    }
 }

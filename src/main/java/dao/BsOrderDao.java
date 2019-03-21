@@ -45,8 +45,8 @@ public class BsOrderDao implements IBsOrderDao {
             if (resultSet.next()) {  // 如果有记录，移动第一条记录
                 user.setUserId(userId);
                 int ord_id = resultSet.getInt("ord_id");
-                Set<BsDetails> set = new HashSet<>(new BsDetailsDao().selectSomeById(ord_id));
-                order = new BsOrder(ord_id, user, userId, resultSet.getTimestamp("ord_datetime"), resultSet.getInt("ord_state"), set);
+                List<BsDetails> bsDetails = new BsDetailsDao().selectSomeById(ord_id);
+                order = new BsOrder(ord_id, user, userId, resultSet.getTimestamp("ord_datetime"), resultSet.getInt("ord_state"), bsDetails);
                 list.add(order);
             }
             return list;
@@ -73,23 +73,21 @@ public class BsOrderDao implements IBsOrderDao {
     public void insert(BsOrder order) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        Set detailses = null;
         BsDetailsDao detailsDao = new BsDetailsDao();
         try {
             connection = BsMySQLHelper.connection();
-            String sql = "INSERT INTO bs_order (ord_id, user_id,ord_state) VALUES(?,?,?) ";
+            String sql = "INSERT INTO bs_order (ord_id, user_id) VALUES(?,?) ";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, order.getOrdId());
             preparedStatement.setInt(2, order.getUserId());
-            preparedStatement.setInt(3, order.getOrdState());
-            Iterator<BsDetails> iterable = detailses.iterator();
-            while (iterable.hasNext()) {
-                detailsDao.insert(iterable.next());
+            System.out.println(order.getBsDetailses().get(0).toString());
+            for (BsDetails details : order.getBsDetailses()) {
+                detailsDao.insert(details);
             }
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new MyException("添加订单细目失败");
+
         } finally {
             BsMySQLHelper.closeConPreSta(preparedStatement, connection);
         }
@@ -100,23 +98,17 @@ public class BsOrderDao implements IBsOrderDao {
     public void update(BsOrder order) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        Set detailses;
-        BsDetailsDao detailsDao = new BsDetailsDao();
         try {
             connection = BsMySQLHelper.connection();
-            String sql = "UPDATE bs_order SET ord_state = ? ";
+            String sql = "UPDATE bs_order SET ord_state = ? WHERE ord_id=?";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, order.getOrdState());
-            detailses = order.getBsDetailses();
-            Iterator<BsDetails> iterable = detailses.iterator();
-            while (iterable.hasNext()) {
-                detailsDao.update(iterable.next());
-            }
+            preparedStatement.setInt(2, order.getOrdId());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new MyException("添加订单细目失败");
+            throw new MyException("修改失败");
         } finally {
             BsMySQLHelper.closeConPreSta(preparedStatement, connection);
         }
@@ -162,8 +154,8 @@ public class BsOrderDao implements IBsOrderDao {
                 int userId = resultSet.getInt("user_id");
                 user.setUserId(userId);
                 int ord_id = resultSet.getInt("ord_id");
-                Set<BsDetails> set = new HashSet<>(new BsDetailsDao().selectSomeById(ord_id));
-                order = new BsOrder(ord_id, user, userId, resultSet.getTimestamp("ord_datetime"), resultSet.getInt("ord_state"), set);
+                List<BsDetails> bsDetails = new BsDetailsDao().selectSomeById(ord_id);
+                order = new BsOrder(ord_id, user, userId, resultSet.getTimestamp("ord_datetime"), resultSet.getInt("ord_state"), bsDetails);
 
             }
 
@@ -199,8 +191,9 @@ public class BsOrderDao implements IBsOrderDao {
                 int userId = resultSet.getInt("user_id");
                 user.setUserId(userId);
                 int ord_id = resultSet.getInt("ord_id");
-                Set<BsDetails> set = new HashSet<>(new BsDetailsDao().selectSomeById(ord_id));
-                order = new BsOrder(ord_id, user, userId, resultSet.getTimestamp("ord_datetime"), resultSet.getInt("ord_state"), set);
+                List<BsDetails> bsDetails = new BsDetailsDao().selectSomeById(ord_id);
+
+                order = new BsOrder(ord_id, user, userId, resultSet.getTimestamp("ord_datetime"), resultSet.getInt("ord_state"), bsDetails);
                 list.add(order);
             }
 
@@ -236,8 +229,9 @@ public class BsOrderDao implements IBsOrderDao {
                 int userId = resultSet.getInt("user_id");
                 user.setUserId(userId);
                 int ord_id = resultSet.getInt("ord_id");
-                Set<BsDetails> set = new HashSet<>(new BsDetailsDao().selectSomeById(ord_id));
-                order = new BsOrder(ord_id, user, userId, resultSet.getTimestamp("ord_datetime"), resultSet.getInt("ord_state"), set);
+                List<BsDetails> bsDetails = new BsDetailsDao().selectSomeById(ord_id);
+
+                order = new BsOrder(ord_id, user, userId, resultSet.getTimestamp("ord_datetime"), resultSet.getInt("ord_state"), bsDetails);
                 list.add(order);
             }
             return list;
@@ -273,8 +267,9 @@ public class BsOrderDao implements IBsOrderDao {
                 int userId = resultSet.getInt("user_id");
                 user.setUserId(userId);
                 int ord_id = resultSet.getInt("ord_id");
-                Set<BsDetails> set = new HashSet<>(new BsDetailsDao().selectSomeById(ord_id));
-                order = new BsOrder(ord_id, user, userId, resultSet.getTimestamp("ord_datetime"), resultSet.getInt("ord_state"), set);
+                List<BsDetails> bsDetails = new BsDetailsDao().selectSomeById(ord_id);
+
+                order = new BsOrder(ord_id, user, userId, resultSet.getTimestamp("ord_datetime"), resultSet.getInt("ord_state"), bsDetails);
                 list.add(order);
             }
             return list;

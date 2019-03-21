@@ -48,10 +48,22 @@ public abstract class BsBaseAction extends HttpServlet {
         } else if (method.equals("deleteSome")) {
             deleteSome(request, response);
         } else if (method.equals("change")) {
-
+            change(request, response);
+        } else if (method.equals("search")) {
+            search(request, response);
+        } else if (method.equals("manageEditState")) {
+            manageEditState(request, response);
         }
     }
 //    }
+
+    protected void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    }
+
+    protected void manageEditState(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    }
 
     protected void manage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

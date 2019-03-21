@@ -19,6 +19,10 @@ public interface IBsOrderService {
 
     List<BsOrder> findOrders(Integer userId, Integer pageNo, Integer pageSize);
 
+    List<BsOrder> findAllOrders(Integer pageNo, Integer pageSize);
+
     int findCount(Integer userId);
+
+    int findAllCount();
 
 }

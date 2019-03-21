@@ -23,7 +23,7 @@
 </head>
 <body>
 <bs:UserCheckTag right="2"/>
-<table>
+<table class="table table-hover text-center">
     <tr>
         <th>订单号</th>
         <th>订货时间</th>
@@ -58,7 +58,7 @@
                 <label>
                     <input type="radio" name="r${order.ordId}"
                            onclick="document.getElementById('det${order.ordId}').style.display = 'none';" checked/>
-                    展开
+                    收起
                 </label>
             </td>
             <td class="text-center">
@@ -68,13 +68,13 @@
         <tr id="det${order.ordId}" style="display: none;">
             <td colspan="5" style="text-align: left">
                 订单${order.ordId}的细目如下：
-                <table>
+                <table class="table table-hover">
                     <tr>
                         <th>书名</th>
                         <th>单价</th>
                         <th>数量</th>
                     </tr>
-                    <c:forEach items="${order.detailses}" var="det">
+                    <c:forEach items="${order.bsDetailses}" var="det">
                         <tr>
                             <td class="text-left">
                                 <a href="/bs/BsBookAction?method=show&bookId=${det.book.bookId}">${det.book.bookName}</a>

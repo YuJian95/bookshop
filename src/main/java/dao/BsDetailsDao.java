@@ -107,7 +107,7 @@ public class BsDetailsDao implements IBsDetailDao {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet;
-        BsDetails bsDetails = null;
+        BsDetails bsDetails;
         BsBook book;
         List<BsDetails> list = new ArrayList<>();
         try {
