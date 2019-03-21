@@ -168,7 +168,6 @@ public class BsOrderAction extends BsBaseAction {
 
             ordId = Integer.parseInt(request.getParameter("ordId"));
             order.setOrdId(ordId);
-            order.setOrdState(1);// 已发货
             orderService.editOrder(order);
 
             request.setAttribute("msg", msg + "失败" + "<a href=\"JavaScript:window.history.back()\">返回</a>");
@@ -225,7 +224,6 @@ public class BsOrderAction extends BsBaseAction {
             int count = orderService.findAllCount();
             List<BsOrder> list = orderService.findAllOrders(pageNo, PAGE_SIZE);  // 分页查找订单
             pageList = new BsPageList<>(list, count, PAGE_SIZE, pageNo, "/bs/BsOrderAction?method=manage");
-
             request.setAttribute("pageList", pageList);
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/order/manage.jsp");
             requestDispatcher.forward(request, response);

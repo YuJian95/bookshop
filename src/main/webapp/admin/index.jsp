@@ -39,9 +39,9 @@
                 </div>
 
                 <div>
-                    <form class="navbar-form navbar-left" method="post" action="">
+                    <form class="navbar-form navbar-left" method="post" action="/bs/BsBookAction?method=manage">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="搜索图书">
+                            <input type="text" name="bookName" class="form-control" placeholder="搜索图书">
                         </div>
                         <button type="submit" class="btn btn-default">搜索</button>
                     </form>
@@ -83,11 +83,16 @@
         <div class="col-sm-10" id="right">
             <table class="table table-hover text-center">
                 <tr>
-                    <th>书名</th>
-                    <th>作者</th>
-                    <th>单价</th>
-                    <th>数量</th>
-                    <th>操作</th>
+                    <td>注册用户共:${userTotal}</td>
+                </tr>
+                <tr>
+                    <td>图书共:${bookTotal}</td>
+                </tr>
+                <tr>
+                    <td>分类共:${categoryTotal}</td>
+                </tr>
+                <tr>
+                    <td>订单共:${orderTotal}</td>
                 </tr>
             </table>
         </div>

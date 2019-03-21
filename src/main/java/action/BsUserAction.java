@@ -5,7 +5,7 @@ import common.BsPageList;
 import dao.BsUserDao;
 import exception.MyException;
 import domain.BsUser;
-import iservice.IBsUserService;
+import iservice.*;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import javax.servlet.RequestDispatcher;
@@ -27,7 +27,9 @@ public class BsUserAction extends BsBaseAction {
     private final static int PAGE_SIZE = 10;
     private int ADMIN_RIGHT = 2;  // 管理员权限
     private IBsUserService userService = (IBsUserService) BsFactory.getBean("userService");
-
+    private IBsBookService bookService = (IBsBookService) BsFactory.getBean("bookService");
+    private IBsOrderService orderService = (IBsOrderService) BsFactory.getBean("orderService");
+    private IBsCategoryService categoryService = (IBsCategoryService) BsFactory.getBean("categoryService");
     private BsUser user;
     private Integer userId;
     private BsPageList<BsUser> pageList;  // 分页器
@@ -113,7 +115,16 @@ public class BsUserAction extends BsBaseAction {
             session.setAttribute("user", user);
 
             if (user.getUserRight() >= ADMIN_RIGHT) {  // 管理员权限
-                request.setAttribute("msg", "登录成功!<a href=\"/bs/admin/index.jsp\" target=\"top\">返回首页</a>");
+                int userTotal = userService.findCount();
+                request.setAttribute("userTotal", userTotal);
+                int bookTotal = bookService.findAllCount();
+                request.setAttribute("bookTotal", bookTotal);
+                int orderTotal = orderService.findAllCount();
+                request.setAttribute("orderTotal", orderTotal);
+                int categoryTotal = categoryService.findCount();
+                request.setAttribute("categoryTotal", categoryTotal);
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("/admin/index.jsp");  // 跳转到信息页
+                requestDispatcher.forward(request, response);
             } else {
                 request.setAttribute("msg", "登录成功!<a href=\"/bs/index.jsp\" target=\"top\">返回首页</a>");
             }

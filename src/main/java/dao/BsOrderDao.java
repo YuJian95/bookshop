@@ -102,7 +102,8 @@ public class BsOrderDao implements IBsOrderDao {
             connection = BsMySQLHelper.connection();
             String sql = "UPDATE bs_order SET ord_state = ? WHERE ord_id=?";
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, order.getOrdState());
+            int state = new BsOrderDao().selectById(order.getOrdId()).getOrdState();
+            preparedStatement.setInt(1, state + 1);
             preparedStatement.setInt(2, order.getOrdId());
 
             preparedStatement.executeUpdate();
